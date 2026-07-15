@@ -1676,6 +1676,8 @@ input, select, textarea {
 		--portfolio-hover-line: rgba(255, 211, 89, 0.28);
 		--portfolio-hover-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
 		--portfolio-hover-ease: ease;
+		--portfolio-block-gap: 5rem;
+		--portfolio-block-padding: 4rem;
 	}
 
 	@keyframes ambientDrift {
@@ -1729,10 +1731,10 @@ input, select, textarea {
 
 	#bg:before {
 		background-image:
-			radial-gradient(ellipse at 18% 16%, rgba(47, 71, 67, 0.42), transparent 34%),
-			radial-gradient(ellipse at 84% 78%, rgba(47, 71, 67, 0.24), transparent 42%),
-			radial-gradient(ellipse at 50% 108%, rgba(255, 211, 89, 0.045), transparent 36%),
-			radial-gradient(ellipse at center, transparent 42%, rgba(2, 7, 7, 0.58) 100%),
+			radial-gradient(ellipse at 18% 14%, rgba(47, 71, 67, 0.44), transparent 34%),
+			radial-gradient(ellipse at 84% 78%, rgba(47, 71, 67, 0.25), transparent 42%),
+			radial-gradient(ellipse at 50% 108%, rgba(255, 211, 89, 0.04), transparent 36%),
+			radial-gradient(ellipse at center, transparent 40%, rgba(2, 7, 7, 0.64) 100%),
 			linear-gradient(115deg, rgba(7, 16, 15, 0.9), rgba(12, 23, 21, 0.58) 54%, rgba(5, 10, 10, 0.86)),
 			url("../../images/overlay.png");
 		animation: ambientDrift 28s ease-in-out infinite alternate;
@@ -1876,6 +1878,11 @@ input, select, textarea {
 		opacity: 1;
 	}
 
+	#header nav ul li a.is-active,
+	#header nav ul li a[aria-current="page"] {
+		color: var(--portfolio-accent-soft);
+	}
+
 	#header nav ul li a:after {
 		background: var(--portfolio-accent);
 		bottom: 0;
@@ -1895,6 +1902,11 @@ input, select, textarea {
 	}
 
 	#header nav ul li a:hover:after {
+		transform: scaleX(1);
+	}
+
+	#header nav ul li a.is-active:after,
+	#header nav ul li a[aria-current="page"]:after {
 		transform: scaleX(1);
 	}
 
@@ -2179,10 +2191,16 @@ input, select, textarea {
 		margin: 0;
 	}
 
+	#end-of-year-project {
+		counter-reset: projectBlock;
+	}
+
 	.project-block {
 		border-top: 1px solid var(--portfolio-line-soft);
-		margin-top: 5rem;
-		padding-top: 4rem;
+		counter-increment: projectBlock;
+		margin-top: var(--portfolio-block-gap);
+		padding-top: var(--portfolio-block-padding);
+		position: relative;
 	}
 
 	.project-block:first-of-type {
@@ -2191,14 +2209,46 @@ input, select, textarea {
 		padding-top: 0;
 	}
 
-	#main article .project-block-label,
-	#main article .project-block-heading {
+	#end-of-year-project .project-block:before {
+		color: rgba(255, 211, 89, 0.055);
+		content: "0" counter(projectBlock);
+		font-size: clamp(3rem, 8vw, 7rem);
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		line-height: 1;
+		pointer-events: none;
+		position: absolute;
+		right: 0;
+		top: calc(var(--portfolio-block-padding) - 0.35rem);
+		z-index: 0;
+	}
+
+	#end-of-year-project .project-block:first-of-type:before {
+		top: 0.15rem;
+	}
+
+	#end-of-year-project .project-block > * {
+		position: relative;
+		z-index: 1;
+	}
+
+	#main article .project-block-label {
 		color: var(--portfolio-accent);
 		font-size: 0.9rem;
 		font-weight: 600;
 		letter-spacing: 0.14em;
 		line-height: 1.35;
 		margin: 0 0 1.25rem;
+		text-transform: uppercase;
+	}
+
+	#main article .project-block-heading {
+		color: var(--portfolio-text);
+		font-size: 1.02rem;
+		font-weight: 600;
+		letter-spacing: 0.15em;
+		line-height: 1.35;
+		margin: 0 0 1.35rem;
 		text-transform: uppercase;
 	}
 
@@ -2296,10 +2346,9 @@ input, select, textarea {
 
 	.work-card {
 		border-bottom: 1px solid var(--portfolio-line-soft);
-		border-top: 1px solid var(--portfolio-line-soft);
 		min-height: 0;
 		padding-bottom: 1.75rem;
-		padding-top: 1.5rem;
+		padding-top: 0;
 		transition: transform 300ms var(--portfolio-hover-ease), border-color 300ms var(--portfolio-hover-ease), box-shadow 300ms var(--portfolio-hover-ease);
 	}
 
@@ -2548,24 +2597,37 @@ input, select, textarea {
 	}
 
 	.project-tools {
-		border-top: 1px solid var(--portfolio-line-soft);
 		color: var(--portfolio-muted);
-		display: flex;
-		gap: 0.75rem;
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		align-items: baseline;
+		gap: 1rem;
 		font-size: 0.82rem;
 		font-weight: 400;
 		letter-spacing: 0;
 		line-height: 1.6;
 		margin: 2.5rem 0 0;
-		padding-top: 1.5rem;
 	}
 
+	.project-tools__label,
 	.project-tools .meta-label {
 		color: var(--portfolio-accent);
 		flex: 0 0 auto;
+		font-size: 0.68rem;
 		font-weight: 600;
 		letter-spacing: 0.13em;
+		line-height: 1.35;
 		text-transform: uppercase;
+	}
+
+	.project-tools__list {
+		margin: 0;
+		max-width: 100%;
+	}
+
+	.visual-presentation {
+		margin-top: 3.5rem;
+		padding-top: 3.5rem;
 	}
 
 	.process-breakdown {
@@ -2827,6 +2889,10 @@ input, select, textarea {
 
 	@media screen and (max-width: 768px) {
 
+		#bg:before {
+			animation: none;
+		}
+
 		.reveal {
 			transform: translateY(0.9rem);
 		}
@@ -2989,13 +3055,20 @@ input, select, textarea {
 		}
 
 		.project-tools {
-			display: block;
+			grid-template-columns: 1fr;
+			gap: 0.75rem;
+			margin-top: 2rem;
 			margin-bottom: 0;
 		}
 
+		.project-tools__label,
 		.project-tools .meta-label {
 			display: block;
-			margin-bottom: 0.45rem;
+		}
+
+		.visual-presentation {
+			margin-top: 3rem;
+			padding-top: 3rem;
 		}
 
 		.cv-preview {

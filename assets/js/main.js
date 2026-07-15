@@ -65,6 +65,24 @@
 
 			}
 
+		var updateNavState = function(id) {
+
+			var $links = $nav.find('a');
+
+			$links
+				.removeClass('is-active')
+				.removeAttr('aria-current');
+
+			if (!id)
+				return;
+
+			$links
+				.filter('[href="#' + id + '"]')
+				.addClass('is-active')
+				.attr('aria-current', 'page');
+
+		};
+
 	// Main.
 		var	delay = 325,
 			locked = false;
@@ -102,6 +120,7 @@
 
 							// Activate article.
 								$article.addClass('active');
+								updateNavState(id);
 								$window.triggerHandler('portfolio:article-visible');
 
 							// Unlock.
@@ -140,6 +159,7 @@
 									setTimeout(function() {
 
 										$article.addClass('active');
+										updateNavState(id);
 										$window.triggerHandler('portfolio:article-visible');
 
 										// Window stuff.
@@ -180,6 +200,7 @@
 									setTimeout(function() {
 
 										$article.addClass('active');
+										updateNavState(id);
 										$window.triggerHandler('portfolio:article-visible');
 
 										// Window stuff.
@@ -223,6 +244,7 @@
 
 							// Deactivate article.
 								$article.removeClass('active');
+								updateNavState();
 
 							// Hide article, main.
 								$article.hide();
@@ -255,6 +277,7 @@
 
 				// Deactivate article.
 					$article.removeClass('active');
+					updateNavState();
 
 				// Hide article.
 					setTimeout(function() {
