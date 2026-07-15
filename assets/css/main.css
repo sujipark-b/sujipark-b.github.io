@@ -1882,7 +1882,9 @@ input, select, textarea {
 	}
 
 	#main article .project-title {
+		color: var(--portfolio-text);
 		font-size: clamp(2.5rem, 5vw, 4.15rem);
+		font-weight: 600;
 		letter-spacing: 0.08em;
 		line-height: 1.12;
 		margin-bottom: 1rem;
@@ -2109,6 +2111,38 @@ input, select, textarea {
 		margin: 0;
 	}
 
+	.project-block {
+		border-top: 1px solid var(--portfolio-line-soft);
+		margin-top: 5rem;
+		padding-top: 4rem;
+	}
+
+	.project-block:first-of-type {
+		border-top: 0;
+		margin-top: 0;
+		padding-top: 0;
+	}
+
+	#main article .project-block-label,
+	#main article .project-block-heading {
+		color: var(--portfolio-accent);
+		font-size: 0.9rem;
+		font-weight: 600;
+		letter-spacing: 0.14em;
+		line-height: 1.35;
+		margin: 0 0 1.25rem;
+		text-transform: uppercase;
+	}
+
+	.project-block-intro {
+		color: var(--portfolio-muted);
+		font-size: 0.95rem;
+		letter-spacing: 0;
+		line-height: 1.62;
+		margin: 0 0 2rem;
+		max-width: 42rem;
+	}
+
 	.project-grid {
 		display: grid;
 		border-bottom: 1px solid var(--portfolio-line);
@@ -2285,6 +2319,24 @@ input, select, textarea {
 		margin-bottom: 1.5rem;
 	}
 
+	.process-kicker {
+		color: var(--portfolio-accent-soft);
+		display: block;
+		font-size: 0.66rem;
+		font-weight: 600;
+		letter-spacing: 0.16em;
+		line-height: 1.35;
+		margin-bottom: 0.75rem;
+		text-transform: uppercase;
+	}
+
+	#main article .process-copy h3 {
+		color: var(--portfolio-text);
+		font-size: 0.88rem;
+		letter-spacing: 0.12em;
+		margin-bottom: 1rem;
+	}
+
 	.process-grid section:nth-child(even) {
 		border-left: 0;
 		padding-left: 0;
@@ -2401,7 +2453,7 @@ input, select, textarea {
 	}
 
 	.project-tools {
-		border-top: 1px solid var(--portfolio-line);
+		border-top: 1px solid var(--portfolio-line-soft);
 		color: var(--portfolio-muted);
 		display: flex;
 		gap: 0.75rem;
@@ -2409,7 +2461,7 @@ input, select, textarea {
 		font-weight: 400;
 		letter-spacing: 0;
 		line-height: 1.6;
-		margin: 3rem 0 4rem;
+		margin: 2.5rem 0 0;
 		padding-top: 1.5rem;
 	}
 
@@ -2423,18 +2475,8 @@ input, select, textarea {
 
 	.process-breakdown {
 		border-top: 1px solid var(--portfolio-line-soft);
-		margin-top: 4.5rem;
+		margin-top: 5rem;
 		padding-top: 4rem;
-	}
-
-	.process-breakdown > h3 {
-		color: var(--portfolio-accent);
-		font-size: 0.9rem;
-		font-weight: 600;
-		letter-spacing: 0.14em;
-		line-height: 1.35;
-		margin-bottom: 1.25rem;
-		text-transform: uppercase;
 	}
 
 	.process-breakdown > .lead {
@@ -2690,9 +2732,14 @@ input, select, textarea {
 			padding-left: 1.25rem;
 		}
 
+		.project-block {
+			margin-top: 3.75rem;
+			padding-top: 3rem;
+		}
+
 		.project-tools {
 			display: block;
-			margin-bottom: 3.25rem;
+			margin-bottom: 0;
 		}
 
 		.project-tools .meta-label {
