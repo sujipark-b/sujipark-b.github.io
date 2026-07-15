@@ -102,6 +102,7 @@
 
 							// Activate article.
 								$article.addClass('active');
+								$window.triggerHandler('portfolio:article-visible');
 
 							// Unlock.
 								locked = false;
@@ -139,6 +140,7 @@
 									setTimeout(function() {
 
 										$article.addClass('active');
+										$window.triggerHandler('portfolio:article-visible');
 
 										// Window stuff.
 											$window
@@ -178,6 +180,7 @@
 									setTimeout(function() {
 
 										$article.addClass('active');
+										$window.triggerHandler('portfolio:article-visible');
 
 										// Window stuff.
 											$window
@@ -397,5 +400,100 @@
 					$window.on('load', function() {
 						$main._show(location.hash.substr(1), true);
 					});
+
+	// Portfolio reveal animations.
+		var	reduceMotion = window.matchMedia
+			&&	window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+			revealSelector = [
+				'#main article .major',
+				'.project-block',
+				'.project-gallery .portfolio-media',
+				'.process-block',
+				'#portfolio .format-strip',
+				'#portfolio .reel-copy',
+				'#portfolio .video-embed',
+				'#portfolio .work-card',
+				'#about > p',
+				'#about > section'
+			].join(','),
+			revealElements = Array.prototype.slice.call(document.querySelectorAll(revealSelector));
+
+		revealElements.forEach(function(element) {
+			element.classList.add('reveal');
+		});
+
+		[
+			'.project-gallery .portfolio-media',
+			'.process-grid .process-block',
+			'#portfolio .work-card',
+			'#about > section'
+		].forEach(function(selector) {
+
+			Array.prototype.slice.call(document.querySelectorAll(selector)).forEach(function(element, index) {
+				element.style.setProperty('--reveal-delay', Math.min(index * 70, 280) + 'ms');
+			});
+
+		});
+
+		if (reduceMotion || !('IntersectionObserver' in window)) {
+
+			revealElements.forEach(function(element) {
+				element.classList.add('is-visible');
+			});
+
+		}
+		else {
+
+			var revealObserver = new IntersectionObserver(function(entries, observer) {
+
+				entries.forEach(function(entry) {
+
+					if (!entry.isIntersecting)
+						return;
+
+					entry.target.classList.add('is-visible');
+					observer.unobserve(entry.target);
+
+				});
+
+			}, {
+				threshold: 0.12,
+				rootMargin: '0px 0px -8% 0px'
+			});
+
+			revealElements.forEach(function(element) {
+				revealObserver.observe(element);
+			});
+
+			var revealVisibleElements = function() {
+
+				revealElements.forEach(function(element) {
+
+					if (element.classList.contains('is-visible'))
+						return;
+
+					var rect = element.getBoundingClientRect();
+
+					if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
+						element.classList.add('is-visible');
+						revealObserver.unobserve(element);
+					}
+
+				});
+
+			};
+
+			$window
+				.on('load', function() {
+					window.setTimeout(revealVisibleElements, 180);
+				})
+				.on('portfolio:article-visible', function() {
+					window.setTimeout(revealVisibleElements, 80);
+				})
+				.on('hashchange', function() {
+					window.setTimeout(revealVisibleElements, 480);
+				});
+
+		}
 
 })(jQuery);
