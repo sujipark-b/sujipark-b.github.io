@@ -1676,7 +1676,11 @@ input, select, textarea {
 	}
 
 	body {
-		background: radial-gradient(circle at 20% 15%, rgba(47, 71, 67, 0.35), transparent 32%), radial-gradient(circle at 85% 80%, rgba(47, 71, 67, 0.18), transparent 36%), var(--portfolio-bg);
+		background:
+			radial-gradient(circle at 18% 18%, rgba(47, 71, 67, 0.38), transparent 32%),
+			radial-gradient(circle at 82% 75%, rgba(47, 71, 67, 0.22), transparent 38%),
+			radial-gradient(circle at 50% 100%, rgba(255, 211, 89, 0.045), transparent 34%),
+			var(--portfolio-bg);
 		letter-spacing: 0;
 	}
 
@@ -1711,11 +1715,20 @@ input, select, textarea {
 	}
 
 	#bg:before {
-		background-image: radial-gradient(circle at 20% 15%, rgba(47, 71, 67, 0.32), transparent 34%), radial-gradient(circle at 85% 80%, rgba(47, 71, 67, 0.18), transparent 38%), linear-gradient(110deg, rgba(7, 16, 15, 0.92), rgba(12, 23, 21, 0.62) 58%, rgba(7, 16, 15, 0.82)), url("../../images/overlay.png");
+		background-image:
+			radial-gradient(ellipse at 18% 16%, rgba(47, 71, 67, 0.42), transparent 34%),
+			radial-gradient(ellipse at 84% 78%, rgba(47, 71, 67, 0.24), transparent 42%),
+			radial-gradient(ellipse at 50% 108%, rgba(255, 211, 89, 0.045), transparent 36%),
+			radial-gradient(ellipse at center, transparent 42%, rgba(2, 7, 7, 0.58) 100%),
+			linear-gradient(115deg, rgba(7, 16, 15, 0.9), rgba(12, 23, 21, 0.58) 54%, rgba(5, 10, 10, 0.86)),
+			url("../../images/overlay.png");
+		background-position: center, center, center, center, center, center;
+		background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+		background-size: auto, auto, auto, auto, auto, 256px 256px;
 	}
 
 	#bg:after {
-		filter: saturate(0.56) contrast(1.05) brightness(0.78);
+		filter: saturate(0.52) contrast(1.06) brightness(0.72);
 	}
 
 	body.is-article-visible #bg:after {
