@@ -432,6 +432,7 @@
 				'.project-block',
 				'.project-gallery .portfolio-media',
 				'.process-block',
+				'.process-sequence',
 				'#portfolio .format-strip',
 				'#portfolio .reel-copy',
 				'#portfolio .video-embed',
@@ -448,6 +449,7 @@
 		[
 			'.project-gallery .portfolio-media',
 			'.process-grid .process-block',
+			'.process-grid .process-sequence',
 			'#portfolio .work-card',
 			'#about > section'
 		].forEach(function(selector) {
