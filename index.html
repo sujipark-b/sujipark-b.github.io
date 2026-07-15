@@ -177,12 +177,24 @@
 											<div class="process-copy">
 												<span class="process-kicker">Process 04</span>
 												<h3>AI Dialogue & Runtime Response</h3>
-												<p>The dialogue system supports voice or text input, AI-assisted character response and TTS playback through a structured interaction loop.</p>
-												<p>During the dialogue scene, the character’s emotional state updates in real time, influencing camera, lighting, cinematic tone and ending direction as the conversation unfolds.</p>
+												<p>The dialogue system supports voice or text input through a structured interaction loop. Each player response is sent to the LLM manager, which returns a structured runtime response containing emotional state, narrative direction and cinematic tone.</p>
+												<p>During the dialogue scene, the character’s emotional state updates in real time, influencing camera, lighting, cinematic staging and ending direction as the conversation unfolds.</p>
 											</div>
 											<figure class="diagram-card diagram-card--light-inset process-diagram dialogue-diagram-card">
 												<img src="images/seb_llm_runtime_context.jpg" alt="AI dialogue and runtime context diagram for Someone Else’s Business" />
 												<figcaption>AI Dialogue and Runtime Context</figcaption>
+											</figure>
+										</section>
+										<section class="process-block process-block--wide">
+											<div class="process-copy">
+												<span class="process-kicker">Process 05</span>
+												<h3>Voice Input & TTS Playback</h3>
+												<p>Voice interaction is supported through an STT / TTS pipeline that connects player input to in-scene character playback. Spoken input can be transcribed and processed alongside text input, keeping the interaction flexible while preserving the same narrative logic.</p>
+												<p>Character replies are then converted into voice playback through ElevenLabs TTS and returned to the scene with subtitles and synced audio, reinforcing the cinematic presence of the conversation.</p>
+											</div>
+											<figure class="diagram-card process-diagram voice-pipeline-card">
+												<img src="images/seb_stt_tts_flow.jpg" alt="Voice and text input pipeline with STT, LLM response, ElevenLabs TTS, subtitles and audio playback" />
+												<figcaption>Voice / Text Input to TTS Playback</figcaption>
 											</figure>
 										</section>
 									</div>

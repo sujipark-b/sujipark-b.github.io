@@ -2308,6 +2308,22 @@ input, select, textarea {
 		height: 100%;
 	}
 
+	.process-block--wide {
+		align-items: start;
+		display: grid;
+		gap: 2rem;
+		grid-column: 1 / -1;
+		grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+	}
+
+	.process-block--wide .process-copy {
+		margin-bottom: 0;
+	}
+
+	.process-block--wide .diagram-card {
+		margin: 0;
+	}
+
 	.process-copy {
 		margin-bottom: 1.5rem;
 	}
@@ -2403,6 +2419,10 @@ input, select, textarea {
 		max-height: 85%;
 		max-width: 85%;
 		width: 85%;
+	}
+
+	.voice-pipeline-card {
+		padding: 1rem;
 	}
 
 	.diagram-card figcaption {
@@ -2787,6 +2807,15 @@ input, select, textarea {
 		}
 
 		.process-block .diagram-card {
+			margin-top: 1.5rem;
+		}
+
+		.process-block--wide {
+			display: flex;
+			gap: 0;
+		}
+
+		.process-block--wide .diagram-card {
 			margin-top: 1.5rem;
 		}
 
