@@ -2419,6 +2419,46 @@ input, select, textarea {
 		text-transform: uppercase;
 	}
 
+	.process-breakdown {
+		border-top: 1px solid var(--portfolio-line);
+		margin-top: 3rem;
+		padding-top: 2.5rem;
+	}
+
+	.process-breakdown > .lead {
+		margin-top: 1.25rem;
+	}
+
+	.cv-section {
+		border-top: 1px solid var(--portfolio-line);
+		margin-top: 2.5rem;
+		padding-top: 1.5rem;
+	}
+
+	.cv-section .actions {
+		margin: 1.25rem 0 0;
+	}
+
+	.cv-preview {
+		background: var(--portfolio-bg);
+		border: 1px solid var(--portfolio-line-soft);
+		display: block;
+		margin: 2rem 0 1.5rem;
+		overflow: hidden;
+		transition: border-color 0.2s ease, opacity 0.2s ease;
+	}
+
+	.cv-preview:hover {
+		border-color: var(--portfolio-accent-soft);
+		opacity: 0.92;
+	}
+
+	.cv-preview img {
+		display: block;
+		height: auto;
+		width: 100%;
+	}
+
 	.contact-section {
 		margin-top: 2.5rem;
 	}

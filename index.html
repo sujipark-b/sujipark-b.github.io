@@ -30,10 +30,9 @@
 						</div>
 						<nav aria-label="Portfolio">
 							<ul>
-								<li><a href="#featured">Project</a></li>
-								<li><a href="#process">Process</a></li>
-								<li><a href="#cinematics">Cinematics</a></li>
-								<li><a href="#about">About</a></li>
+								<li><a href="#end-of-year-project">01 Featured Project</a></li>
+								<li><a href="#portfolio">02 Portfolio</a></li>
+								<li><a href="#about">03 About / CV</a></li>
 							</ul>
 						</nav>
 					</header>
@@ -42,10 +41,11 @@
 					<main id="main">
 
 						<!-- Featured Project -->
-							<article id="featured">
-								<p class="section-label"><span>01</span> Project</p>
-								<h2 class="major project-title">SOMEONE ELSE’S BUSINESS</h2>
-								<p class="project-meta">Interactive Cinema Prototype <span>/</span> Unreal Engine 5</p>
+							<article id="end-of-year-project">
+								<p class="section-label"><span>01</span> Featured Project</p>
+								<h2 class="major">Featured Project</h2>
+								<h3 class="project-title">SOMEONE ELSE’S BUSINESS</h3>
+								<p class="project-meta">UE5 Interactive Cinema Prototype <span>/</span> GOBELINS End-of-Year Project</p>
 
 								<figure class="portfolio-media visual-card hero-image">
 									<img src="images/seb_video_cover.jpg" alt="Presentation cover for Someone Else’s Business" />
@@ -120,65 +120,63 @@
 								</div>
 
 								<p class="tools"><strong>Tools</strong> Unreal Engine 5, Blueprint, Sequencer, VaRest, OpenAI API, STT/TTS, Premiere Pro and Photoshop</p>
+
+								<section class="process-breakdown">
+									<h3>Process Breakdown</h3>
+									<p class="lead">A breakdown of SOMEONE ELSE’S BUSINESS, showing how filmed footage, Unreal environments, spatial investigation, voice interaction, AI-assisted dialogue and route-based endings were connected into one cinematic flow.</p>
+
+									<div class="process-grid">
+										<section class="process-block">
+											<div class="process-copy">
+												<h3>Narrative Flow</h3>
+												<p>Actual chronology and player chronology are separated, allowing the player to reconstruct a hidden week of investigation before entering the dialogue scene.</p>
+											</div>
+											<figure class="diagram-card process-diagram">
+												<img src="images/seb_narrative_timeline.jpg" alt="Narrative timeline showing actual chronology and player chronology" />
+												<figcaption>Actual chronology vs player chronology</figcaption>
+											</figure>
+										</section>
+										<section class="process-block">
+											<div class="process-copy">
+												<h3>Cinematic Presentation</h3>
+												<p>The opening combines filmed footage and in-engine Sequencer cinematics before transitioning into playable investigation. Letterbox framing, subtitles, fade timing and title cards keep the experience close to cinema while moving the player into control.</p>
+											</div>
+											<figure class="diagram-card diagram-card--inset process-diagram">
+												<img src="images/seb_intro_cinematics_flow.jpg" alt="Opening to playable transition flow for Someone Else’s Business" />
+												<figcaption>Opening to playable transition</figcaption>
+											</figure>
+										</section>
+										<section class="process-block">
+											<div class="process-copy">
+												<h3>Interaction Design</h3>
+												<p>The Inspect phase uses a simple loop: look around, find an item, click, read or watch, then update understanding. Core items drive progression, while ambient items deepen atmosphere without blocking the main flow.</p>
+												<p>Memory footage is presented inside the world through the old TV screen rather than as a flat UI window, keeping discovery tied to physical movement and cinematic viewing.</p>
+											</div>
+											<figure class="diagram-card diagram-card--medium-inset process-diagram">
+												<img src="images/seb_inspect_loop.jpg" alt="Inspect interaction loop diagram for Someone Else’s Business" />
+												<figcaption>Inspect interaction loop</figcaption>
+											</figure>
+										</section>
+										<section class="process-block">
+											<div class="process-copy">
+												<h3>Dialogue System</h3>
+												<p>The dialogue system supports voice or text input, AI-assisted character response and TTS playback through a structured interaction loop.</p>
+												<p>During the dialogue scene, the character’s emotional state updates in real time, influencing camera, lighting, cinematic tone and ending direction as the conversation unfolds.</p>
+											</div>
+											<figure class="diagram-card diagram-card--light-inset process-diagram dialogue-diagram-card">
+												<img src="images/seb_llm_runtime_context.jpg" alt="AI dialogue and runtime context diagram for Someone Else’s Business" />
+												<figcaption>AI Dialogue and Runtime Context</figcaption>
+											</figure>
+										</section>
+									</div>
+								</section>
 							</article>
 
-						<!-- Process -->
-							<article id="process">
-								<p class="section-label"><span>02</span> Process</p>
-								<h2 class="major">Process</h2>
-								<p class="lead">A breakdown of SOMEONE ELSE’S BUSINESS, showing how filmed footage, Unreal environments, spatial investigation, voice interaction, AI-assisted dialogue and route-based endings were connected into one cinematic flow.</p>
-
-								<div class="process-grid">
-									<section class="process-block">
-										<div class="process-copy">
-											<h3>Narrative Flow</h3>
-											<p>Actual chronology and player chronology are separated, allowing the player to reconstruct a hidden week of investigation before entering the dialogue scene.</p>
-										</div>
-										<figure class="diagram-card process-diagram">
-											<img src="images/seb_narrative_timeline.jpg" alt="Narrative timeline showing actual chronology and player chronology" />
-											<figcaption>Actual chronology vs player chronology</figcaption>
-										</figure>
-									</section>
-									<section class="process-block">
-										<div class="process-copy">
-											<h3>Cinematic Presentation</h3>
-											<p>The opening combines filmed footage and in-engine Sequencer cinematics before transitioning into playable investigation. Letterbox framing, subtitles, fade timing and title cards keep the experience close to cinema while moving the player into control.</p>
-										</div>
-										<figure class="diagram-card diagram-card--inset process-diagram">
-											<img src="images/seb_intro_cinematics_flow.jpg" alt="Opening to playable transition flow for Someone Else’s Business" />
-											<figcaption>Opening to playable transition</figcaption>
-										</figure>
-									</section>
-									<section class="process-block">
-										<div class="process-copy">
-											<h3>Interaction Design</h3>
-											<p>The Inspect phase uses a simple loop: look around, find an item, click, read or watch, then update understanding. Core items drive progression, while ambient items deepen atmosphere without blocking the main flow.</p>
-											<p>Memory footage is presented inside the world through the old TV screen rather than as a flat UI window, keeping discovery tied to physical movement and cinematic viewing.</p>
-										</div>
-										<figure class="diagram-card diagram-card--medium-inset process-diagram">
-											<img src="images/seb_inspect_loop.jpg" alt="Inspect interaction loop diagram for Someone Else’s Business" />
-											<figcaption>Inspect interaction loop</figcaption>
-										</figure>
-									</section>
-									<section class="process-block">
-										<div class="process-copy">
-											<h3>Dialogue System</h3>
-											<p>The dialogue system supports voice or text input, AI-assisted character response and TTS playback through a structured interaction loop.</p>
-											<p>During the dialogue scene, the character’s emotional state updates in real time, influencing camera, lighting, cinematic tone and ending direction as the conversation unfolds.</p>
-										</div>
-										<figure class="diagram-card diagram-card--light-inset process-diagram dialogue-diagram-card">
-											<img src="images/seb_llm_runtime_context.jpg" alt="AI dialogue and runtime context diagram for Someone Else’s Business" />
-											<figcaption>AI Dialogue and Runtime Context</figcaption>
-										</figure>
-									</section>
-								</div>
-							</article>
-
-						<!-- Cinematics -->
-							<article id="cinematics">
-								<p class="section-label"><span>03</span> Cinematics</p>
-								<h2 class="major">Cinematics</h2>
-								<p class="lead">A selection of cinematic 3D work exploring atmosphere, composition, lighting and visual storytelling across realtime, rendered and composited projects.</p>
+						<!-- Portfolio -->
+							<article id="portfolio">
+								<p class="section-label"><span>02</span> Portfolio</p>
+								<h2 class="major">Portfolio</h2>
+								<p class="lead">A selection of 3D work exploring atmosphere, composition, lighting and visual storytelling across realtime, rendered and composited projects.</p>
 
 								<div class="format-strip" aria-label="Workflows represented in the reel">
 									<span>Unreal Engine · Realtime</span>
@@ -239,16 +237,27 @@
 								</div>
 							</article>
 
-						<!-- About / Contact -->
+						<!-- About / CV -->
 							<article id="about">
-								<p class="section-label"><span>04</span> About</p>
-								<h2 class="major">About / Contact</h2>
+								<p class="section-label"><span>03</span> About / CV</p>
+								<h2 class="major">About / CV</h2>
 								<p class="lead">I am a 3D generalist developing cinematic experiences across realtime and rendered 3D workflows, with a focus on interactive narrative, cinematography and Unreal Engine-based visual storytelling.</p>
 								<p>Drawing on a background in filmmaking and industry experience, I approach realtime 3D as a cinematic medium where space, interaction and narrative systems can become one continuous experience.</p>
 
 								<section>
 									<h3>Tools</h3>
 									<p>Unreal Engine 5, Sequencer, Blueprint, Maya, Blender, Substance Painter, Photoshop and Premiere Pro</p>
+								</section>
+
+								<section class="cv-section">
+									<h3>CV</h3>
+									<p>Full CV available as a PDF.</p>
+									<a href="assets/docs/Suji_Park_CV.pdf" target="_blank" rel="noopener" class="cv-preview">
+										<img src="images/Suji_Park_CV_preview.jpg" alt="Suji Park CV preview" />
+									</a>
+									<ul class="actions">
+										<li><a href="assets/docs/Suji_Park_CV.pdf" class="button" target="_blank" rel="noopener noreferrer">VIEW / DOWNLOAD CV</a></li>
+									</ul>
 								</section>
 
 								<section class="contact-section">
