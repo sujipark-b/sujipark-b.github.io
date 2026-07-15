@@ -2145,12 +2145,9 @@ input, select, textarea {
 
 	.project-grid {
 		display: grid;
-		border-bottom: 1px solid var(--portfolio-line);
-		border-top: 1px solid var(--portfolio-line);
 		gap: 4rem;
 		grid-template-columns: 0.85fr 1.15fr;
-		margin: 4rem 0;
-		padding: 3.25rem 0 2rem;
+		margin: 3rem 0 2.5rem;
 	}
 
 	.project-grid section p {
@@ -2192,17 +2189,15 @@ input, select, textarea {
 	}
 
 	.highlights li {
-		border-top: 1px solid var(--portfolio-line-soft);
 		color: var(--portfolio-muted);
 		font-weight: 400;
 		letter-spacing: 0;
 		line-height: 1.62;
-		padding: 0.8rem 0 0.8rem 1.1rem;
+		padding: 0.65rem 0 0.65rem 1.1rem;
 		position: relative;
 	}
 
 	.highlights li:first-child {
-		border-top: 0;
 		padding-top: 0;
 	}
 
@@ -2303,10 +2298,8 @@ input, select, textarea {
 	}
 
 	.process-grid section {
-		border-bottom: 1px solid var(--portfolio-line);
-		border-top: 1px solid var(--portfolio-line-soft);
 		min-height: 0;
-		padding: 1.75rem 0 1.5rem;
+		padding: 0;
 	}
 
 	.process-block {
