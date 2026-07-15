@@ -2700,6 +2700,54 @@ input, select, textarea {
 
 	}
 
+	@media screen and (max-width: 768px) {
+
+		.process-copy {
+			margin-bottom: 0;
+		}
+
+		.diagram-card,
+		.diagram-card--inset,
+		.diagram-card--medium-inset,
+		.diagram-card--light-inset,
+		.dialogue-diagram-card,
+		.voice-pipeline-card {
+			aspect-ratio: auto;
+			display: block;
+			height: auto;
+			margin-top: 1.5rem;
+			overflow: visible;
+			padding: 0.85rem;
+		}
+
+		.diagram-card img,
+		.diagram-card--inset img,
+		.diagram-card--medium-inset img,
+		.diagram-card--light-inset img,
+		.dialogue-diagram-card img,
+		.voice-pipeline-card img {
+			height: auto;
+			margin: 0 auto;
+			max-height: none;
+			max-width: 100%;
+			width: 100%;
+		}
+
+		.diagram-card figcaption {
+			bottom: auto;
+			left: auto;
+			margin-top: 1rem;
+			position: static;
+			right: auto;
+			text-align: left;
+		}
+
+		.process-grid section {
+			margin-bottom: 2rem;
+		}
+
+	}
+
 	@media screen and (max-width: 736px) {
 
 		#header {
