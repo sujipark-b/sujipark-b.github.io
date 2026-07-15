@@ -185,12 +185,12 @@
 												<figcaption>AI Dialogue and Runtime Context</figcaption>
 											</figure>
 										</section>
-										<section class="process-block process-block--wide">
+										<section class="process-block process-item--full">
 											<div class="process-copy">
 												<span class="process-kicker">Process 05</span>
 												<h3>Voice Input & TTS Playback</h3>
-												<p>Voice interaction is supported through an STT / TTS pipeline that connects player input to in-scene character playback. Spoken input can be transcribed and processed alongside text input, keeping the interaction flexible while preserving the same narrative logic.</p>
-												<p>Character replies are then converted into voice playback through ElevenLabs TTS and returned to the scene with subtitles and synced audio, reinforcing the cinematic presence of the conversation.</p>
+												<p>Voice and text input are processed through the same dialogue pipeline, allowing spoken interaction to follow the same narrative and emotional logic.</p>
+												<p>Character replies are converted into voice through ElevenLabs TTS and returned to the scene with subtitles and synced audio.</p>
 											</div>
 											<figure class="diagram-card process-diagram voice-pipeline-card">
 												<img src="images/seb_stt_tts_flow.jpg" alt="Voice and text input pipeline with STT, LLM response, ElevenLabs TTS, subtitles and audio playback" />
