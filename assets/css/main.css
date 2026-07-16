@@ -9,6 +9,11 @@
 	--text-dim: #74716c;
 	--line: rgba(238, 234, 226, 0.14);
 	--line-strong: rgba(238, 234, 226, 0.26);
+	--divider-color: var(--line);
+	--major-divider-space-before: clamp(4.5rem, 7vw, 7rem);
+	--major-divider-space-after: clamp(4.5rem, 7vw, 7rem);
+	--minor-divider-space-before: clamp(2.5rem, 4vw, 4rem);
+	--minor-divider-space-after: clamp(2.5rem, 4vw, 4rem);
 	--accent: #a8453f;
 	--accent-rgb: 168, 69, 63;
 	--site-gutter: clamp(1.5rem, 4vw, 4rem);
@@ -25,7 +30,6 @@
 	--width-reading: var(--copy-width-wide);
 	--width-project-copy: var(--copy-width-wide);
 	--gutter: var(--site-gutter);
-	--section-gap: clamp(5rem, 9vw, 9rem);
 	--transition: 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
 	--font-display: "DM Serif Display", serif;
 	--font-sans: Inter, sans-serif;
@@ -320,8 +324,8 @@ figcaption {
 	display: grid;
 	grid-template-columns: var(--section-rail-width) minmax(0, 1fr);
 	column-gap: var(--section-column-gap);
-	padding: var(--section-gap) 0;
-	border-top: 1px solid var(--line);
+	padding: var(--major-divider-space-after) 0 var(--major-divider-space-before);
+	border-top: 1px solid var(--divider-color);
 	position: relative;
 	isolation: isolate;
 	scroll-margin-top: 2rem;
@@ -482,18 +486,6 @@ figcaption {
 
 .text-width {
 	max-width: var(--copy-width);
-}
-
-.project-block {
-	margin-top: clamp(4.6rem, 8vw, 7.25rem);
-	padding-top: clamp(3rem, 5vw, 4.5rem);
-	border-top: 1px solid var(--line);
-}
-
-.project-block--first {
-	margin-top: 0;
-	padding-top: 0;
-	border-top: 0;
 }
 
 .block-label {
@@ -702,8 +694,6 @@ figcaption {
 
 .project-block--visual {
 	margin-top: 3.25rem;
-	padding-top: 0;
-	border-top: 0;
 }
 
 .visual-grid {
@@ -926,15 +916,20 @@ figcaption {
 	text-transform: uppercase;
 }
 
-.reel-block {
-	margin-bottom: 4rem;
+.section-divider--major,
+.section-divider--minor {
+	width: 100%;
+	height: 1px;
+	border: 0;
+	background: var(--divider-color);
 }
 
-.section-divider {
-	width: 100%;
-	margin: 0 0 4rem;
-	border: 0;
-	border-top: 1px solid var(--line);
+.section-divider--major {
+	margin: var(--major-divider-space-before) 0 var(--major-divider-space-after);
+}
+
+.section-divider--minor {
+	margin: var(--minor-divider-space-before) 0 var(--minor-divider-space-after);
 }
 
 .reel-block .subsection-kicker {
@@ -1350,6 +1345,13 @@ figcaption {
 }
 
 @media screen and (max-width: 736px) {
+	:root {
+		--major-divider-space-before: 3.25rem;
+		--major-divider-space-after: 3.25rem;
+		--minor-divider-space-before: 2rem;
+		--minor-divider-space-after: 2rem;
+	}
+
 	.section::before {
 		width: 20rem;
 		height: 20rem;
@@ -1407,7 +1409,6 @@ figcaption {
 
 	.section {
 		width: calc(100% - 2rem);
-		padding-block: 4.5rem;
 	}
 
 	.copy-standard,
