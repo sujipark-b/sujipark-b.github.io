@@ -790,29 +790,8 @@ figcaption {
 	width: min(100%, 320px);
 }
 
-.process-diagram--wide,
-.process-item--05 .process-diagram {
-	width: min(100%, 390px);
-}
-
 .process-item--05 {
 	grid-column: 1 / -1;
-	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	column-gap: clamp(3rem, 5vw, 5.5rem);
-	align-items: start;
-}
-
-.process-item--05 .process-copy {
-	grid-column: 1;
-}
-
-.process-item--05 .process-diagram {
-	grid-column: 2;
-	align-self: center;
-	margin-top: 0;
-	margin-left: auto;
-	margin-right: auto;
 }
 
 .process-diagram--stacked {
@@ -1327,24 +1306,8 @@ figcaption {
 		grid-template-columns: 1fr;
 	}
 
-	.visual-card img,
-	.work-card .media-frame img {
-		filter: none;
-	}
-
 	.process-grid {
 		gap: 3.5rem;
-	}
-
-	.process-item--05 {
-		grid-column: auto;
-		display: flex;
-		flex-direction: column;
-	}
-
-	.process-item--05 .process-copy,
-	.process-item--05 .process-diagram {
-		grid-column: auto;
 	}
 
 	.process-copy {
@@ -1370,17 +1333,6 @@ figcaption {
 	.process-diagram--standard {
 		width: min(86vw, 340px);
 		max-width: none;
-	}
-
-	.process-diagram--wide,
-	.process-item--05 .process-diagram {
-		width: min(88vw, 360px);
-		max-width: none;
-		margin-top: 2rem;
-	}
-
-	.process-item--05 .process-diagram__media {
-		min-height: 0;
 	}
 
 	.process-diagram img {
@@ -1423,6 +1375,8 @@ figcaption {
 @media (hover: none), (pointer: coarse) {
 	.visual-card,
 	.visual-card img,
+	.work-card,
+	.work-card .media-frame img,
 	.cv-preview,
 	.cv-preview img {
 		transform: none !important;
@@ -1430,6 +1384,27 @@ figcaption {
 
 	.visual-card img,
 	.work-card .media-frame img {
-		filter: none;
+		filter: grayscale(86%) contrast(0.96);
+		transition: filter 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
+	}
+
+	.visual-card.is-touched img,
+	.work-card.is-touched .media-frame img {
+		filter: grayscale(0%) contrast(1);
+	}
+
+	.cv-preview img {
+		filter:
+			saturate(0.68)
+			brightness(0.9)
+			contrast(0.94);
+		transform: none !important;
+	}
+
+	.cv-preview.is-touched img {
+		filter:
+			saturate(0.82)
+			brightness(0.94)
+			contrast(0.97);
 	}
 }

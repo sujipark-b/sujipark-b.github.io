@@ -22,6 +22,10 @@
 	let currentTopLevelSectionId = null;
 	let vignetteTimer = null;
 	let scrollTicking = false;
+	let activeTouchedCard = null;
+
+	const touchQuery = window.matchMedia('(hover: none) and (pointer: coarse)');
+	const touchCardSelector = '.visual-card, .work-card, .cv-preview';
 
 	function getCurrentSection() {
 		const activationY = window.innerHeight * ACTIVATION_RATIO;
@@ -115,6 +119,45 @@
 		}, 80);
 	}
 
+	function clearTouchedCard() {
+		if (!activeTouchedCard) {
+			return;
+		}
+
+		activeTouchedCard.classList.remove('is-touched');
+		activeTouchedCard = null;
+	}
+
+	function setTouchedCard(card) {
+		if (activeTouchedCard && activeTouchedCard !== card) {
+			activeTouchedCard.classList.remove('is-touched');
+		}
+
+		activeTouchedCard = card;
+		activeTouchedCard.classList.add('is-touched');
+	}
+
+	function handleTouchCardInteraction(event) {
+		if (!touchQuery.matches) {
+			return;
+		}
+
+		const card = event.target.closest(touchCardSelector);
+
+		if (!card) {
+			clearTouchedCard();
+			return;
+		}
+
+		setTouchedCard(card);
+	}
+
+	function handleTouchCapabilityChange() {
+		if (!touchQuery.matches) {
+			clearTouchedCard();
+		}
+	}
+
 	navLinks.forEach((link) => {
 		link.addEventListener('click', () => {
 			const target = document.querySelector(link.getAttribute('href'));
@@ -135,6 +178,23 @@
 
 	window.addEventListener('resize', handleScroll);
 	window.addEventListener('hashchange', syncFromHash);
+	document.addEventListener('pointerdown', handleTouchCardInteraction, {
+		passive: true
+	});
+
+	document.addEventListener('click', (event) => {
+		if (window.PointerEvent) {
+			return;
+		}
+
+		handleTouchCardInteraction(event);
+	});
+
+	if (typeof touchQuery.addEventListener === 'function') {
+		touchQuery.addEventListener('change', handleTouchCapabilityChange);
+	} else if (typeof touchQuery.addListener === 'function') {
+		touchQuery.addListener(handleTouchCapabilityChange);
+	}
 
 	window.addEventListener('load', () => {
 		if (window.location.hash) {
