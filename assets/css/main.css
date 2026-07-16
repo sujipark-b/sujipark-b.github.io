@@ -283,7 +283,6 @@ figcaption {
 	text-transform: uppercase;
 }
 
-.site-nav a:hover,
 .site-nav a.is-active {
 	border-color: rgba(168, 69, 63, 0.62);
 	color: var(--text);
@@ -1130,6 +1129,15 @@ figcaption {
 }
 
 @media (hover: hover) and (pointer: fine) {
+	.site-nav a:hover {
+		border-color: rgba(168, 69, 63, 0.62);
+		color: var(--accent);
+	}
+
+	.site-nav a:hover * {
+		color: inherit;
+	}
+
 	.visual-card:hover img,
 	.visual-card:focus-within img {
 		filter: grayscale(0%) contrast(1);
