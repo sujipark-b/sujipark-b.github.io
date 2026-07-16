@@ -281,12 +281,28 @@ figcaption {
 	font-weight: 500;
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
+	transition:
+		color 180ms ease,
+		border-color 180ms ease;
 }
 
-.site-nav a.is-active {
-	border-color: rgba(168, 69, 63, 0.62);
-	color: var(--text);
-	background: rgba(168, 69, 63, 0.06);
+.site-nav a:focus-visible,
+.site-nav a.is-active,
+.site-nav a[aria-current="page"],
+.site-nav a[aria-current="true"] {
+	border-color: var(--accent);
+	color: var(--accent);
+}
+
+.site-nav a:focus-visible {
+	outline: none;
+}
+
+.site-nav a:focus-visible *,
+.site-nav a.is-active *,
+.site-nav a[aria-current="page"] *,
+.site-nav a[aria-current="true"] * {
+	color: inherit;
 }
 
 .section {
@@ -1130,7 +1146,7 @@ figcaption {
 
 @media (hover: hover) and (pointer: fine) {
 	.site-nav a:hover {
-		border-color: rgba(168, 69, 63, 0.62);
+		border-color: var(--accent);
 		color: var(--accent);
 	}
 
@@ -1391,6 +1407,15 @@ figcaption {
 }
 
 @media (hover: none), (pointer: coarse) {
+	.site-nav a:active {
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+
+	.site-nav a:active * {
+		color: inherit;
+	}
+
 	.contact-item:active .contact-icon,
 	.contact-item:active span:not(.contact-icon),
 	.contact-item:active strong,
