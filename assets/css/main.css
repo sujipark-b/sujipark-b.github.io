@@ -228,7 +228,6 @@ figcaption {
 }
 
 .eyebrow,
-.section-number,
 .block-label,
 .section-kicker,
 .subsection-kicker,
@@ -416,10 +415,6 @@ figcaption {
 
 #portfolio .section__header h2 {
 	max-width: none;
-}
-
-.section-number {
-	margin-bottom: 0.75rem;
 }
 
 .content {
