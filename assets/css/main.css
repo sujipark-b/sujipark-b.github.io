@@ -371,6 +371,20 @@ figcaption {
 	}
 }
 
+@keyframes destination-vignette {
+	0% {
+		opacity: 0;
+	}
+
+	35% {
+		opacity: 0.22;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
 .section__header {
 	align-self: start;
 	position: sticky;
@@ -1407,6 +1421,21 @@ figcaption {
 }
 
 @media (hover: none), (pointer: coarse) {
+	.section::before {
+		background:
+			radial-gradient(
+				circle at 12% 50%,
+				rgba(var(--accent-rgb), 0.22),
+				transparent 42%
+			);
+		filter: none;
+		transform: none;
+	}
+
+	.section.section--vignette-active::before {
+		animation: destination-vignette 620ms ease-out both;
+	}
+
 	html.is-programmatic-scrolling .section.section--vignette-active::before {
 		animation: none !important;
 		transition: none !important;

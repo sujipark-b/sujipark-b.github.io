@@ -10,7 +10,7 @@
 	];
 
 	const ACTIVATION_RATIO = 0.38;
-	const MOBILE_SCROLL_DURATION = 720;
+	const VIGNETTE_GUARD_MS = 800;
 
 	const sections = SECTION_IDS
 		.map((id) => document.getElementById(id))
@@ -27,6 +27,8 @@
 	let isProgrammaticScrolling = false;
 	let programmaticScrollFrame = null;
 	let programmaticTargetSection = null;
+	let lastVignetteSectionId = null;
+	let lastVignetteTime = 0;
 
 	const touchQuery = window.matchMedia('(hover: none) and (pointer: coarse)');
 	const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -46,10 +48,25 @@
 		return null;
 	}
 
-	function triggerSectionVignette(section) {
+	function triggerSectionVignette(section, options) {
+		const settings = options || {};
+
 		if (!section) {
 			return;
 		}
+
+		const now = performance.now();
+
+		if (
+			!settings.force &&
+			lastVignetteSectionId === section.id &&
+			now - lastVignetteTime < VIGNETTE_GUARD_MS
+		) {
+			return;
+		}
+
+		lastVignetteSectionId = section.id;
+		lastVignetteTime = now;
 
 		document
 			.querySelectorAll('.section--vignette-active')
@@ -65,6 +82,14 @@
 		vignetteTimer = window.setTimeout(() => {
 			section.classList.remove('section--vignette-active');
 		}, 1250);
+	}
+
+	function triggerDestinationEffect(sectionId) {
+		const section = sections.find((item) => item.id === sectionId);
+
+		triggerSectionVignette(section, {
+			force: true
+		});
 	}
 
 	function updateTopLevelSection(nextSection, options) {
@@ -114,6 +139,10 @@
 	}
 
 	function syncFromHash() {
+		if (isProgrammaticScrolling) {
+			return;
+		}
+
 		const hashId = window.location.hash.replace('#', '');
 		const section = sections.find((item) => item.id === hashId);
 
@@ -167,12 +196,17 @@
 		}
 	}
 
-	function easeInOutCubic(progress) {
-		if (progress < 0.5) {
-			return 4 * progress * progress * progress;
-		}
+	function getScrollDuration(distance) {
+		const absoluteDistance = Math.abs(distance);
 
-		return 1 - Math.pow(-2 * progress + 2, 3) / 2;
+		return Math.min(
+			620,
+			Math.max(260, absoluteDistance * 0.32)
+		);
+	}
+
+	function easeOutCubic(progress) {
+		return 1 - Math.pow(1 - progress, 3);
 	}
 
 	function cancelProgrammaticScroll(options) {
@@ -200,6 +234,8 @@
 	}
 
 	function finishProgrammaticScroll(target) {
+		const targetId = target.id;
+
 		programmaticScrollFrame = null;
 		isProgrammaticScrolling = false;
 		programmaticTargetSection = null;
@@ -209,13 +245,14 @@
 			force: true,
 			suppressVignette: true
 		});
-		triggerSectionVignette(target);
+		triggerDestinationEffect(targetId);
 	}
 
-	function scrollToSection(target, duration) {
+	function scrollToSection(target) {
 		const startY = window.scrollY;
 		const targetY = target.getBoundingClientRect().top + window.scrollY;
 		const distance = targetY - startY;
+		const duration = getScrollDuration(distance);
 		const startTime = performance.now();
 
 		function step(now) {
@@ -225,7 +262,7 @@
 
 			const elapsed = now - startTime;
 			const progress = Math.min(elapsed / duration, 1);
-			const eased = easeInOutCubic(progress);
+			const eased = easeOutCubic(progress);
 
 			window.scrollTo({
 				top: startY + distance * eased,
@@ -256,8 +293,8 @@
 			suppressVignette: true
 		});
 
-		if (window.history && typeof window.history.pushState === 'function') {
-			window.history.pushState(null, '', link.getAttribute('href'));
+		if (window.history && typeof window.history.replaceState === 'function') {
+			window.history.replaceState(null, '', link.getAttribute('href'));
 		}
 
 		if (reducedMotionQuery.matches) {
@@ -273,7 +310,7 @@
 		isProgrammaticScrolling = true;
 		programmaticTargetSection = target;
 		document.documentElement.classList.add('is-programmatic-scrolling');
-		scrollToSection(target, MOBILE_SCROLL_DURATION);
+		scrollToSection(target);
 	}
 
 	navLinks.forEach((link) => {
