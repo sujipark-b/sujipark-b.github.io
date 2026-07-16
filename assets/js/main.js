@@ -10,6 +10,7 @@
 	];
 
 	const ACTIVATION_RATIO = 0.38;
+	const MOBILE_SCROLL_DURATION = 720;
 
 	const sections = SECTION_IDS
 		.map((id) => document.getElementById(id))
@@ -23,8 +24,12 @@
 	let vignetteTimer = null;
 	let scrollTicking = false;
 	let activeTouchedCard = null;
+	let isProgrammaticScrolling = false;
+	let programmaticScrollFrame = null;
+	let programmaticTargetSection = null;
 
 	const touchQuery = window.matchMedia('(hover: none) and (pointer: coarse)');
+	const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 	const touchCardSelector = '.visual-card, .work-card, .cv-preview';
 
 	function getCurrentSection() {
@@ -86,12 +91,16 @@
 			}
 		});
 
-		if (hasChanged && nextSection) {
+		if (hasChanged && nextSection && !settings.suppressVignette) {
 			triggerSectionVignette(nextSection);
 		}
 	}
 
 	function handleScroll() {
+		if (isProgrammaticScrolling) {
+			return;
+		}
+
 		if (scrollTicking) {
 			return;
 		}
@@ -158,11 +167,125 @@
 		}
 	}
 
+	function easeInOutCubic(progress) {
+		if (progress < 0.5) {
+			return 4 * progress * progress * progress;
+		}
+
+		return 1 - Math.pow(-2 * progress + 2, 3) / 2;
+	}
+
+	function cancelProgrammaticScroll(options) {
+		const settings = options || {};
+
+		if (!isProgrammaticScrolling && !programmaticScrollFrame) {
+			return;
+		}
+
+		if (programmaticScrollFrame) {
+			window.cancelAnimationFrame(programmaticScrollFrame);
+			programmaticScrollFrame = null;
+		}
+
+		if (isProgrammaticScrolling) {
+			document.documentElement.classList.remove('is-programmatic-scrolling');
+		}
+
+		isProgrammaticScrolling = false;
+		programmaticTargetSection = null;
+
+		if (!settings.skipActiveUpdate) {
+			handleScroll();
+		}
+	}
+
+	function finishProgrammaticScroll(target) {
+		programmaticScrollFrame = null;
+		isProgrammaticScrolling = false;
+		programmaticTargetSection = null;
+		document.documentElement.classList.remove('is-programmatic-scrolling');
+
+		updateTopLevelSection(target, {
+			force: true,
+			suppressVignette: true
+		});
+		triggerSectionVignette(target);
+	}
+
+	function scrollToSection(target, duration) {
+		const startY = window.scrollY;
+		const targetY = target.getBoundingClientRect().top + window.scrollY;
+		const distance = targetY - startY;
+		const startTime = performance.now();
+
+		function step(now) {
+			if (!isProgrammaticScrolling || programmaticTargetSection !== target) {
+				return;
+			}
+
+			const elapsed = now - startTime;
+			const progress = Math.min(elapsed / duration, 1);
+			const eased = easeInOutCubic(progress);
+
+			window.scrollTo({
+				top: startY + distance * eased,
+				left: 0,
+				behavior: 'auto'
+			});
+
+			if (progress < 1) {
+				programmaticScrollFrame = window.requestAnimationFrame(step);
+				return;
+			}
+
+			finishProgrammaticScroll(target);
+		}
+
+		programmaticScrollFrame = window.requestAnimationFrame(step);
+	}
+
+	function navigateWithCappedMobileScroll(event, link, target) {
+		event.preventDefault();
+
+		cancelProgrammaticScroll({
+			skipActiveUpdate: true
+		});
+
+		updateTopLevelSection(target, {
+			force: true,
+			suppressVignette: true
+		});
+
+		if (window.history && typeof window.history.pushState === 'function') {
+			window.history.pushState(null, '', link.getAttribute('href'));
+		}
+
+		if (reducedMotionQuery.matches) {
+			window.scrollTo({
+				top: target.getBoundingClientRect().top + window.scrollY,
+				left: 0,
+				behavior: 'auto'
+			});
+			finishProgrammaticScroll(target);
+			return;
+		}
+
+		isProgrammaticScrolling = true;
+		programmaticTargetSection = target;
+		document.documentElement.classList.add('is-programmatic-scrolling');
+		scrollToSection(target, MOBILE_SCROLL_DURATION);
+	}
+
 	navLinks.forEach((link) => {
-		link.addEventListener('click', () => {
+		link.addEventListener('click', (event) => {
 			const target = document.querySelector(link.getAttribute('href'));
 
 			if (!target) {
+				return;
+			}
+
+			if (touchQuery.matches) {
+				navigateWithCappedMobileScroll(event, link, target);
 				return;
 			}
 
@@ -178,7 +301,31 @@
 
 	window.addEventListener('resize', handleScroll);
 	window.addEventListener('hashchange', syncFromHash);
+	window.addEventListener('wheel', cancelProgrammaticScroll, {
+		passive: true
+	});
+	window.addEventListener('touchmove', cancelProgrammaticScroll, {
+		passive: true
+	});
+	window.addEventListener('touchstart', cancelProgrammaticScroll, {
+		passive: true
+	});
+	window.addEventListener('pointercancel', cancelProgrammaticScroll, {
+		passive: true
+	});
+
 	document.addEventListener('pointerdown', handleTouchCardInteraction, {
+		passive: true
+	});
+
+	document.addEventListener('pointerdown', (event) => {
+		if (
+			isProgrammaticScrolling &&
+			!event.target.closest('.site-nav a')
+		) {
+			cancelProgrammaticScroll();
+		}
+	}, {
 		passive: true
 	});
 

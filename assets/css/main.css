@@ -1407,6 +1407,12 @@ figcaption {
 }
 
 @media (hover: none), (pointer: coarse) {
+	html.is-programmatic-scrolling .section.section--vignette-active::before {
+		animation: none !important;
+		transition: none !important;
+		opacity: 0;
+	}
+
 	.site-nav a:active {
 		border-color: var(--accent);
 		color: var(--accent);
