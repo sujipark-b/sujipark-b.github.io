@@ -784,7 +784,7 @@ figcaption {
 
 .process-diagram figcaption {
 	width: 100%;
-	margin-top: 1rem;
+	margin-top: 1.1rem;
 	padding: 0;
 	text-align: center;
 	font-family: var(--font-mono);
@@ -801,7 +801,7 @@ figcaption {
 }
 
 .process-diagram--compact {
-	width: min(100%, 256px);
+	width: min(100%, 225px);
 }
 
 .process-diagram--ending-routing {
@@ -813,7 +813,7 @@ figcaption {
 .process-diagram--stacked {
 	display: grid;
 	gap: 0.6rem;
-	width: min(100%, 264px);
+	width: min(100%, 243px);
 	margin-left: auto;
 	margin-right: auto;
 	justify-items: center;
@@ -1347,6 +1347,10 @@ figcaption {
 
 	.process-diagram .process-diagram__media img {
 		max-height: none;
+	}
+
+	.process-diagram figcaption {
+		margin-top: 0.8rem;
 	}
 
 	.process-diagram--stacked {
