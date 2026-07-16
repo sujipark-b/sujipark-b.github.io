@@ -313,6 +313,36 @@
 		scrollToSection(target);
 	}
 
+	function navigateWithNativeMobileScroll(event, link, target) {
+		event.preventDefault();
+
+		cancelProgrammaticScroll({
+			skipActiveUpdate: true
+		});
+
+		updateTopLevelSection(target, {
+			force: true,
+			suppressVignette: true
+		});
+
+		if (window.history && typeof window.history.replaceState === 'function') {
+			window.history.replaceState(null, '', link.getAttribute('href'));
+		}
+
+		target.scrollIntoView({
+			behavior: reducedMotionQuery.matches ? 'auto' : 'smooth',
+			block: 'start'
+		});
+
+		window.setTimeout(() => {
+			updateTopLevelSection(getCurrentSection() || target, {
+				force: true,
+				suppressVignette: true
+			});
+			triggerDestinationEffect(target.id);
+		}, reducedMotionQuery.matches ? 0 : 380);
+	}
+
 	navLinks.forEach((link) => {
 		link.addEventListener('click', (event) => {
 			const target = document.querySelector(link.getAttribute('href'));
@@ -322,6 +352,11 @@
 			}
 
 			if (touchQuery.matches) {
+				if (target.id === 'featured-project') {
+					navigateWithNativeMobileScroll(event, link, target);
+					return;
+				}
+
 				navigateWithCappedMobileScroll(event, link, target);
 				return;
 			}

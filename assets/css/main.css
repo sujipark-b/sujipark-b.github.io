@@ -1323,6 +1323,19 @@ figcaption {
 		grid-template-columns: 1fr;
 	}
 
+	.contact-links {
+		display: flex;
+		flex-direction: column;
+		gap: 2.25rem;
+	}
+
+	.contact-links a {
+		padding-top: 0;
+		padding-bottom: 0;
+		border-top: 0;
+		border-bottom: 0;
+	}
+
 	.section {
 		padding-block: 4.5rem;
 	}
