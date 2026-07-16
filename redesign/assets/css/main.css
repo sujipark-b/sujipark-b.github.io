@@ -548,6 +548,20 @@ figcaption {
 	max-width: 31rem;
 }
 
+#featured-project .project-overview-copy p,
+#featured-project .scope-grid p,
+#featured-project .highlights li,
+#featured-project .process-breakdown > .lead,
+#featured-project .process-copy p,
+#featured-project .project-block--visual > .text-width {
+	color: rgba(238, 234, 226, 0.72);
+	font-family: var(--font-sans);
+	font-size: clamp(0.95rem, 1.19vw, 1.19rem);
+	font-weight: 400;
+	line-height: 1.5;
+	letter-spacing: -0.01em;
+}
+
 .scope-tags {
 	display: flex;
 	flex-wrap: wrap;
@@ -717,7 +731,7 @@ figcaption {
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
-	width: min(100%, 330px);
+	width: min(100%, 264px);
 	max-width: none;
 	margin: 2.75rem auto 0;
 	padding: 0;
@@ -783,11 +797,11 @@ figcaption {
 }
 
 .process-diagram--standard {
-	width: min(100%, 340px);
+	width: min(100%, 272px);
 }
 
 .process-diagram--compact {
-	width: min(100%, 320px);
+	width: min(100%, 256px);
 }
 
 .process-item--05 {
@@ -797,7 +811,7 @@ figcaption {
 .process-diagram--stacked {
 	display: grid;
 	gap: 0.6rem;
-	width: min(100%, 330px);
+	width: min(100%, 264px);
 	margin-left: auto;
 	margin-right: auto;
 	justify-items: center;
@@ -807,34 +821,6 @@ figcaption {
 	min-height: 0;
 	display: grid;
 	gap: 0.75rem;
-}
-
-.process-grid .process-block:nth-child(1) .process-diagram__media,
-.process-grid .process-block:nth-child(2) .process-diagram__media {
-	min-height: 240px;
-	display: flex;
-	align-items: flex-end;
-	justify-content: center;
-}
-
-.process-grid .process-block:nth-child(3) .process-diagram__media,
-.process-grid .process-block:nth-child(4) .process-diagram__media {
-	min-height: 220px;
-	display: flex;
-	align-items: flex-end;
-	justify-content: center;
-}
-
-.process-diagram--stacked .process-diagram__media {
-	display: grid;
-	align-content: end;
-}
-
-.process-grid .process-block:nth-child(1) .process-diagram--stacked .process-diagram__media {
-	min-height: 240px;
-	display: grid;
-	align-content: end;
-	justify-content: center;
 }
 
 .process-diagram--stacked img {
@@ -1282,6 +1268,16 @@ figcaption {
 		line-height: 1.5;
 	}
 
+	#featured-project .project-overview-copy p,
+	#featured-project .scope-grid p,
+	#featured-project .highlights li,
+	#featured-project .process-breakdown > .lead,
+	#featured-project .process-copy p,
+	#featured-project .project-block--visual > .text-width {
+		font-size: clamp(0.95rem, 4.2vw, 1.08rem);
+		line-height: 1.5;
+	}
+
 	.site-nav {
 		display: grid;
 		grid-template-columns: 1fr;
@@ -1320,7 +1316,7 @@ figcaption {
 	}
 
 	.process-diagram {
-		width: min(86vw, 330px);
+		width: min(51.6vw, 198px);
 		max-width: none;
 		margin: 2rem auto 0;
 	}
@@ -1331,12 +1327,12 @@ figcaption {
 	}
 
 	.process-diagram--compact {
-		width: min(84vw, 320px);
+		width: min(50.4vw, 192px);
 		max-width: none;
 	}
 
 	.process-diagram--standard {
-		width: min(86vw, 340px);
+		width: min(51.6vw, 204px);
 		max-width: none;
 	}
 
@@ -1349,7 +1345,7 @@ figcaption {
 	}
 
 	.process-diagram--stacked {
-		width: min(86vw, 330px);
+		width: min(51.6vw, 198px);
 		gap: 0.75rem;
 	}
 
