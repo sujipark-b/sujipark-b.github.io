@@ -11,13 +11,20 @@
 	--line-strong: rgba(238, 234, 226, 0.26);
 	--accent: #a8453f;
 	--accent-rgb: 168, 69, 63;
-	--width-wide: 1280px;
-	--width-content: 1140px;
-	--width-text: 720px;
+	--site-gutter: clamp(1.5rem, 4vw, 4rem);
+	--content-max: 76rem;
+	--section-rail-width: 12rem;
+	--section-column-gap: clamp(3rem, 5vw, 5rem);
+	--copy-width: 31rem;
+	--copy-width-wide: 42rem;
+	--two-column-gap: clamp(3rem, 5vw, 5rem);
+	--width-wide: var(--content-max);
+	--width-content: 100%;
+	--width-text: var(--copy-width);
 	--width-figure: 560px;
-	--width-reading: 640px;
-	--width-project-copy: 820px;
-	--gutter: clamp(1.25rem, 3vw, 3.5rem);
+	--width-reading: var(--copy-width-wide);
+	--width-project-copy: var(--copy-width-wide);
+	--gutter: var(--site-gutter);
 	--section-gap: clamp(5rem, 9vw, 9rem);
 	--transition: 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
 	--font-display: "DM Serif Display", serif;
@@ -309,12 +316,12 @@ figcaption {
 }
 
 .section {
-	width: min(100%, calc(var(--width-wide) + (var(--gutter) * 2)));
+	width: min(calc(100% - (2 * var(--site-gutter))), var(--content-max));
 	margin: 0 auto;
 	display: grid;
-	grid-template-columns: minmax(9.5rem, 15vw) minmax(0, 1fr);
-	column-gap: clamp(2.5rem, 4vw, 4.5rem);
-	padding: var(--section-gap) var(--gutter);
+	grid-template-columns: var(--section-rail-width) minmax(0, 1fr);
+	column-gap: var(--section-column-gap);
+	padding: var(--section-gap) 0;
 	border-top: 1px solid var(--line);
 	position: relative;
 	isolation: isolate;
@@ -421,6 +428,16 @@ figcaption {
 	min-width: 0;
 }
 
+.copy-standard {
+	width: 100%;
+	max-width: var(--copy-width);
+}
+
+.copy-wide {
+	width: 100%;
+	max-width: var(--copy-width-wide);
+}
+
 .lead {
 	color: var(--text-muted);
 	font-size: 1rem;
@@ -436,7 +453,7 @@ figcaption {
 }
 
 .about-main > p {
-	max-width: 42rem;
+	max-width: var(--copy-width);
 	color: rgba(238, 234, 226, 0.72);
 	font-size: inherit;
 	line-height: 1.55;
@@ -454,7 +471,7 @@ figcaption {
 .process-breakdown > .lead,
 .project-block--visual > .text-width {
 	width: 100%;
-	max-width: var(--width-project-copy);
+	max-width: var(--copy-width-wide);
 	margin-left: 0;
 	margin-right: 0;
 }
@@ -469,7 +486,7 @@ figcaption {
 }
 
 .text-width {
-	max-width: var(--width-text);
+	max-width: var(--copy-width);
 }
 
 .project-block {
@@ -579,11 +596,13 @@ figcaption {
 .scope-grid {
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-	gap: clamp(2rem, 4vw, 4rem);
+	gap: var(--two-column-gap);
 	align-items: start;
 }
 
 .scope-grid > div {
+	width: 100%;
+	max-width: var(--copy-width);
 	min-width: 0;
 }
 
@@ -593,7 +612,7 @@ figcaption {
 
 .scope-grid p,
 .process-copy p {
-	max-width: 31rem;
+	max-width: var(--copy-width);
 	text-align: left;
 	text-wrap: pretty;
 }
@@ -619,7 +638,7 @@ figcaption {
 	flex-wrap: wrap;
 	gap: 0.55rem;
 	margin-top: 1.5rem;
-	max-width: var(--width-text);
+	max-width: var(--copy-width);
 }
 
 .scope-tags span {
@@ -638,7 +657,7 @@ figcaption {
 .highlights {
 	display: grid;
 	gap: 0.95rem;
-	max-width: var(--width-text);
+	max-width: var(--copy-width);
 }
 
 .highlights li {
@@ -750,7 +769,7 @@ figcaption {
 .process-grid {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
-	column-gap: clamp(3rem, 5vw, 5.5rem);
+	column-gap: var(--two-column-gap);
 	row-gap: clamp(5rem, 7vw, 7rem);
 	align-items: start;
 }
@@ -763,7 +782,7 @@ figcaption {
 
 .process-copy {
 	flex: 0 0 auto;
-	width: min(100%, 31rem);
+	width: min(100%, var(--copy-width));
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -920,7 +939,7 @@ figcaption {
 .work-grid {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: clamp(2rem, 4vw, 4rem) clamp(1.2rem, 2.5vw, 2rem);
+	gap: var(--two-column-gap);
 	margin-top: 1.5rem;
 }
 
@@ -952,7 +971,7 @@ figcaption {
 .about-layout {
 	display: grid;
 	grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.85fr);
-	column-gap: clamp(4rem, 7vw, 8rem);
+	column-gap: var(--two-column-gap);
 	row-gap: 5rem;
 	align-items: start;
 }
@@ -973,6 +992,8 @@ figcaption {
 }
 
 .tools-section {
+	width: 100%;
+	max-width: var(--copy-width);
 	margin-top: 3rem;
 }
 
@@ -1093,7 +1114,7 @@ figcaption {
 .contact-links {
 	display: grid;
 	grid-template-columns: repeat(4, minmax(0, 1fr));
-	gap: clamp(1.5rem, 3vw, 2.5rem);
+	gap: var(--two-column-gap);
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -1184,9 +1205,9 @@ figcaption {
 }
 
 .footer {
-	width: min(100%, calc(var(--width-wide) + (var(--gutter) * 2)));
+	width: min(calc(100% - (2 * var(--site-gutter))), var(--content-max));
 	margin: 0 auto;
-	padding: 4rem var(--gutter);
+	padding: 4rem 0;
 	border-top: 1px solid var(--line);
 }
 
@@ -1379,7 +1400,24 @@ figcaption {
 	}
 
 	.section {
+		width: calc(100% - 2rem);
 		padding-block: 4.5rem;
+	}
+
+	.copy-standard,
+	.copy-wide,
+	.project-overview-copy,
+	.project-block > .lead,
+	.process-breakdown > .lead,
+	.project-block--visual > .text-width,
+	.scope-grid > div,
+	.scope-grid p,
+	.process-copy,
+	.process-copy p,
+	.about-main > p,
+	.tools-section {
+		width: 100%;
+		max-width: none;
 	}
 
 	.section__header h2 {
