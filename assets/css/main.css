@@ -911,6 +911,10 @@ figcaption {
 	margin: 2rem 0 4rem;
 }
 
+.portfolio-overview .section-kicker {
+	margin-bottom: 1.25rem;
+}
+
 .workflow-strip span {
 	border: 1px solid var(--line);
 	padding: 0.55rem 0.75rem;
@@ -1503,6 +1507,10 @@ figcaption {
 }
 
 @media screen and (max-width: 736px) {
+	.portfolio-overview .section-kicker {
+		margin-bottom: 0.9rem;
+	}
+
 	.project-video-kicker {
 		margin-bottom: 1.1rem;
 	}
