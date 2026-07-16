@@ -1436,6 +1436,15 @@ figcaption {
 		grid-template-columns: 1fr;
 	}
 
+	.work-grid {
+		row-gap: 4rem;
+	}
+
+	.work-card {
+		padding-bottom: 0;
+		border-bottom: 0;
+	}
+
 	.process-grid {
 		gap: 3.5rem;
 	}
