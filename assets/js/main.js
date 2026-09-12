@@ -480,6 +480,111 @@
 		titles.forEach((title) => observer.observe(title));
 	}
 
+	function initProcessDiagramLightbox() {
+		const images = Array.from(document.querySelectorAll('.process-diagram img'));
+
+		if (!images.length) {
+			return;
+		}
+
+		const overlay = document.createElement('div');
+		overlay.className = 'diagram-lightbox';
+		overlay.setAttribute('role', 'dialog');
+		overlay.setAttribute('aria-modal', 'true');
+		overlay.setAttribute('aria-hidden', 'true');
+		overlay.innerHTML =
+			'<button class="diagram-lightbox__close" type="button" aria-label="Close diagram">×</button>' +
+			'<div class="diagram-lightbox__stage">' +
+				'<img class="diagram-lightbox__image" alt="" />' +
+			'</div>' +
+			'<p class="diagram-lightbox__caption"></p>';
+
+		document.body.appendChild(overlay);
+
+		const closeButton = overlay.querySelector('.diagram-lightbox__close');
+		const stage = overlay.querySelector('.diagram-lightbox__stage');
+		const expandedImage = overlay.querySelector('.diagram-lightbox__image');
+		const caption = overlay.querySelector('.diagram-lightbox__caption');
+		let previousFocus = null;
+
+		function openDiagram(image) {
+			const figure = image.closest('.process-diagram');
+			const figureCaption = figure ? figure.querySelector('figcaption') : null;
+			const captionText = figureCaption && figureCaption.textContent
+				? figureCaption.textContent.trim()
+				: (image.alt || '');
+
+			previousFocus = document.activeElement;
+			expandedImage.src = image.currentSrc || image.src;
+			expandedImage.alt = image.alt || '';
+			caption.textContent = captionText;
+			caption.hidden = !captionText;
+			overlay.classList.add('is-open');
+			overlay.setAttribute('aria-hidden', 'false');
+			document.documentElement.classList.add('diagram-lightbox-open');
+			document.body.classList.add('diagram-lightbox-open');
+
+			window.requestAnimationFrame(() => {
+				closeButton.focus({
+					preventScroll: true
+				});
+			});
+		}
+
+		function closeDiagram() {
+			if (!overlay.classList.contains('is-open')) {
+				return;
+			}
+
+			overlay.classList.remove('is-open');
+			overlay.setAttribute('aria-hidden', 'true');
+			document.documentElement.classList.remove('diagram-lightbox-open');
+			document.body.classList.remove('diagram-lightbox-open');
+
+			if (previousFocus && typeof previousFocus.focus === 'function') {
+				previousFocus.focus({
+					preventScroll: true
+				});
+			}
+
+			previousFocus = null;
+		}
+
+		images.forEach((image) => {
+			image.classList.add('is-expandable');
+			image.setAttribute('role', 'button');
+			image.setAttribute('tabindex', '0');
+			image.setAttribute('aria-label', (image.alt ? image.alt + '. ' : '') + 'Open diagram');
+
+			image.addEventListener('click', () => {
+				openDiagram(image);
+			});
+
+			image.addEventListener('keydown', (event) => {
+				if (event.key !== 'Enter' && event.key !== ' ') {
+					return;
+			}
+
+				event.preventDefault();
+				openDiagram(image);
+			});
+		});
+
+		closeButton.addEventListener('click', closeDiagram);
+
+		overlay.addEventListener('click', (event) => {
+			if (event.target === overlay || event.target === stage) {
+				closeDiagram();
+			}
+		});
+
+		document.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && overlay.classList.contains('is-open')) {
+				closeDiagram();
+			}
+		});
+	}
+
 	function initPipelineLoop() {
 		if (reducedMotionQuery.matches) {
 			return;
@@ -818,6 +923,7 @@
 	initPipelineLoop();
 	initMobileScrollFocus();
 	initMobileSectionTitleReveal();
+	initProcessDiagramLightbox();
 	initCustomCursor();
 
 	window.addEventListener('load', () => {

@@ -1471,34 +1471,58 @@ figcaption {
 	}
 
 	.process-diagram {
-		width: min(51.6vw, 198px);
+		width: min(44vw, 170px);
 		max-width: none;
 		margin: 2rem auto 0;
 	}
 
 	.process-diagram__media {
+		position: relative;
 		min-height: 0 !important;
 		align-items: center;
+		padding: 0.55rem;
+		border: 1px solid rgba(238, 234, 226, 0.1);
+		background: rgba(238, 234, 226, 0.018);
+	}
+
+	.process-diagram__media::after {
+		content: "+";
+		position: absolute;
+		right: -0.55rem;
+		bottom: -0.55rem;
+		width: 1.55rem;
+		height: 1.55rem;
+		display: grid;
+		place-items: center;
+		border: 1px solid var(--line);
+		background: rgba(8, 8, 8, 0.92);
+		color: var(--text-muted);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 500;
+		line-height: 1;
+		pointer-events: none;
 	}
 
 	.process-diagram--compact {
-		width: min(50.4vw, 192px);
+		width: min(40vw, 155px);
 		max-width: none;
 	}
 
 	.process-diagram--standard {
-		width: min(51.6vw, 204px);
+		width: min(46vw, 176px);
 		max-width: none;
 	}
 
 	.process-diagram--ending-routing {
-		width: min(51.6vw, 198px);
+		width: min(46vw, 176px);
 		max-width: none;
 		align-self: auto;
 	}
 
 	.process-diagram img {
 		object-position: center center;
+		cursor: zoom-in;
 	}
 
 	.process-diagram .process-diagram__media img {
@@ -1506,11 +1530,13 @@ figcaption {
 	}
 
 	.process-diagram figcaption {
-		margin-top: 0.8rem;
+		margin-top: 0.85rem;
+		font-size: 0.6rem;
+		letter-spacing: 0.075em;
 	}
 
 	.process-diagram--stacked {
-		width: min(51.6vw, 198px);
+		width: min(45vw, 172px);
 		gap: 0.75rem;
 	}
 
@@ -1623,6 +1649,108 @@ figcaption {
 	}
 }
 
+
+/* Process diagram inspection */
+.process-diagram img.is-expandable {
+	cursor: zoom-in;
+}
+
+.diagram-lightbox {
+	position: fixed;
+	inset: 0;
+	z-index: 20000;
+	display: grid;
+	grid-template-rows: auto minmax(0, 1fr) auto;
+	padding: clamp(1rem, 3vw, 2rem);
+	background: rgba(5, 5, 5, 0.95);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transition:
+		opacity 180ms ease,
+		visibility 0s linear 180ms;
+}
+
+.diagram-lightbox.is-open {
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+	transition-delay: 0s;
+}
+
+.diagram-lightbox__close {
+	justify-self: end;
+	width: 2.25rem;
+	height: 2.25rem;
+	display: grid;
+	place-items: center;
+	padding: 0;
+	border: 1px solid var(--line);
+	background: rgba(8, 8, 8, 0.9);
+	color: var(--text);
+	font-family: var(--font-mono);
+	font-size: 1rem;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.diagram-lightbox__stage {
+	min-height: 0;
+	display: grid;
+	place-items: center;
+	padding: 1rem 0;
+}
+
+.diagram-lightbox__image {
+	display: block;
+	max-width: min(92vw, 1100px);
+	max-height: 80svh;
+	width: auto;
+	height: auto;
+	object-fit: contain;
+}
+
+.diagram-lightbox__caption {
+	justify-self: center;
+	max-width: min(90vw, 44rem);
+	margin: 0;
+	color: var(--text-dim);
+	font-family: var(--font-mono);
+	font-size: 0.64rem;
+	line-height: 1.4;
+	letter-spacing: 0.08em;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+html.diagram-lightbox-open,
+body.diagram-lightbox-open {
+	overflow: hidden;
+}
+
+@media screen and (max-width: 736px) {
+	.diagram-lightbox {
+		padding: 0.85rem;
+	}
+
+	.diagram-lightbox__image {
+		max-width: 94vw;
+		max-height: 78svh;
+	}
+
+	.diagram-lightbox__caption {
+		max-width: 92vw;
+		font-size: 0.6rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.diagram-lightbox {
+		transition: none !important;
+	}
+}
 
 /* Realtime Lab */
 #realtime-lab .section__header h2 {
