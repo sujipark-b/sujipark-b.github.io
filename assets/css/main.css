@@ -1888,8 +1888,8 @@ figcaption {
 	}
 
 	.custom-cursor-glow {
-		width: 30px;
-		height: 30px;
+		width: 26px;
+		height: 26px;
 		border-radius: 50%;
 		background: radial-gradient(
 			circle,
@@ -1949,9 +1949,9 @@ figcaption {
 	.experiment-stage {
 		transition:
 			border-color 260ms ease,
-			box-shadow 300ms ease,
+			box-shadow 320ms ease,
 			background-color 260ms ease,
-			transform 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
+			transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
 	}
 
 	.site-nav a:hover,
@@ -1961,8 +1961,8 @@ figcaption {
 	.contact-item:hover,
 	.contact-item:focus-visible {
 		box-shadow:
-			0 0 24px rgba(var(--accent-rgb), 0.09),
-			inset 0 0 18px rgba(var(--accent-rgb), 0.025);
+			0 0 34px rgba(var(--accent-rgb), 0.16),
+			inset 0 0 24px rgba(var(--accent-rgb), 0.045);
 	}
 
 	.video-embed:hover,
@@ -1971,16 +1971,16 @@ figcaption {
 	.cv-preview:focus-visible,
 	.work-card:hover .media-frame,
 	.experiment-stage:hover {
-		border-color: rgba(var(--accent-rgb), 0.42);
+		border-color: rgba(var(--accent-rgb), 0.56);
 		box-shadow:
-			0 0 0 1px rgba(var(--accent-rgb), 0.025),
-			0 0 34px rgba(var(--accent-rgb), 0.10);
+			0 0 0 1px rgba(var(--accent-rgb), 0.035),
+			0 0 46px rgba(var(--accent-rgb), 0.16);
 	}
 
 	.video-embed:hover,
 	.cv-preview:hover,
 	.work-card:hover .media-frame {
-		transform: translate3d(0, -2px, 0);
+		transform: translate3d(0, -4px, 0);
 	}
 
 	.visual-grid .visual-card img {
@@ -1992,7 +1992,8 @@ figcaption {
 
 	.visual-grid .visual-card:hover img,
 	.visual-grid .visual-card:focus-within img {
-		box-shadow: 0 0 28px rgba(var(--accent-rgb), 0.085);
+		box-shadow: 0 0 38px rgba(var(--accent-rgb), 0.14);
+		transform: scale(1.015);
 	}
 
 	.pipeline-flow span {
@@ -2005,31 +2006,30 @@ figcaption {
 	}
 
 	.pipeline-flow span:hover {
-		border-color: rgba(var(--accent-rgb), 0.5);
-		background: rgba(var(--accent-rgb), 0.055);
-		box-shadow: 0 0 24px rgba(var(--accent-rgb), 0.12);
-		transform: translate3d(0, -1px, 0);
+		border-color: rgba(var(--accent-rgb), 0.62);
+		background: rgba(var(--accent-rgb), 0.075);
+		box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.18);
+		transform: translate3d(0, -2px, 0);
 	}
 }
 
+/* Section entry: one clearly readable cue rather than several weak motions. */
 .section.section--interaction-active .section__header h2 {
-	animation: section-title-reveal 620ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-
-.section.section--interaction-active .content > :first-child {
-	animation: section-content-reveal 640ms 80ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+	animation: section-title-reveal 720ms cubic-bezier(0.16, 0.72, 0.24, 1) both;
 }
 
 @keyframes section-title-reveal {
 	0% {
-		opacity: 0.62;
-		transform: translate3d(0, 10px, 0);
+		opacity: 0.12;
+		transform: translate3d(0, 18px, 0);
 		text-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
 	}
 
-	55% {
+	52% {
 		opacity: 1;
-		text-shadow: 0 0 24px rgba(var(--accent-rgb), 0.16);
+		text-shadow:
+			0 0 22px rgba(var(--accent-rgb), 0.24),
+			0 0 48px rgba(var(--accent-rgb), 0.10);
 	}
 
 	100% {
@@ -2039,84 +2039,85 @@ figcaption {
 	}
 }
 
-@keyframes section-content-reveal {
-	0% {
-		opacity: 0.7;
-		transform: translate3d(0, 8px, 0);
-	}
-
-	100% {
-		opacity: 1;
-		transform: translate3d(0, 0, 0);
-	}
+/* Pipeline: a slow signal pass, then a long pause, repeated only while visible. */
+.pipeline-flow span,
+.pipeline-flow i {
+	animation: none;
 }
 
-/* Realtime pipeline uses the same glow language to show signal flow. */
-.section--interaction-active .pipeline-flow span {
-	animation: pipeline-node-flow 720ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+.experiment-stage.is-pipeline-active .pipeline-flow span {
+	animation: pipeline-node-loop 8s linear infinite both;
 }
 
-.section--interaction-active .pipeline-flow i {
-	animation: pipeline-arrow-flow 560ms ease both;
+.experiment-stage.is-pipeline-active .pipeline-flow i {
+	animation: pipeline-arrow-loop 8s linear infinite both;
 }
 
-.section--interaction-active .pipeline-flow span:nth-of-type(1) { animation-delay: 180ms; }
-.section--interaction-active .pipeline-flow i:nth-of-type(1) { animation-delay: 300ms; }
-.section--interaction-active .pipeline-flow span:nth-of-type(2) { animation-delay: 390ms; }
-.section--interaction-active .pipeline-flow i:nth-of-type(2) { animation-delay: 510ms; }
-.section--interaction-active .pipeline-flow span:nth-of-type(3) { animation-delay: 600ms; }
-.section--interaction-active .pipeline-flow i:nth-of-type(3) { animation-delay: 720ms; }
-.section--interaction-active .pipeline-flow span:nth-of-type(4) { animation-delay: 810ms; }
-.section--interaction-active .pipeline-flow i:nth-of-type(4) { animation-delay: 930ms; }
-.section--interaction-active .pipeline-flow span:nth-of-type(5) { animation-delay: 1020ms; }
+.experiment-stage.is-pipeline-active .pipeline-flow span:nth-of-type(1) { animation-delay: 0s; }
+.experiment-stage.is-pipeline-active .pipeline-flow i:nth-of-type(1) { animation-delay: 0.34s; }
+.experiment-stage.is-pipeline-active .pipeline-flow span:nth-of-type(2) { animation-delay: 0.55s; }
+.experiment-stage.is-pipeline-active .pipeline-flow i:nth-of-type(2) { animation-delay: 0.89s; }
+.experiment-stage.is-pipeline-active .pipeline-flow span:nth-of-type(3) { animation-delay: 1.10s; }
+.experiment-stage.is-pipeline-active .pipeline-flow i:nth-of-type(3) { animation-delay: 1.44s; }
+.experiment-stage.is-pipeline-active .pipeline-flow span:nth-of-type(4) { animation-delay: 1.65s; }
+.experiment-stage.is-pipeline-active .pipeline-flow i:nth-of-type(4) { animation-delay: 1.99s; }
+.experiment-stage.is-pipeline-active .pipeline-flow span:nth-of-type(5) { animation-delay: 2.20s; }
 
-@keyframes pipeline-node-flow {
-	0% {
+@keyframes pipeline-node-loop {
+	0%, 5% {
 		border-color: var(--line);
 		background: rgba(8, 8, 8, 0.7);
 		box-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
 	}
 
-	45% {
-		border-color: rgba(var(--accent-rgb), 0.62);
-		background: rgba(var(--accent-rgb), 0.08);
-		box-shadow: 0 0 28px rgba(var(--accent-rgb), 0.18);
+	8% {
+		border-color: rgba(var(--accent-rgb), 0.72);
+		background: rgba(var(--accent-rgb), 0.10);
+		box-shadow:
+			0 0 18px rgba(var(--accent-rgb), 0.26),
+			0 0 38px rgba(var(--accent-rgb), 0.12);
 	}
 
-	100% {
+	13% {
+		border-color: rgba(var(--accent-rgb), 0.34);
+		background: rgba(var(--accent-rgb), 0.035);
+		box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.08);
+	}
+
+	18%, 100% {
 		border-color: var(--line);
 		background: rgba(8, 8, 8, 0.7);
 		box-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
 	}
 }
 
-@keyframes pipeline-arrow-flow {
-	0% {
-		opacity: 0.35;
+@keyframes pipeline-arrow-loop {
+	0%, 5% {
+		opacity: 0.42;
 		text-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
 	}
 
-	50% {
+	8% {
 		opacity: 1;
-		text-shadow: 0 0 14px rgba(var(--accent-rgb), 0.38);
+		text-shadow:
+			0 0 10px rgba(var(--accent-rgb), 0.5),
+			0 0 20px rgba(var(--accent-rgb), 0.22);
 	}
 
-	100% {
-		opacity: 1;
+	14%, 100% {
+		opacity: 0.72;
 		text-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
 	.section.section--interaction-active .section__header h2,
-	.section.section--interaction-active .content > :first-child,
-	.section--interaction-active .pipeline-flow span,
-	.section--interaction-active .pipeline-flow i {
+	.experiment-stage.is-pipeline-active .pipeline-flow span,
+	.experiment-stage.is-pipeline-active .pipeline-flow i {
 		animation: none !important;
 		transform: none !important;
 	}
 }
-
 
 /* Cursor affordance: expand on interactive targets + one-shot radial burst */
 @media (hover: hover) and (pointer: fine) {
@@ -2128,8 +2129,8 @@ figcaption {
 		content: "";
 		position: absolute;
 		inset: 50%;
-		width: 58px;
-		height: 58px;
+		width: 88px;
+		height: 88px;
 		border-radius: 50%;
 		pointer-events: none;
 		opacity: 0;
@@ -2158,20 +2159,20 @@ figcaption {
 	}
 
 	.custom-cursor-glow.is-interactive {
-		width: 50px;
-		height: 50px;
+		width: 66px;
+		height: 66px;
 		background: radial-gradient(
 			circle,
-			rgba(var(--accent-rgb), 0.29) 0%,
-			rgba(var(--accent-rgb), 0.14) 30%,
-			rgba(var(--accent-rgb), 0.055) 54%,
+			rgba(var(--accent-rgb), 0.34) 0%,
+			rgba(var(--accent-rgb), 0.17) 30%,
+			rgba(var(--accent-rgb), 0.07) 54%,
 			transparent 74%
 		);
 		filter: blur(1.7px);
 	}
 
 	.custom-cursor-glow.is-burst::before {
-		animation: cursor-interactive-burst 420ms cubic-bezier(0.16, 0.7, 0.25, 1) both;
+		animation: cursor-interactive-burst 520ms cubic-bezier(0.16, 0.7, 0.25, 1) both;
 	}
 
 	.custom-cursor-dot.is-interactive {
@@ -2188,7 +2189,7 @@ figcaption {
 	}
 
 	24% {
-		opacity: 0.8;
+		opacity: 0.92;
 	}
 
 	70% {
@@ -2197,7 +2198,7 @@ figcaption {
 
 	100% {
 		opacity: 0;
-		transform: translate(-50%, -50%) scale(1.18) rotate(20deg);
+		transform: translate(-50%, -50%) scale(1.28) rotate(24deg);
 	}
 }
 
