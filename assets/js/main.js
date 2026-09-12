@@ -557,58 +557,6 @@
 		scheduleMobileSectionCue();
 	}
 
-	function initMobileProcessDiagramPlacement() {
-		const mobileLayoutQuery = window.matchMedia('(max-width: 736px)');
-		const items = Array.from(document.querySelectorAll('.process-item--01, .process-item--02, .process-item--03'))
-			.map((item) => {
-				const copy = item.querySelector('.process-copy');
-				const diagram = copy ? copy.querySelector(':scope > .process-diagram') : null;
-				const anchor = item.querySelector('.process-diagram-anchor');
-
-				if (!copy || !diagram || !anchor) {
-					return null;
-				}
-
-				const origin = document.createComment('process-diagram-origin');
-				copy.insertBefore(origin, diagram);
-
-				return {
-					copy,
-					diagram,
-					anchor,
-					origin
-				};
-			})
-			.filter(Boolean);
-
-		if (!items.length) {
-			return;
-		}
-
-		function syncPlacement() {
-			items.forEach(({ diagram, anchor, origin }) => {
-				if (mobileLayoutQuery.matches) {
-					anchor.parentNode.insertBefore(diagram, anchor.nextSibling);
-					diagram.classList.add('is-mobile-inline');
-					return;
-				}
-
-				diagram.classList.remove('is-mobile-inline');
-				if (origin.parentNode) {
-					origin.parentNode.insertBefore(diagram, origin.nextSibling);
-				}
-			});
-		}
-
-		syncPlacement();
-
-		if (typeof mobileLayoutQuery.addEventListener === 'function') {
-			mobileLayoutQuery.addEventListener('change', syncPlacement);
-		} else if (typeof mobileLayoutQuery.addListener === 'function') {
-			mobileLayoutQuery.addListener(syncPlacement);
-		}
-	}
-
 	function initProcessDiagramLightbox() {
 		const images = Array.from(document.querySelectorAll('.process-diagram img'));
 
@@ -1052,7 +1000,6 @@
 	initPipelineLoop();
 	initMobileScrollFocus();
 	initMobileSectionCue();
-	initMobileProcessDiagramPlacement();
 	initProcessDiagramLightbox();
 	initCustomCursor();
 

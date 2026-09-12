@@ -1670,15 +1670,10 @@ figcaption {
 		max-width: none;
 	}
 
-	.process-diagram-anchor {
-		display: none;
-	}
-
-	/* Processes 01–03: on mobile, JS moves each thumbnail to a marker inside the copy
-	   so the diagram begins near the final lines instead of being pushed down with margins. */
-	.process-item--01 .process-diagram.is-mobile-inline,
-	.process-item--02 .process-diagram.is-mobile-inline,
-	.process-item--03 .process-diagram.is-mobile-inline {
+	/* Processes 01–03: compact annotation thumbnails aligned with the opening body copy. */
+	.process-item--01 .process-copy > .process-diagram,
+	.process-item--02 .process-copy > .process-diagram,
+	.process-item--03 .process-copy > .process-diagram {
 		float: right;
 		clear: right;
 		margin: 0.1rem 0 0.55rem 0.9rem;
@@ -1686,15 +1681,15 @@ figcaption {
 		align-self: auto;
 	}
 
-	.process-item--01 .process-diagram.is-mobile-inline {
+	.process-item--01 .process-copy > .process-diagram {
 		width: 110px;
 	}
 
-	.process-item--02 .process-diagram.is-mobile-inline {
+	.process-item--02 .process-copy > .process-diagram {
 		width: 96px;
 	}
 
-	.process-item--03 .process-diagram.is-mobile-inline {
+	.process-item--03 .process-copy > .process-diagram {
 		width: 110px;
 	}
 
