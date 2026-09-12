@@ -2212,3 +2212,46 @@ figcaption {
 		height: 30px;
 	}
 }
+
+
+/* Canonical media hover frame */
+@media (hover: hover) and (pointer: fine) {
+	/* Every portfolio/content image gets the same red frame + glow on hover. */
+	.content img {
+		transition:
+			filter 480ms cubic-bezier(0.2, 0.7, 0.2, 1),
+			transform 420ms cubic-bezier(0.2, 0.7, 0.2, 1),
+			outline-color 220ms ease,
+			box-shadow 300ms ease;
+		outline: 1px solid transparent;
+		outline-offset: -1px;
+	}
+
+	.content img:hover,
+	.visual-card:hover > img,
+	.work-card:hover .media-frame > img,
+	.cv-preview:hover img,
+	.cv-preview:focus-visible img {
+		outline-color: rgba(var(--accent-rgb), 0.62);
+		box-shadow:
+			0 0 0 1px rgba(var(--accent-rgb), 0.05),
+			0 0 38px rgba(var(--accent-rgb), 0.15);
+	}
+
+	/* Avoid a second competing frame on image wrappers. */
+	.work-card:hover .media-frame,
+	.cv-preview:hover,
+	.cv-preview:focus-visible {
+		border-color: var(--line);
+		box-shadow: none;
+	}
+
+	/* Embedded video has no hoverable <img>, so its wrapper uses the same frame language. */
+	.video-embed:hover,
+	.video-embed:focus-within {
+		border-color: rgba(var(--accent-rgb), 0.62);
+		box-shadow:
+			0 0 0 1px rgba(var(--accent-rgb), 0.05),
+			0 0 38px rgba(var(--accent-rgb), 0.15);
+	}
+}
