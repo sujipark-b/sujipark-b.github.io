@@ -2266,3 +2266,30 @@ figcaption {
 			0 0 38px rgba(var(--accent-rgb), 0.15);
 	}
 }
+
+
+/* Featured hero media matches Visual Presentation hover */
+.project-block--first > .media-frame > img {
+	filter: grayscale(86%) contrast(0.96);
+	transform: scale(1);
+	outline: 0 !important;
+	transition:
+		filter 480ms cubic-bezier(0.2, 0.7, 0.2, 1),
+		transform 480ms cubic-bezier(0.2, 0.7, 0.2, 1),
+		box-shadow 320ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.project-block--first > .media-frame:hover > img,
+	.project-block--first > .media-frame:focus-within > img {
+		filter: grayscale(0%) contrast(1);
+		transform: scale(1.015);
+		outline: 0 !important;
+		box-shadow: 0 0 38px rgba(var(--accent-rgb), 0.14);
+	}
+
+	.project-block--first > .media-frame:hover {
+		border-color: var(--line);
+		box-shadow: none;
+	}
+}
