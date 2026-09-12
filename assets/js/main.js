@@ -360,7 +360,7 @@
 
 
 	function initPipelineLoop() {
-		if (reducedMotionQuery.matches || !('IntersectionObserver' in window)) {
+		if (reducedMotionQuery.matches) {
 			return;
 		}
 
@@ -372,12 +372,39 @@
 			return;
 		}
 
+		function playPipeline(stage) {
+			stage.classList.remove('is-pipeline-playing');
+			void stage.offsetWidth;
+			stage.classList.add('is-pipeline-playing');
+		}
+
+		stages.forEach((stage) => {
+			stage.addEventListener('pointerenter', () => {
+				if (finePointerQuery.matches) {
+					playPipeline(stage);
+				}
+			}, {
+				passive: true
+			});
+		});
+
+		if (!('IntersectionObserver' in window)) {
+			stages.forEach(playPipeline);
+			return;
+		}
+
+		const visibleState = new WeakMap();
+
 		const observer = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {
-				entry.target.classList.toggle(
-					'is-pipeline-active',
-					entry.isIntersecting && entry.intersectionRatio >= 0.35
-				);
+				const wasVisible = visibleState.get(entry.target) || false;
+				const isVisible = entry.isIntersecting && entry.intersectionRatio >= 0.35;
+
+				if (isVisible && !wasVisible) {
+					playPipeline(entry.target);
+				}
+
+				visibleState.set(entry.target, isVisible);
 			});
 		}, {
 			threshold: [0, 0.35, 0.6]
