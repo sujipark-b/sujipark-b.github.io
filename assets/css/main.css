@@ -1623,6 +1623,48 @@ figcaption {
 		align-content: normal;
 	}
 
+	/* Processes 01–03: full-width copy, compact right-aligned diagram underneath. */
+	.process-item--01,
+	.process-item--02,
+	.process-item--03 {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.process-item--01 .process-copy,
+	.process-item--02 .process-copy,
+	.process-item--03 .process-copy {
+		display: block;
+		width: 100%;
+		max-width: none;
+	}
+
+	.process-item--01 > .process-diagram,
+	.process-item--02 > .process-diagram,
+	.process-item--03 > .process-diagram {
+		margin: 1.15rem 0 0 auto;
+		justify-self: end;
+		align-self: flex-end;
+	}
+
+	.process-item--01 > .process-diagram {
+		width: min(42vw, 165px);
+	}
+
+	.process-item--02 > .process-diagram {
+		width: min(38vw, 150px);
+	}
+
+	.process-item--03 > .process-diagram {
+		width: min(42vw, 165px);
+	}
+
+	.process-item--01 .process-diagram figcaption,
+	.process-item--02 .process-diagram figcaption,
+	.process-item--03 .process-diagram figcaption {
+		margin-top: 0.7rem;
+	}
+
 	.process-item--04 {
 		display: block;
 	}
@@ -1672,84 +1714,6 @@ figcaption {
 
 	.contact-links a {
 		grid-template-columns: 1.5rem minmax(0, 1fr);
-	}
-}
-
-@media screen and (min-width: 340px) and (max-width: 736px) {
-	.process-item--01,
-	.process-item--02,
-	.process-item--03 {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(118px, 38%);
-		grid-template-areas:
-			"kicker kicker"
-			"title title"
-			"body diagram"
-			"after after";
-		column-gap: 0.95rem;
-		row-gap: 0;
-		align-items: start;
-	}
-
-	.process-item--01 .process-copy,
-	.process-item--02 .process-copy,
-	.process-item--03 .process-copy {
-		display: contents;
-	}
-
-	.process-item--01 .process-kicker,
-	.process-item--02 .process-kicker,
-	.process-item--03 .process-kicker {
-		grid-area: kicker;
-	}
-
-	.process-item--01 .process-copy h3,
-	.process-item--02 .process-copy h3,
-	.process-item--03 .process-copy h3 {
-		grid-area: title;
-		margin-bottom: 1.35rem;
-	}
-
-	.process-item--01 .process-copy p:first-of-type,
-	.process-item--02 .process-copy p:first-of-type,
-	.process-item--03 .process-copy p:first-of-type {
-		grid-area: body;
-		margin: 0;
-		align-self: start;
-	}
-
-	.process-item--01 > .process-diagram,
-	.process-item--02 > .process-diagram,
-	.process-item--03 > .process-diagram {
-		grid-area: diagram;
-		width: 100%;
-		max-width: 168px;
-		margin: 0;
-		justify-self: end;
-		align-self: start;
-	}
-
-	.process-item--01 > .process-diagram {
-		max-width: 164px;
-	}
-
-	.process-item--02 > .process-diagram {
-		max-width: 152px;
-	}
-
-	.process-item--03 > .process-diagram {
-		max-width: 164px;
-	}
-
-	.process-item--03 .process-copy p:nth-of-type(2) {
-		grid-area: after;
-		margin: 1.6rem 0 0;
-	}
-
-	.process-item--01 .process-diagram figcaption,
-	.process-item--02 .process-diagram figcaption,
-	.process-item--03 .process-diagram figcaption {
-		margin-top: 0.7rem;
 	}
 }
 
