@@ -495,12 +495,14 @@
 
 			positionDot(pointerX, pointerY);
 			showCursor();
+			syncInteractiveTargetAtPointer();
 		}, {
 			passive: true
 		});
 
 		let currentInteractiveTarget = null;
 		let bloomTimer = null;
+		let hoverSyncFrame = null;
 
 		function triggerCursorBloom() {
 			glow.classList.remove('is-blooming');
@@ -513,11 +515,16 @@
 			}, 560);
 		}
 
-		document.addEventListener('pointerover', (event) => {
-			const interactiveTarget = event.target.closest
-				? event.target.closest(interactiveSelector)
-				: null;
+		function setInteractiveTarget(interactiveTarget) {
 			const isInteractive = Boolean(interactiveTarget);
+
+			if (currentInteractiveTarget && currentInteractiveTarget !== interactiveTarget) {
+				currentInteractiveTarget.classList.remove('is-pointer-hover');
+			}
+
+			if (interactiveTarget) {
+				interactiveTarget.classList.add('is-pointer-hover');
+			}
 
 			glow.classList.toggle('is-interactive', isInteractive);
 			dot.classList.toggle('is-interactive', isInteractive);
@@ -527,7 +534,46 @@
 			}
 
 			currentInteractiveTarget = interactiveTarget;
-		});
+		}
+
+		function syncInteractiveTargetAtPointer() {
+			if (!hasPointerPosition) {
+				return;
+			}
+
+			const elementAtPointer = document.elementFromPoint(pointerX, pointerY);
+
+			if (!elementAtPointer) {
+				setInteractiveTarget(null);
+				return;
+			}
+
+			/* Embedded players keep the native cursor. */
+			if (elementAtPointer.tagName === 'IFRAME') {
+				setInteractiveTarget(null);
+				hideCursor();
+				return;
+			}
+
+			showCursor();
+
+			const interactiveTarget = elementAtPointer.closest
+				? elementAtPointer.closest(interactiveSelector)
+				: null;
+
+			setInteractiveTarget(interactiveTarget);
+		}
+
+		function scheduleHoverSync() {
+			if (hoverSyncFrame) {
+				return;
+			}
+
+			hoverSyncFrame = window.requestAnimationFrame(() => {
+				hoverSyncFrame = null;
+				syncInteractiveTargetAtPointer();
+			});
+		}
 
 		document.addEventListener('pointerdown', () => {
 			glow.classList.add('is-pressed');
@@ -541,13 +587,28 @@
 			passive: true
 		});
 
+		window.addEventListener('scroll', scheduleHoverSync, { passive: true });
+		window.addEventListener('resize', scheduleHoverSync);
+
 		window.addEventListener('blur', hideCursor);
-		document.documentElement.addEventListener('mouseleave', hideCursor);
-		document.documentElement.addEventListener('mouseenter', showCursor);
+		document.documentElement.addEventListener('mouseleave', () => {
+			setInteractiveTarget(null);
+			hideCursor();
+		});
+		document.documentElement.addEventListener('mouseenter', () => {
+			showCursor();
+			scheduleHoverSync();
+		});
 
 		document.querySelectorAll('iframe').forEach((frame) => {
-			frame.addEventListener('mouseenter', hideCursor);
-			frame.addEventListener('mouseleave', showCursor);
+			frame.addEventListener('mouseenter', () => {
+				setInteractiveTarget(null);
+				hideCursor();
+			});
+			frame.addEventListener('mouseleave', () => {
+				showCursor();
+				scheduleHoverSync();
+			});
 		});
 
 		animationFrame = window.requestAnimationFrame(animateGlow);
