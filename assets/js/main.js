@@ -358,6 +358,34 @@
 	}
 
 
+
+	function initPipelineLoop() {
+		if (reducedMotionQuery.matches || !('IntersectionObserver' in window)) {
+			return;
+		}
+
+		const stages = Array.from(
+			document.querySelectorAll('.experiment-stage .pipeline-flow')
+		).map((flow) => flow.closest('.experiment-stage')).filter(Boolean);
+
+		if (!stages.length) {
+			return;
+		}
+
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				entry.target.classList.toggle(
+					'is-pipeline-active',
+					entry.isIntersecting && entry.intersectionRatio >= 0.35
+				);
+			});
+		}, {
+			threshold: [0, 0.35, 0.6]
+		});
+
+		stages.forEach((stage) => observer.observe(stage));
+	}
+
 	function initCustomCursor() {
 		if (!finePointerQuery.matches || reducedMotionQuery.matches) {
 			return;
@@ -428,7 +456,7 @@
 			window.clearTimeout(burstTimer);
 			burstTimer = window.setTimeout(() => {
 				glow.classList.remove('is-burst');
-			}, 460);
+			}, 560);
 		}
 
 		document.addEventListener('pointerover', (event) => {
@@ -551,6 +579,7 @@
 		touchQuery.addListener(handleTouchCapabilityChange);
 	}
 
+	initPipelineLoop();
 	initCustomCursor();
 
 	window.addEventListener('load', () => {
