@@ -483,7 +483,7 @@
 			window.clearTimeout(burstTimer);
 			burstTimer = window.setTimeout(() => {
 				glow.classList.remove('is-burst');
-			}, 560);
+			}, 680);
 		}
 
 		document.addEventListener('pointerover', (event) => {
