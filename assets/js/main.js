@@ -37,7 +37,7 @@
 	const finePointerQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
 	const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 	const touchCardSelector = '.cv-preview';
-	const mobileScrollCardSelector = '.visual-card, .work-card';
+	const mobileScrollCardSelector = '.visual-card, .work-card, .cv-preview';
 
 	function getCurrentSection() {
 		const activationY = window.innerHeight * ACTIVATION_RATIO;
