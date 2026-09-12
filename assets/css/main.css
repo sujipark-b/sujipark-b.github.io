@@ -1977,12 +1977,6 @@ figcaption {
 			0 0 46px rgba(var(--accent-rgb), 0.16);
 	}
 
-	.video-embed:hover,
-	.cv-preview:hover,
-	.work-card:hover .media-frame {
-		transform: translate3d(0, -4px, 0);
-	}
-
 	.visual-grid .visual-card img {
 		transition:
 			filter 480ms cubic-bezier(0.2, 0.7, 0.2, 1),
@@ -2215,84 +2209,80 @@ figcaption {
 
 /* Canonical media hover frame */
 @media (hover: hover) and (pointer: fine) {
-	/* Only portfolio/content media that is meant to feel interactive gets the hover frame.
-	   Process diagrams stay static. */
+	/* Still imagery: one shared interaction language everywhere. */
 	.project-block--first > .media-frame > img,
 	.visual-card > img,
-	.work-card .media-frame > img,
-	.cv-preview img {
+	.work-card .media-frame > img {
+		filter: grayscale(86%) contrast(0.96);
+		transform: scale(1);
+		outline: 0 !important;
 		transition:
 			filter 480ms cubic-bezier(0.2, 0.7, 0.2, 1),
-			transform 420ms cubic-bezier(0.2, 0.7, 0.2, 1),
-			outline-color 220ms ease,
-			box-shadow 300ms ease;
-		outline: 1px solid transparent;
-		outline-offset: -1px;
+			transform 480ms cubic-bezier(0.2, 0.7, 0.2, 1),
+			box-shadow 320ms ease;
 	}
 
 	.project-block--first > .media-frame:hover > img,
+	.project-block--first > .media-frame:focus-within > img,
 	.visual-card:hover > img,
+	.visual-card:focus-within > img,
 	.work-card:hover .media-frame > img,
-	.cv-preview:hover img,
-	.cv-preview:focus-visible img {
-		outline-color: rgba(var(--accent-rgb), 0.62);
-		box-shadow:
-			0 0 0 1px rgba(var(--accent-rgb), 0.05),
-			0 0 38px rgba(var(--accent-rgb), 0.15);
-	}
-
-	/* Static explanatory diagrams should never pick up the portfolio hover treatment. */
-	.process-diagram img,
-	.process-diagram__media img {
-		outline: 0 !important;
-		box-shadow: none !important;
-		transform: none !important;
-	}
-
-	/* Avoid a second competing frame on image wrappers. */
-	.work-card:hover .media-frame,
-	.cv-preview:hover,
-	.cv-preview:focus-visible {
-		border-color: var(--line);
-		box-shadow: none;
-	}
-
-	/* Embedded video has no hoverable <img>, so its wrapper uses the same frame language. */
-	.video-embed:hover,
-	.video-embed:focus-within {
-		border-color: rgba(var(--accent-rgb), 0.62);
-		box-shadow:
-			0 0 0 1px rgba(var(--accent-rgb), 0.05),
-			0 0 38px rgba(var(--accent-rgb), 0.15);
-	}
-}
-
-
-/* Featured hero media matches Visual Presentation hover */
-.project-block--first > .media-frame > img {
-	filter: grayscale(86%) contrast(0.96);
-	transform: scale(1);
-	outline: 0 !important;
-	transition:
-		filter 480ms cubic-bezier(0.2, 0.7, 0.2, 1),
-		transform 480ms cubic-bezier(0.2, 0.7, 0.2, 1),
-		box-shadow 320ms ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-	.project-block--first > .media-frame:hover > img,
-	.project-block--first > .media-frame:focus-within > img {
+	.work-card:focus-within .media-frame > img {
 		filter: grayscale(0%) contrast(1);
 		transform: scale(1.015);
 		outline: 0 !important;
 		box-shadow: 0 0 38px rgba(var(--accent-rgb), 0.14);
 	}
 
+	/* Wrapper stays physically still; glow can extend outward. */
 	.project-block--first > .media-frame:hover,
-	.project-block--first > .media-frame:focus-within {
+	.project-block--first > .media-frame:focus-within,
+	.work-card:hover .media-frame,
+	.work-card:focus-within .media-frame {
+		transform: none;
 		border-color: var(--line);
 		box-shadow:
 			0 0 28px rgba(var(--accent-rgb), 0.12),
 			0 0 54px rgba(var(--accent-rgb), 0.10);
+	}
+
+	/* Visual Presentation cards are borderless by design; only image scale + glow. */
+	.visual-grid .visual-card:hover,
+	.visual-grid .visual-card:focus-within,
+	.visual-grid .media-frame:hover,
+	.visual-grid .media-frame:focus-within {
+		transform: none;
+		box-shadow: none;
+	}
+
+	/* Static explanatory diagrams never receive portfolio hover behavior. */
+	.process-diagram img,
+	.process-diagram__media img {
+		filter: none !important;
+		outline: 0 !important;
+		box-shadow: none !important;
+		transform: none !important;
+	}
+
+	/* Video/document media: no lift or scale, only a clear glow response. */
+	.video-embed:hover,
+	.video-embed:focus-within {
+		transform: none;
+		border-color: rgba(var(--accent-rgb), 0.62);
+		box-shadow:
+			0 0 0 1px rgba(var(--accent-rgb), 0.05),
+			0 0 38px rgba(var(--accent-rgb), 0.15);
+	}
+
+	.cv-preview:hover,
+	.cv-preview:focus-visible {
+		transform: none;
+		border-color: rgba(var(--accent-rgb), 0.42);
+		box-shadow: 0 0 38px rgba(var(--accent-rgb), 0.13);
+	}
+
+	.cv-preview:hover img,
+	.cv-preview:focus-visible img {
+		transform: none !important;
 	}
 }
