@@ -951,6 +951,38 @@ figcaption {
 		padding-top: 2.75rem;
 	}
 
+	.process-item--01 > .process-copy,
+	.process-item--02 > .process-copy,
+	.process-item--03 > .process-copy {
+		flex: 1 1 auto;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.process-item--01 .process-copy > .process-diagram,
+	.process-item--02 .process-copy > .process-diagram,
+	.process-item--03 .process-copy > .process-diagram {
+		order: 3;
+		margin-top: auto;
+		padding-top: 2.75rem;
+		align-self: center;
+	}
+
+	.process-item--01 .process-copy > p,
+	.process-item--02 .process-copy > p,
+	.process-item--03 .process-copy > p {
+		order: 2;
+	}
+
+	.process-item--01 .process-copy > .process-kicker,
+	.process-item--02 .process-copy > .process-kicker,
+	.process-item--03 .process-copy > .process-kicker,
+	.process-item--01 .process-copy > h3,
+	.process-item--02 .process-copy > h3,
+	.process-item--03 .process-copy > h3 {
+		order: 1;
+	}
+
 	.process-item--04 > .process-copy:first-child {
 		order: 1;
 	}
@@ -1623,40 +1655,41 @@ figcaption {
 		align-content: normal;
 	}
 
-	/* Processes 01–03: full-width copy, compact right-aligned diagram underneath. */
+	/* Processes 01–03: floated technical thumbnails let body copy keep its reading width. */
 	.process-item--01,
 	.process-item--02,
 	.process-item--03 {
-		display: flex;
-		flex-direction: column;
+		display: block;
 	}
 
 	.process-item--01 .process-copy,
 	.process-item--02 .process-copy,
 	.process-item--03 .process-copy {
-		display: block;
+		display: flow-root;
 		width: 100%;
 		max-width: none;
 	}
 
-	.process-item--01 > .process-diagram,
-	.process-item--02 > .process-diagram,
-	.process-item--03 > .process-diagram {
-		margin: 0.85rem 0 0 auto;
-		justify-self: end;
-		align-self: flex-end;
+	.process-item--01 .process-copy > .process-diagram,
+	.process-item--02 .process-copy > .process-diagram,
+	.process-item--03 .process-copy > .process-diagram {
+		float: right;
+		clear: right;
+		margin: 0.1rem 0 0.65rem 0.9rem;
+		padding: 0;
+		align-self: auto;
 	}
 
-	.process-item--01 > .process-diagram {
-		width: min(29vw, 112px);
+	.process-item--01 .process-copy > .process-diagram {
+		width: 110px;
 	}
 
-	.process-item--02 > .process-diagram {
-		width: min(25vw, 98px);
+	.process-item--02 .process-copy > .process-diagram {
+		width: 96px;
 	}
 
-	.process-item--03 > .process-diagram {
-		width: min(29vw, 112px);
+	.process-item--03 .process-copy > .process-diagram {
+		width: 110px;
 	}
 
 	.process-item--01 .process-diagram__media::after,
@@ -1687,6 +1720,12 @@ figcaption {
 		line-height: 1.35;
 		letter-spacing: 0.07em;
 		text-transform: uppercase;
+	}
+
+	.process-item--01 .process-copy > p,
+	.process-item--02 .process-copy > p,
+	.process-item--03 .process-copy > p {
+		margin-top: 0;
 	}
 
 	.process-item--04 {
