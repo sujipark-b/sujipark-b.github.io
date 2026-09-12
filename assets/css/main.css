@@ -2051,7 +2051,8 @@ body.diagram-lightbox-open {
 		position: fixed;
 		top: 0;
 		left: 0;
-		z-index: 10000;
+		/* Keep the site cursor above fullscreen overlays such as diagram zoom. */
+		z-index: 30000;
 		pointer-events: none;
 		opacity: 0;
 		transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
