@@ -2286,3 +2286,21 @@ figcaption {
 		transform: none !important;
 	}
 }
+
+
+/* Borderless still-media rule */
+.project-block--first > .media-frame,
+.work-card .media-frame {
+	border: 0 !important;
+	background: transparent;
+}
+
+/* Still images stay borderless on hover; glow is the affordance. */
+@media (hover: hover) and (pointer: fine) {
+	.project-block--first > .media-frame:hover,
+	.project-block--first > .media-frame:focus-within,
+	.work-card:hover .media-frame,
+	.work-card:focus-within .media-frame {
+		border: 0 !important;
+	}
+}
