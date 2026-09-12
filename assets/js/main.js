@@ -420,13 +420,17 @@
 
 		const dot = document.createElement('div');
 		const glow = document.createElement('div');
+		const bloom = document.createElement('div');
 		const interactiveSelector = 'a, button, .visual-card, .work-card, .cv-preview, .video-embed, .project-block--first > .media-frame';
 
 		dot.className = 'custom-cursor-dot';
 		glow.className = 'custom-cursor-glow';
+		bloom.className = 'custom-cursor-bloom';
 		dot.setAttribute('aria-hidden', 'true');
 		glow.setAttribute('aria-hidden', 'true');
+		bloom.setAttribute('aria-hidden', 'true');
 
+		document.body.appendChild(bloom);
 		document.body.appendChild(glow);
 		document.body.appendChild(dot);
 		document.documentElement.classList.add('has-custom-cursor');
@@ -435,6 +439,8 @@
 		let pointerY = -100;
 		let glowX = -100;
 		let glowY = -100;
+		let bloomX = -100;
+		let bloomY = -100;
 		let animationFrame = null;
 
 		function positionElement(element, x, y) {
@@ -443,23 +449,31 @@
 		}
 
 		function animateGlow() {
-			glowX += (pointerX - glowX) * 0.16;
-			glowY += (pointerY - glowY) * 0.16;
+			glowX += (pointerX - glowX) * 0.18;
+			glowY += (pointerY - glowY) * 0.18;
+			bloomX += (pointerX - bloomX) * 0.095;
+			bloomY += (pointerY - bloomY) * 0.095;
 			positionElement(glow, glowX, glowY);
+			positionElement(bloom, bloomX, bloomY);
 			animationFrame = window.requestAnimationFrame(animateGlow);
 		}
 
 		function showCursor() {
 			dot.classList.add('is-visible');
 			glow.classList.add('is-visible');
+			bloom.classList.add('is-visible');
 		}
 
 		function hideCursor() {
 			dot.classList.remove('is-visible');
 			glow.classList.remove('is-visible');
 			glow.classList.remove('is-interactive');
-			glow.classList.remove('is-burst');
+			glow.classList.remove('is-blooming');
 			glow.classList.remove('is-pressed');
+			bloom.classList.remove('is-visible');
+			bloom.classList.remove('is-interactive');
+			bloom.classList.remove('is-blooming');
+			bloom.classList.remove('is-pressed');
 			dot.classList.remove('is-interactive');
 		}
 
@@ -473,17 +487,20 @@
 		});
 
 		let currentInteractiveTarget = null;
-		let burstTimer = null;
+		let bloomTimer = null;
 
-		function triggerCursorBurst() {
-			glow.classList.remove('is-burst');
+		function triggerCursorBloom() {
+			glow.classList.remove('is-blooming');
+			bloom.classList.remove('is-blooming');
 			void glow.offsetWidth;
-			glow.classList.add('is-burst');
+			glow.classList.add('is-blooming');
+			bloom.classList.add('is-blooming');
 
-			window.clearTimeout(burstTimer);
-			burstTimer = window.setTimeout(() => {
-				glow.classList.remove('is-burst');
-			}, 680);
+			window.clearTimeout(bloomTimer);
+			bloomTimer = window.setTimeout(() => {
+				glow.classList.remove('is-blooming');
+				bloom.classList.remove('is-blooming');
+			}, 760);
 		}
 
 		document.addEventListener('pointerover', (event) => {
@@ -493,10 +510,11 @@
 			const isInteractive = Boolean(interactiveTarget);
 
 			glow.classList.toggle('is-interactive', isInteractive);
+			bloom.classList.toggle('is-interactive', isInteractive);
 			dot.classList.toggle('is-interactive', isInteractive);
 
 			if (interactiveTarget && interactiveTarget !== currentInteractiveTarget) {
-				triggerCursorBurst();
+				triggerCursorBloom();
 			}
 
 			currentInteractiveTarget = interactiveTarget;
@@ -504,12 +522,14 @@
 
 		document.addEventListener('pointerdown', () => {
 			glow.classList.add('is-pressed');
+			bloom.classList.add('is-pressed');
 		}, {
 			passive: true
 		});
 
 		document.addEventListener('pointerup', () => {
 			glow.classList.remove('is-pressed');
+			bloom.classList.remove('is-pressed');
 		}, {
 			passive: true
 		});
