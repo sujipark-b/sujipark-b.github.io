@@ -1852,3 +1852,76 @@ figcaption {
 		width: fit-content;
 	}
 }
+
+
+/* Custom cursor */
+@media (hover: hover) and (pointer: fine) {
+	html.has-custom-cursor,
+	html.has-custom-cursor body,
+	html.has-custom-cursor a,
+	html.has-custom-cursor button {
+		cursor: none;
+	}
+
+	html.has-custom-cursor iframe {
+		cursor: auto;
+	}
+
+	.custom-cursor-dot,
+	.custom-cursor-ring {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 10000;
+		pointer-events: none;
+		opacity: 0;
+		transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+	}
+
+	.custom-cursor-dot {
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		background: var(--accent);
+		transition: opacity 140ms ease;
+	}
+
+	.custom-cursor-ring {
+		width: 28px;
+		height: 28px;
+		border: 1px solid rgba(var(--accent-rgb), 0.78);
+		border-radius: 50%;
+		background: rgba(var(--accent-rgb), 0.025);
+		transition:
+			width 180ms ease,
+			height 180ms ease,
+			border-color 180ms ease,
+			background-color 180ms ease,
+			opacity 140ms ease;
+	}
+
+	.custom-cursor-dot.is-visible,
+	.custom-cursor-ring.is-visible {
+		opacity: 1;
+	}
+
+	.custom-cursor-ring.is-interactive {
+		width: 46px;
+		height: 46px;
+		border-color: rgba(var(--accent-rgb), 0.96);
+		background: rgba(var(--accent-rgb), 0.06);
+	}
+
+	.custom-cursor-ring.is-pressed {
+		width: 22px;
+		height: 22px;
+		background: rgba(var(--accent-rgb), 0.12);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.custom-cursor-dot,
+	.custom-cursor-ring {
+		display: none !important;
+	}
+}
