@@ -2056,7 +2056,7 @@ figcaption {
 .experiment-stage.is-pipeline-playing .pipeline-flow span:nth-of-type(3) { animation-delay: 0.64s; }
 .experiment-stage.is-pipeline-playing .pipeline-flow i:nth-of-type(3) { animation-delay: 0.80s; }
 .experiment-stage.is-pipeline-playing .pipeline-flow span:nth-of-type(4) { animation-delay: 0.96s; }
-.experiment-stage.is-pipeline-playing .pipeline-flow i:nth-of-type(4) { animation-delay: 1.28s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow i:nth-of-type(4) { animation-delay: 1.12s; }
 .experiment-stage.is-pipeline-playing .pipeline-flow span:nth-of-type(5) { animation-delay: 1.28s; }
 
 @keyframes pipeline-node-once {
@@ -2265,7 +2265,9 @@ figcaption {
 		filter: grayscale(0%) contrast(1);
 		transform: scale(1.015);
 		outline: 0 !important;
-		box-shadow: 0 0 38px rgba(var(--accent-rgb), 0.14);
+		box-shadow:
+			0 0 30px rgba(var(--accent-rgb), 0.13),
+			0 0 56px rgba(var(--accent-rgb), 0.08);
 	}
 
 	/* Wrapper stays physically still; glow can extend outward. */
