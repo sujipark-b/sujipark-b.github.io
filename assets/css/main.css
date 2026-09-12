@@ -1804,22 +1804,22 @@ figcaption {
 .diagram-lightbox__image {
 	display: block;
 	max-width: min(92vw, 1100px);
-	max-height: 80svh;
+	max-height: min(80svh, calc(100svh - 8rem));
 	width: auto;
 	height: auto;
 	object-fit: contain;
 }
 
 .diagram-lightbox__caption {
-	justify-self: center;
+	justify-self: end;
 	max-width: min(90vw, 44rem);
-	margin: 0;
+	margin: 0.65rem 0 0;
 	color: var(--text-dim);
 	font-family: var(--font-mono);
 	font-size: 0.64rem;
 	line-height: 1.4;
 	letter-spacing: 0.08em;
-	text-align: center;
+	text-align: right;
 	text-transform: uppercase;
 }
 
