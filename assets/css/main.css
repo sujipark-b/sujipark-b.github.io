@@ -1642,27 +1642,51 @@ figcaption {
 	.process-item--01 > .process-diagram,
 	.process-item--02 > .process-diagram,
 	.process-item--03 > .process-diagram {
-		margin: 1.15rem 0 0 auto;
+		margin: 0.85rem 0 0 auto;
 		justify-self: end;
 		align-self: flex-end;
 	}
 
 	.process-item--01 > .process-diagram {
-		width: min(42vw, 165px);
+		width: min(29vw, 112px);
 	}
 
 	.process-item--02 > .process-diagram {
-		width: min(38vw, 150px);
+		width: min(25vw, 98px);
 	}
 
 	.process-item--03 > .process-diagram {
-		width: min(42vw, 165px);
+		width: min(29vw, 112px);
+	}
+
+	.process-item--01 .process-diagram__media::after,
+	.process-item--02 .process-diagram__media::after,
+	.process-item--03 .process-diagram__media::after {
+		right: -0.45rem;
+		bottom: -0.45rem;
+		width: 1.35rem;
+		height: 1.35rem;
+		font-size: 0.66rem;
 	}
 
 	.process-item--01 .process-diagram figcaption,
 	.process-item--02 .process-diagram figcaption,
 	.process-item--03 .process-diagram figcaption {
-		margin-top: 0.7rem;
+		margin-top: 0.55rem;
+		font-size: 0;
+		line-height: 0;
+		letter-spacing: 0;
+	}
+
+	.process-item--01 .process-diagram figcaption::after,
+	.process-item--02 .process-diagram figcaption::after,
+	.process-item--03 .process-diagram figcaption::after {
+		content: attr(data-mobile-caption);
+		font-family: var(--font-mono);
+		font-size: 0.55rem;
+		line-height: 1.35;
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
 	}
 
 	.process-item--04 {
