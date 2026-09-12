@@ -2288,8 +2288,11 @@ figcaption {
 		box-shadow: 0 0 38px rgba(var(--accent-rgb), 0.14);
 	}
 
-	.project-block--first > .media-frame:hover {
+	.project-block--first > .media-frame:hover,
+	.project-block--first > .media-frame:focus-within {
 		border-color: var(--line);
-		box-shadow: none;
+		box-shadow:
+			0 0 28px rgba(var(--accent-rgb), 0.12),
+			0 0 54px rgba(var(--accent-rgb), 0.10);
 	}
 }
