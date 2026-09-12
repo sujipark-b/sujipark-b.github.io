@@ -1675,21 +1675,27 @@ figcaption {
 	.process-item--03 .process-copy > .process-diagram {
 		float: right;
 		clear: right;
-		margin: 0.1rem 0 0.65rem 0.9rem;
+		margin-right: 0;
+		margin-bottom: 0.65rem;
+		margin-left: 0.9rem;
 		padding: 0;
 		align-self: auto;
 	}
 
+	/* Let the opening lines keep the full reading width, then bring the diagram in near the paragraph end. */
 	.process-item--01 .process-copy > .process-diagram {
 		width: 110px;
+		margin-top: 3.2rem;
 	}
 
 	.process-item--02 .process-copy > .process-diagram {
 		width: 96px;
+		margin-top: 4.45rem;
 	}
 
 	.process-item--03 .process-copy > .process-diagram {
 		width: 110px;
+		margin-top: 4.05rem;
 	}
 
 	.process-item--01 .process-diagram__media::after,
