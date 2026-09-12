@@ -420,17 +420,13 @@
 
 		const dot = document.createElement('div');
 		const glow = document.createElement('div');
-		const bloom = document.createElement('div');
 		const interactiveSelector = 'a, button, .visual-card, .work-card, .cv-preview, .video-embed, .project-block--first > .media-frame';
 
 		dot.className = 'custom-cursor-dot';
 		glow.className = 'custom-cursor-glow';
-		bloom.className = 'custom-cursor-bloom';
 		dot.setAttribute('aria-hidden', 'true');
 		glow.setAttribute('aria-hidden', 'true');
-		bloom.setAttribute('aria-hidden', 'true');
 
-		document.body.appendChild(bloom);
 		document.body.appendChild(glow);
 		document.body.appendChild(dot);
 		document.documentElement.classList.add('has-custom-cursor');
@@ -439,29 +435,43 @@
 		let pointerY = -100;
 		let glowX = -100;
 		let glowY = -100;
-		let bloomX = -100;
-		let bloomY = -100;
+		let hasPointerPosition = false;
 		let animationFrame = null;
 
-		function positionElement(element, x, y) {
-			element.style.transform =
+		function positionDot(x, y) {
+			dot.style.transform =
 				'translate3d(' + x + 'px, ' + y + 'px, 0) translate(-50%, -50%)';
 		}
 
+		function positionGlow(x, y, angle, stretchX, stretchY) {
+			glow.style.transform =
+				'translate3d(' + x + 'px, ' + y + 'px, 0) ' +
+				'translate(-50%, -50%) ' +
+				'rotate(' + angle + 'rad) ' +
+				'scale(' + stretchX + ', ' + stretchY + ')';
+		}
+
 		function animateGlow() {
-			glowX += (pointerX - glowX) * 0.18;
-			glowY += (pointerY - glowY) * 0.18;
-			bloomX += (pointerX - bloomX) * 0.095;
-			bloomY += (pointerY - bloomY) * 0.095;
-			positionElement(glow, glowX, glowY);
-			positionElement(bloom, bloomX, bloomY);
+			const dx = pointerX - glowX;
+			const dy = pointerY - glowY;
+			const distance = Math.hypot(dx, dy);
+
+			/* Deliberately slower follower: visible inertia without a second halo. */
+			glowX += dx * 0.085;
+			glowY += dy * 0.085;
+
+			const angle = distance > 0.5 ? Math.atan2(dy, dx) : 0;
+			const stretchAmount = Math.min(distance / 170, 0.34);
+			const stretchX = 1 + stretchAmount;
+			const stretchY = 1 - (stretchAmount * 0.32);
+
+			positionGlow(glowX, glowY, angle, stretchX, stretchY);
 			animationFrame = window.requestAnimationFrame(animateGlow);
 		}
 
 		function showCursor() {
 			dot.classList.add('is-visible');
 			glow.classList.add('is-visible');
-			bloom.classList.add('is-visible');
 		}
 
 		function hideCursor() {
@@ -470,17 +480,20 @@
 			glow.classList.remove('is-interactive');
 			glow.classList.remove('is-blooming');
 			glow.classList.remove('is-pressed');
-			bloom.classList.remove('is-visible');
-			bloom.classList.remove('is-interactive');
-			bloom.classList.remove('is-blooming');
-			bloom.classList.remove('is-pressed');
 			dot.classList.remove('is-interactive');
 		}
 
 		window.addEventListener('pointermove', (event) => {
 			pointerX = event.clientX;
 			pointerY = event.clientY;
-			positionElement(dot, pointerX, pointerY);
+
+			if (!hasPointerPosition) {
+				glowX = pointerX;
+				glowY = pointerY;
+				hasPointerPosition = true;
+			}
+
+			positionDot(pointerX, pointerY);
 			showCursor();
 		}, {
 			passive: true
@@ -491,16 +504,13 @@
 
 		function triggerCursorBloom() {
 			glow.classList.remove('is-blooming');
-			bloom.classList.remove('is-blooming');
 			void glow.offsetWidth;
 			glow.classList.add('is-blooming');
-			bloom.classList.add('is-blooming');
 
 			window.clearTimeout(bloomTimer);
 			bloomTimer = window.setTimeout(() => {
 				glow.classList.remove('is-blooming');
-				bloom.classList.remove('is-blooming');
-			}, 760);
+			}, 560);
 		}
 
 		document.addEventListener('pointerover', (event) => {
@@ -510,7 +520,6 @@
 			const isInteractive = Boolean(interactiveTarget);
 
 			glow.classList.toggle('is-interactive', isInteractive);
-			bloom.classList.toggle('is-interactive', isInteractive);
 			dot.classList.toggle('is-interactive', isInteractive);
 
 			if (interactiveTarget && interactiveTarget !== currentInteractiveTarget) {
@@ -522,14 +531,12 @@
 
 		document.addEventListener('pointerdown', () => {
 			glow.classList.add('is-pressed');
-			bloom.classList.add('is-pressed');
 		}, {
 			passive: true
 		});
 
 		document.addEventListener('pointerup', () => {
 			glow.classList.remove('is-pressed');
-			bloom.classList.remove('is-pressed');
 		}, {
 			passive: true
 		});
