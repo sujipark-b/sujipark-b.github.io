@@ -1714,11 +1714,11 @@ figcaption {
 
 .experiment-stage {
 	position: relative;
-	min-height: clamp(220px, 31vw, 360px);
+	min-height: clamp(175px, 18vw, 215px);
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-	padding: clamp(1.25rem, 2.5vw, 2rem);
+	justify-content: flex-start;
+	padding: clamp(1.1rem, 2vw, 1.5rem);
 	border: 1px solid var(--line);
 	background:
 		radial-gradient(circle at 18% 22%, rgba(var(--accent-rgb), 0.12), transparent 28rem),
@@ -1757,7 +1757,7 @@ figcaption {
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 0.75rem;
-	margin: auto 0;
+	margin: clamp(2.25rem, 3.5vw, 3rem) 0 0;
 }
 
 .pipeline-flow span {
