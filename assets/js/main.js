@@ -32,6 +32,7 @@
 	let lastVignetteTime = 0;
 
 	const touchQuery = window.matchMedia('(hover: none) and (pointer: coarse)');
+	const finePointerQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
 	const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 	const touchCardSelector = '.visual-card, .work-card, .cv-preview';
 
@@ -344,6 +345,104 @@
 		}, reducedMotionQuery.matches ? 0 : 380);
 	}
 
+
+	function initCustomCursor() {
+		if (!finePointerQuery.matches || reducedMotionQuery.matches) {
+			return;
+		}
+
+		const dot = document.createElement('div');
+		const ring = document.createElement('div');
+		const interactiveSelector = 'a, button, .visual-card, .work-card, .cv-preview, .video-embed';
+
+		dot.className = 'custom-cursor-dot';
+		ring.className = 'custom-cursor-ring';
+		dot.setAttribute('aria-hidden', 'true');
+		ring.setAttribute('aria-hidden', 'true');
+
+		document.body.appendChild(ring);
+		document.body.appendChild(dot);
+		document.documentElement.classList.add('has-custom-cursor');
+
+		let pointerX = -100;
+		let pointerY = -100;
+		let ringX = -100;
+		let ringY = -100;
+		let animationFrame = null;
+
+		function positionElement(element, x, y) {
+			element.style.transform =
+				'translate3d(' + x + 'px, ' + y + 'px, 0) translate(-50%, -50%)';
+		}
+
+		function animateRing() {
+			ringX += (pointerX - ringX) * 0.24;
+			ringY += (pointerY - ringY) * 0.24;
+			positionElement(ring, ringX, ringY);
+			animationFrame = window.requestAnimationFrame(animateRing);
+		}
+
+		function showCursor() {
+			dot.classList.add('is-visible');
+			ring.classList.add('is-visible');
+		}
+
+		function hideCursor() {
+			dot.classList.remove('is-visible');
+			ring.classList.remove('is-visible');
+			ring.classList.remove('is-interactive');
+			ring.classList.remove('is-pressed');
+		}
+
+		window.addEventListener('pointermove', (event) => {
+			pointerX = event.clientX;
+			pointerY = event.clientY;
+			positionElement(dot, pointerX, pointerY);
+			showCursor();
+		}, {
+			passive: true
+		});
+
+		document.addEventListener('pointerover', (event) => {
+			const interactiveTarget = event.target.closest
+				? event.target.closest(interactiveSelector)
+				: null;
+
+			ring.classList.toggle('is-interactive', Boolean(interactiveTarget));
+		});
+
+		document.addEventListener('pointerdown', () => {
+			ring.classList.add('is-pressed');
+		}, {
+			passive: true
+		});
+
+		document.addEventListener('pointerup', () => {
+			ring.classList.remove('is-pressed');
+		}, {
+			passive: true
+		});
+
+		window.addEventListener('blur', hideCursor);
+		document.documentElement.addEventListener('mouseleave', hideCursor);
+		document.documentElement.addEventListener('mouseenter', showCursor);
+
+		document.querySelectorAll('iframe').forEach((frame) => {
+			frame.addEventListener('mouseenter', hideCursor);
+			frame.addEventListener('mouseleave', showCursor);
+		});
+
+		animationFrame = window.requestAnimationFrame(animateRing);
+
+		window.addEventListener('pagehide', () => {
+			if (animationFrame) {
+				window.cancelAnimationFrame(animationFrame);
+			}
+		}, {
+			once: true
+		});
+	}
+
 	navLinks.forEach((link) => {
 		link.addEventListener('click', (event) => {
 			const target = document.querySelector(link.getAttribute('href'));
@@ -415,6 +514,8 @@
 	} else if (typeof touchQuery.addListener === 'function') {
 		touchQuery.addListener(handleTouchCapabilityChange);
 	}
+
+	initCustomCursor();
 
 	window.addEventListener('load', () => {
 		if (window.location.hash) {
