@@ -2116,3 +2116,98 @@ figcaption {
 		transform: none !important;
 	}
 }
+
+
+/* Cursor affordance: expand on interactive targets + one-shot radial burst */
+@media (hover: hover) and (pointer: fine) {
+	.custom-cursor-glow {
+		overflow: visible;
+	}
+
+	.custom-cursor-glow::before {
+		content: "";
+		position: absolute;
+		inset: 50%;
+		width: 58px;
+		height: 58px;
+		border-radius: 50%;
+		pointer-events: none;
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.45) rotate(0deg);
+		background:
+			repeating-conic-gradient(
+				from 0deg,
+				rgba(var(--accent-rgb), 0.72) 0deg 2deg,
+				transparent 2deg 42deg
+			);
+		-webkit-mask:
+			radial-gradient(
+				circle,
+				transparent 0 48%,
+				#000 50% 55%,
+				transparent 58% 100%
+			);
+		mask:
+			radial-gradient(
+				circle,
+				transparent 0 48%,
+				#000 50% 55%,
+				transparent 58% 100%
+			);
+		filter: blur(0.25px);
+	}
+
+	.custom-cursor-glow.is-interactive {
+		width: 50px;
+		height: 50px;
+		background: radial-gradient(
+			circle,
+			rgba(var(--accent-rgb), 0.29) 0%,
+			rgba(var(--accent-rgb), 0.14) 30%,
+			rgba(var(--accent-rgb), 0.055) 54%,
+			transparent 74%
+		);
+		filter: blur(1.7px);
+	}
+
+	.custom-cursor-glow.is-burst::before {
+		animation: cursor-interactive-burst 420ms cubic-bezier(0.16, 0.7, 0.25, 1) both;
+	}
+
+	.custom-cursor-dot.is-interactive {
+		box-shadow:
+			0 0 9px rgba(var(--accent-rgb), 0.56),
+			0 0 18px rgba(var(--accent-rgb), 0.18);
+	}
+}
+
+@keyframes cursor-interactive-burst {
+	0% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.38) rotate(-8deg);
+	}
+
+	24% {
+		opacity: 0.8;
+	}
+
+	70% {
+		opacity: 0.34;
+	}
+
+	100% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(1.18) rotate(20deg);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.custom-cursor-glow::before {
+		display: none !important;
+	}
+
+	.custom-cursor-glow.is-interactive {
+		width: 30px;
+		height: 30px;
+	}
+}
