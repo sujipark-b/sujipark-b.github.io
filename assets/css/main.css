@@ -1004,8 +1004,8 @@ figcaption {
 }
 
 .work-card {
-	padding-bottom: 1.6rem;
-	border-bottom: 1px solid var(--line);
+	padding-bottom: 0.5rem;
+	border-bottom: 0;
 }
 
 .work-index {
