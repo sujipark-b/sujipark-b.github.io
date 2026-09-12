@@ -403,7 +403,9 @@
 			dot.classList.remove('is-visible');
 			glow.classList.remove('is-visible');
 			glow.classList.remove('is-interactive');
+			glow.classList.remove('is-burst');
 			glow.classList.remove('is-pressed');
+			dot.classList.remove('is-interactive');
 		}
 
 		window.addEventListener('pointermove', (event) => {
@@ -415,12 +417,34 @@
 			passive: true
 		});
 
+		let currentInteractiveTarget = null;
+		let burstTimer = null;
+
+		function triggerCursorBurst() {
+			glow.classList.remove('is-burst');
+			void glow.offsetWidth;
+			glow.classList.add('is-burst');
+
+			window.clearTimeout(burstTimer);
+			burstTimer = window.setTimeout(() => {
+				glow.classList.remove('is-burst');
+			}, 460);
+		}
+
 		document.addEventListener('pointerover', (event) => {
 			const interactiveTarget = event.target.closest
 				? event.target.closest(interactiveSelector)
 				: null;
+			const isInteractive = Boolean(interactiveTarget);
 
-			glow.classList.toggle('is-interactive', Boolean(interactiveTarget));
+			glow.classList.toggle('is-interactive', isInteractive);
+			dot.classList.toggle('is-interactive', isInteractive);
+
+			if (interactiveTarget && interactiveTarget !== currentInteractiveTarget) {
+				triggerCursorBurst();
+			}
+
+			currentInteractiveTarget = interactiveTarget;
 		});
 
 		document.addEventListener('pointerdown', () => {
