@@ -6,6 +6,7 @@
 	const SECTION_IDS = [
 		'featured-project',
 		'portfolio',
+		'realtime-lab',
 		'about'
 	];
 
