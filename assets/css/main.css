@@ -917,6 +917,42 @@ figcaption {
 	margin-top: 2.25rem;
 }
 
+/* Desktop process rows: copy stays top-aligned while diagrams share a bottom baseline. */
+@media screen and (min-width: 737px) {
+	.process-grid {
+		align-items: stretch;
+	}
+
+	.process-block {
+		height: 100%;
+	}
+
+	.process-block > .process-diagram {
+		margin-top: auto;
+		padding-top: 2.75rem;
+	}
+
+	.process-item--04 > .process-copy:first-child {
+		order: 1;
+	}
+
+	.process-item--04 > .process-copy--after-diagrams {
+		order: 2;
+		margin-top: 1.25rem;
+	}
+
+	.process-item--04 > .process-diagram-pair {
+		order: 3;
+		margin-top: auto;
+		padding-top: 2.75rem;
+		align-items: end;
+	}
+
+	.process-diagram-pair .process-diagram {
+		align-self: end;
+	}
+}
+
 .workflow-strip {
 	display: flex;
 	flex-wrap: wrap;
