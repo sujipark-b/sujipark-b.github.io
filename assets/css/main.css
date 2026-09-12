@@ -894,6 +894,29 @@ figcaption {
 	height: auto;
 }
 
+.process-diagram-pair {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1.25rem;
+	width: min(100%, 470px);
+	margin: 2.5rem auto 0;
+	align-items: start;
+}
+
+.process-diagram-pair .process-diagram {
+	width: 100%;
+	max-width: 220px;
+	margin-top: 0;
+}
+
+.process-diagram-pair .process-diagram--ending-routing {
+	align-self: start;
+}
+
+.process-copy--after-diagrams {
+	margin-top: 2.25rem;
+}
+
 .workflow-strip {
 	display: flex;
 	flex-wrap: wrap;
@@ -1473,7 +1496,7 @@ figcaption {
 	.process-diagram {
 		width: min(44vw, 170px);
 		max-width: none;
-		margin: 2rem auto 0;
+		margin: 2rem 0 0 auto;
 	}
 
 	.process-diagram__media {
@@ -1533,6 +1556,7 @@ figcaption {
 		margin-top: 0.85rem;
 		font-size: 0.6rem;
 		letter-spacing: 0.075em;
+		text-align: right;
 	}
 
 	.process-diagram--stacked {
@@ -1542,6 +1566,44 @@ figcaption {
 
 	.process-diagram--stacked .process-diagram__media {
 		align-content: normal;
+	}
+
+	.process-item--04 {
+		display: block;
+	}
+
+	.process-item--04 .process-copy {
+		width: 100%;
+	}
+
+	.process-diagram-pair {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.8rem;
+		width: min(100%, 340px);
+		margin: 2rem 0 0 auto;
+		align-items: start;
+	}
+
+	.process-diagram-pair .process-diagram,
+	.process-diagram-pair .process-diagram--standard,
+	.process-diagram-pair .process-diagram--ending-routing {
+		width: 100%;
+		max-width: none;
+		margin: 0;
+	}
+
+	.process-diagram-pair .process-diagram__media {
+		padding: 0.45rem;
+	}
+
+	.process-diagram-pair .process-diagram figcaption {
+		margin-top: 0.7rem;
+		font-size: 0.56rem;
+		line-height: 1.35;
+	}
+
+	.process-copy--after-diagrams {
+		margin-top: 2.15rem;
 	}
 
 	.project-tools {
