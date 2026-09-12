@@ -443,8 +443,8 @@
 		}
 
 		function animateGlow() {
-			glowX += (pointerX - glowX) * 0.24;
-			glowY += (pointerY - glowY) * 0.24;
+			glowX += (pointerX - glowX) * 0.16;
+			glowY += (pointerY - glowY) * 0.16;
 			positionElement(glow, glowX, glowY);
 			animationFrame = window.requestAnimationFrame(animateGlow);
 		}
