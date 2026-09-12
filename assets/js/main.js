@@ -420,7 +420,7 @@
 
 		const dot = document.createElement('div');
 		const glow = document.createElement('div');
-		const interactiveSelector = 'a, button, .visual-card, .work-card, .cv-preview, .video-embed';
+		const interactiveSelector = 'a, button, .visual-card, .work-card, .cv-preview, .video-embed, .project-block--first > .media-frame';
 
 		dot.className = 'custom-cursor-dot';
 		glow.className = 'custom-cursor-glow';
