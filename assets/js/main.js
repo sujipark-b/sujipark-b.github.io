@@ -352,22 +352,22 @@
 		}
 
 		const dot = document.createElement('div');
-		const ring = document.createElement('div');
+		const glow = document.createElement('div');
 		const interactiveSelector = 'a, button, .visual-card, .work-card, .cv-preview, .video-embed';
 
 		dot.className = 'custom-cursor-dot';
-		ring.className = 'custom-cursor-ring';
+		glow.className = 'custom-cursor-glow';
 		dot.setAttribute('aria-hidden', 'true');
-		ring.setAttribute('aria-hidden', 'true');
+		glow.setAttribute('aria-hidden', 'true');
 
-		document.body.appendChild(ring);
+		document.body.appendChild(glow);
 		document.body.appendChild(dot);
 		document.documentElement.classList.add('has-custom-cursor');
 
 		let pointerX = -100;
 		let pointerY = -100;
-		let ringX = -100;
-		let ringY = -100;
+		let glowX = -100;
+		let glowY = -100;
 		let animationFrame = null;
 
 		function positionElement(element, x, y) {
@@ -375,23 +375,23 @@
 				'translate3d(' + x + 'px, ' + y + 'px, 0) translate(-50%, -50%)';
 		}
 
-		function animateRing() {
-			ringX += (pointerX - ringX) * 0.24;
-			ringY += (pointerY - ringY) * 0.24;
-			positionElement(ring, ringX, ringY);
-			animationFrame = window.requestAnimationFrame(animateRing);
+		function animateGlow() {
+			glowX += (pointerX - glowX) * 0.24;
+			glowY += (pointerY - glowY) * 0.24;
+			positionElement(glow, glowX, glowY);
+			animationFrame = window.requestAnimationFrame(animateGlow);
 		}
 
 		function showCursor() {
 			dot.classList.add('is-visible');
-			ring.classList.add('is-visible');
+			glow.classList.add('is-visible');
 		}
 
 		function hideCursor() {
 			dot.classList.remove('is-visible');
-			ring.classList.remove('is-visible');
-			ring.classList.remove('is-interactive');
-			ring.classList.remove('is-pressed');
+			glow.classList.remove('is-visible');
+			glow.classList.remove('is-interactive');
+			glow.classList.remove('is-pressed');
 		}
 
 		window.addEventListener('pointermove', (event) => {
@@ -408,17 +408,17 @@
 				? event.target.closest(interactiveSelector)
 				: null;
 
-			ring.classList.toggle('is-interactive', Boolean(interactiveTarget));
+			glow.classList.toggle('is-interactive', Boolean(interactiveTarget));
 		});
 
 		document.addEventListener('pointerdown', () => {
-			ring.classList.add('is-pressed');
+			glow.classList.add('is-pressed');
 		}, {
 			passive: true
 		});
 
 		document.addEventListener('pointerup', () => {
-			ring.classList.remove('is-pressed');
+			glow.classList.remove('is-pressed');
 		}, {
 			passive: true
 		});
@@ -432,7 +432,7 @@
 			frame.addEventListener('mouseleave', showCursor);
 		});
 
-		animationFrame = window.requestAnimationFrame(animateRing);
+		animationFrame = window.requestAnimationFrame(animateGlow);
 
 		window.addEventListener('pagehide', () => {
 			if (animationFrame) {
