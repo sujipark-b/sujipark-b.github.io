@@ -1853,7 +1853,6 @@ figcaption {
 	}
 }
 
-
 /* Custom cursor */
 @media (hover: hover) and (pointer: fine) {
 	html.has-custom-cursor,
@@ -1863,12 +1862,13 @@ figcaption {
 		cursor: none;
 	}
 
+	/* Cross-origin players keep their native cursor; custom cursor is hidden via :has(). */
 	html.has-custom-cursor iframe {
 		cursor: auto;
 	}
 
 	.custom-cursor-dot,
-	.custom-cursor-ring {
+	.custom-cursor-glow {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -1883,45 +1883,56 @@ figcaption {
 		height: 5px;
 		border-radius: 50%;
 		background: var(--accent);
-		transition: opacity 140ms ease;
+		box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.42);
+		transition: opacity 120ms ease, transform 120ms ease;
 	}
 
-	.custom-cursor-ring {
-		width: 28px;
-		height: 28px;
-		border: 1px solid rgba(var(--accent-rgb), 0.78);
+	.custom-cursor-glow {
+		width: 30px;
+		height: 30px;
 		border-radius: 50%;
-		background: rgba(var(--accent-rgb), 0.025);
+		background: radial-gradient(
+			circle,
+			rgba(var(--accent-rgb), 0.22) 0%,
+			rgba(var(--accent-rgb), 0.11) 30%,
+			rgba(var(--accent-rgb), 0.045) 52%,
+			transparent 72%
+		);
+		filter: blur(1.5px);
 		transition:
 			width 180ms ease,
 			height 180ms ease,
-			border-color 180ms ease,
-			background-color 180ms ease,
-			opacity 140ms ease;
+			opacity 120ms ease,
+			filter 180ms ease;
 	}
 
 	.custom-cursor-dot.is-visible,
-	.custom-cursor-ring.is-visible {
+	.custom-cursor-glow.is-visible {
 		opacity: 1;
 	}
 
-	.custom-cursor-ring.is-interactive {
+	.custom-cursor-glow.is-interactive {
 		width: 46px;
 		height: 46px;
-		border-color: rgba(var(--accent-rgb), 0.96);
-		background: rgba(var(--accent-rgb), 0.06);
+		filter: blur(2px);
 	}
 
-	.custom-cursor-ring.is-pressed {
+	.custom-cursor-glow.is-pressed {
 		width: 22px;
 		height: 22px;
-		background: rgba(var(--accent-rgb), 0.12);
+		filter: blur(1px);
+	}
+
+	/* Prevent the custom cursor from freezing over embedded Vimeo/other iframe players. */
+	body:has(iframe:hover) .custom-cursor-dot,
+	body:has(iframe:hover) .custom-cursor-glow {
+		opacity: 0 !important;
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
 	.custom-cursor-dot,
-	.custom-cursor-ring {
+	.custom-cursor-glow {
 		display: none !important;
 	}
 }
