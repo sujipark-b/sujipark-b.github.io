@@ -27,6 +27,10 @@
 	let activeTouchedCard = null;
 	let activeScrollCard = null;
 	let mobileCardFocusTicking = false;
+	let activeMobileSectionCueId = null;
+	let mobileSectionCueTicking = false;
+	let lastMobileSectionCueId = null;
+	let lastMobileSectionCueTime = 0;
 	let isProgrammaticScrolling = false;
 	let programmaticScrollFrame = null;
 	let programmaticTargetSection = null;
@@ -135,7 +139,12 @@
 			}
 		});
 
-		if (hasChanged && nextSection && !settings.suppressVignette) {
+		if (
+			hasChanged &&
+			nextSection &&
+			!settings.suppressVignette &&
+			!touchQuery.matches
+		) {
 			triggerSectionVignette(nextSection);
 		}
 	}
@@ -290,10 +299,12 @@
 		if (!touchQuery.matches) {
 			clearTouchedCard();
 			clearScrollFocusedCard();
+			activeMobileSectionCueId = null;
 			return;
 		}
 
 		scheduleMobileScrollFocus();
+		scheduleMobileSectionCue();
 	}
 
 	function getScrollDuration(distance) {
@@ -345,7 +356,11 @@
 			force: true,
 			suppressVignette: true
 		});
-		triggerDestinationEffect(targetId);
+		if (touchQuery.matches) {
+			triggerMobileSectionCue(target, { force: true });
+		} else {
+			triggerDestinationEffect(targetId);
+		}
 	}
 
 	function scrollToSection(target) {
@@ -439,45 +454,107 @@
 				force: true,
 				suppressVignette: true
 			});
-			triggerDestinationEffect(target.id);
+			if (touchQuery.matches) {
+				triggerMobileSectionCue(target, { force: true });
+			} else {
+				triggerDestinationEffect(target.id);
+			}
 		}, reducedMotionQuery.matches ? 0 : 380);
 	}
 
 
 
-	function initMobileSectionTitleReveal() {
-		if (!touchQuery.matches || !('IntersectionObserver' in window)) {
+	function triggerMobileSectionCue(section, options) {
+		if (!touchQuery.matches || !section) {
 			return;
 		}
 
-		const titles = sections
-			.map((section) => section.querySelector('.section__header h2'))
-			.filter(Boolean);
+		const settings = options || {};
+		const now = performance.now();
 
-		if (!titles.length) {
+		if (
+			!settings.force &&
+			lastMobileSectionCueId === section.id &&
+			now - lastMobileSectionCueTime < 700
+		) {
 			return;
 		}
 
-		const visibleState = new WeakMap();
+		activeMobileSectionCueId = section.id;
+		lastMobileSectionCueId = section.id;
+		lastMobileSectionCueTime = now;
 
-		const observer = new IntersectionObserver((entries) => {
-			entries.forEach((entry) => {
-				const wasVisible = visibleState.get(entry.target) || false;
-				const isVisible = entry.isIntersecting && entry.intersectionRatio > 0;
+		triggerSectionInteraction(section);
+		triggerSectionVignette(section, {
+			force: true
+		});
+	}
 
-				if (isVisible && !wasVisible) {
-					const section = entry.target.closest('.section');
-					triggerSectionInteraction(section);
-				}
+	function updateMobileSectionCue() {
+		if (!touchQuery.matches) {
+			activeMobileSectionCueId = null;
+			return;
+		}
 
-				visibleState.set(entry.target, isVisible);
-			});
-		}, {
-			rootMargin: '-5% 0px -55% 0px',
-			threshold: [0, 0.15]
+		const focusY = window.innerHeight * 0.27;
+		const focusTop = window.innerHeight * 0.08;
+		const focusBottom = window.innerHeight * 0.62;
+		let nextSection = null;
+		let nextDistance = Infinity;
+
+		sections.forEach((section) => {
+			const header = section.querySelector('.section__header');
+
+			if (!header) {
+				return;
+			}
+
+			const rect = header.getBoundingClientRect();
+
+			if (rect.bottom <= focusTop || rect.top >= focusBottom) {
+				return;
+			}
+
+			const headerCenter = rect.top + (rect.height * 0.5);
+			const distance = Math.abs(headerCenter - focusY);
+
+			if (distance < nextDistance) {
+				nextDistance = distance;
+				nextSection = section;
+			}
 		});
 
-		titles.forEach((title) => observer.observe(title));
+		if (!nextSection) {
+			activeMobileSectionCueId = null;
+			return;
+		}
+
+		if (activeMobileSectionCueId === nextSection.id) {
+			return;
+		}
+
+		triggerMobileSectionCue(nextSection);
+	}
+
+	function scheduleMobileSectionCue() {
+		if (mobileSectionCueTicking) {
+			return;
+		}
+
+		mobileSectionCueTicking = true;
+
+		window.requestAnimationFrame(() => {
+			updateMobileSectionCue();
+			mobileSectionCueTicking = false;
+		});
+	}
+
+	function initMobileSectionCue() {
+		window.addEventListener('scroll', scheduleMobileSectionCue, {
+			passive: true
+		});
+		window.addEventListener('resize', scheduleMobileSectionCue);
+		scheduleMobileSectionCue();
 	}
 
 	function initProcessDiagramLightbox() {
@@ -922,7 +999,7 @@
 
 	initPipelineLoop();
 	initMobileScrollFocus();
-	initMobileSectionTitleReveal();
+	initMobileSectionCue();
 	initProcessDiagramLightbox();
 	initCustomCursor();
 

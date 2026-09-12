@@ -1973,62 +1973,23 @@ body.diagram-lightbox-open {
 }
 
 @media screen and (max-width: 736px) {
-	/* Mobile section cue: visible enough to mark a section change without flashing. */
-	.section__header {
-		position: relative;
-	}
-
+	/* One synchronized mobile cue: title settles as the section vignette appears. */
 	.section.section--interaction-active .section__header h2 {
-		animation: mobile-section-title-reveal 560ms cubic-bezier(0.16, 0.72, 0.24, 1) both;
-	}
-
-	.section__header::after {
-		content: "";
-		position: absolute;
-		left: 0;
-		bottom: -0.75rem;
-		width: 2.75rem;
-		height: 1px;
-		background: rgba(var(--accent-rgb), 0.72);
-		transform: scaleX(0.25);
-		transform-origin: left center;
-		opacity: 0;
-		pointer-events: none;
-	}
-
-	.section.section--interaction-active .section__header::after {
-		animation: mobile-section-marker-reveal 620ms cubic-bezier(0.16, 0.72, 0.24, 1) both;
+		animation: mobile-section-title-reveal 520ms cubic-bezier(0.16, 0.72, 0.24, 1) both;
 	}
 }
 
 @keyframes mobile-section-title-reveal {
 	0% {
-		transform: translate3d(0, 14px, 0) scale(0.985);
+		transform: translate3d(0, 12px, 0);
 	}
 
-	68% {
-		transform: translate3d(0, -1px, 0) scale(1);
-	}
-
-	100% {
-		transform: translate3d(0, 0, 0) scale(1);
-	}
-}
-
-@keyframes mobile-section-marker-reveal {
-	0% {
-		transform: scaleX(0.25);
-		opacity: 0;
-	}
-
-	35% {
-		transform: scaleX(1.08);
-		opacity: 0.72;
+	72% {
+		transform: translate3d(0, -1px, 0);
 	}
 
 	100% {
-		transform: scaleX(1);
-		opacity: 0;
+		transform: translate3d(0, 0, 0);
 	}
 }
 
@@ -2325,7 +2286,6 @@ body.diagram-lightbox-open {
 
 @media (prefers-reduced-motion: reduce) {
 	.section.section--interaction-active .section__header h2,
-	.section.section--interaction-active .section__header::after,
 	.experiment-stage.is-pipeline-playing .pipeline-flow span,
 	.experiment-stage.is-pipeline-playing .pipeline-flow i {
 		animation: none !important;
