@@ -50,6 +50,16 @@
 		return null;
 	}
 
+	function triggerSectionInteraction(section) {
+		if (!section) {
+			return;
+		}
+
+		section.classList.remove('section--interaction-active');
+		void section.offsetWidth;
+		section.classList.add('section--interaction-active');
+	}
+
 	function triggerSectionVignette(section, options) {
 		const settings = options || {};
 
@@ -66,6 +76,8 @@
 		) {
 			return;
 		}
+
+		triggerSectionInteraction(section);
 
 		lastVignetteSectionId = section.id;
 		lastVignetteTime = now;
