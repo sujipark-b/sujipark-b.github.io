@@ -398,6 +398,21 @@ figcaption {
 	}
 }
 
+@keyframes mobile-section-ambient {
+	0%,
+	100% {
+		opacity: 0;
+	}
+
+	32% {
+		opacity: 0.9;
+	}
+
+	68% {
+		opacity: 0.34;
+	}
+}
+
 .section__header {
 	align-self: start;
 	position: sticky;
@@ -1746,18 +1761,23 @@ figcaption {
 
 @media (hover: none), (pointer: coarse) {
 	.section::before {
+		top: -1.5rem;
+		left: -5.75rem;
+		width: 18rem;
+		height: 13rem;
 		background:
 			radial-gradient(
-				circle at 12% 50%,
-				rgba(var(--accent-rgb), 0.22),
-				transparent 42%
+				ellipse at 42% 42%,
+				rgba(var(--accent-rgb), 0.18) 0%,
+				rgba(var(--accent-rgb), 0.075) 36%,
+				transparent 72%
 			);
-		filter: none;
+		filter: blur(8px);
 		transform: none;
 	}
 
 	.section.section--vignette-active::before {
-		animation: destination-vignette 620ms ease-out both;
+		animation: mobile-section-ambient 900ms ease-out both;
 	}
 
 	html.is-programmatic-scrolling .section.section--vignette-active::before {
@@ -2149,23 +2169,28 @@ body.diagram-lightbox-open {
 }
 
 @media screen and (max-width: 736px) {
-	/* One synchronized mobile cue: title settles as the section vignette appears. */
+	/* Mobile section cue: keep the title still and mark the transition with light only. */
 	.section.section--interaction-active .section__header h2 {
-		animation: mobile-section-title-reveal 520ms cubic-bezier(0.16, 0.72, 0.24, 1) both;
+		animation: mobile-section-title-glow 860ms cubic-bezier(0.16, 0.72, 0.24, 1) both;
 	}
 }
 
-@keyframes mobile-section-title-reveal {
-	0% {
-		transform: translate3d(0, 12px, 0);
-	}
-
-	72% {
-		transform: translate3d(0, -1px, 0);
-	}
-
+@keyframes mobile-section-title-glow {
+	0%,
 	100% {
-		transform: translate3d(0, 0, 0);
+		text-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
+	}
+
+	34% {
+		text-shadow:
+			0 0 16px rgba(var(--accent-rgb), 0.32),
+			0 0 38px rgba(var(--accent-rgb), 0.12);
+	}
+
+	62% {
+		text-shadow:
+			0 0 10px rgba(var(--accent-rgb), 0.16),
+			0 0 26px rgba(var(--accent-rgb), 0.055);
 	}
 }
 
@@ -2375,21 +2400,6 @@ body.diagram-lightbox-open {
 	}
 }
 
-/* Section entry: one clearly readable cue rather than several weak motions. */
-.section.section--interaction-active .section__header h2 {
-	animation: section-title-reveal 420ms cubic-bezier(0.16, 0.72, 0.24, 1) both;
-}
-
-@keyframes section-title-reveal {
-	0% {
-		transform: translate3d(0, 8px, 0);
-	}
-
-	100% {
-		transform: translate3d(0, 0, 0);
-	}
-}
-
 /* Pipeline: one readable signal pass on entry or hover. */
 .pipeline-flow span,
 .pipeline-flow i {
@@ -2467,6 +2477,7 @@ body.diagram-lightbox-open {
 	.experiment-stage.is-pipeline-playing .pipeline-flow i {
 		animation: none !important;
 		transform: none !important;
+		text-shadow: none !important;
 	}
 }
 
