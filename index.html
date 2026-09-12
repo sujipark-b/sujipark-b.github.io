@@ -30,6 +30,7 @@
 					<nav class="site-nav" aria-label="Portfolio sections">
 						<a href="#featured-project">Featured Project</a>
 						<a href="#portfolio">Portfolio</a>
+						<a href="#realtime-lab">Realtime Lab</a>
 						<a href="#about">About / CV</a>
 					</nav>
 				</div>
@@ -309,6 +310,72 @@
 								<p>Material, texturing and lookdev study with Maya, V-Ray and Substance Painter</p>
 							</section>
 						</div>
+					</div>
+				</section>
+
+
+				<section class="section realtime-lab" id="realtime-lab" data-section>
+					<header class="section__header">
+						<h2>Realtime Lab</h2>
+					</header>
+
+					<div class="content">
+						<div class="lab-intro">
+							<p class="section-kicker">Ongoing Practice</p>
+							<p class="lead">Short-form prototypes exploring sensing, interaction and responsive environments across Unreal Engine, TouchDesigner and physical inputs.</p>
+							<p class="lab-note">Time-boxed experiments built to test one interaction or technical question at a time.</p>
+						</div>
+
+						<article class="experiment-card experiment-card--in-progress" aria-labelledby="experiment-001-title">
+							<div class="experiment-meta">
+								<span>EXP 001</span>
+								<span>1 DAY</span>
+								<span>SEP 2026</span>
+								<span class="experiment-status">IN PROGRESS</span>
+							</div>
+
+							<div class="experiment-heading">
+								<h3 id="experiment-001-title">Virtual Followspot</h3>
+								<p>Can a performer’s physical position directly drive a theatrical lighting cue in real time?</p>
+							</div>
+
+							<div class="experiment-stage" aria-label="Virtual Followspot prototype system diagram">
+								<div class="experiment-stage__label">Prototype pipeline</div>
+								<div class="pipeline-flow">
+									<span>Webcam</span>
+									<i aria-hidden="true">→</i>
+									<span>TouchDesigner</span>
+									<i aria-hidden="true">→</i>
+									<span>OSC</span>
+									<i aria-hidden="true">→</i>
+									<span>Unreal Engine</span>
+									<i aria-hidden="true">→</i>
+									<span>Spotlight</span>
+								</div>
+							</div>
+
+							<div class="experiment-details">
+								<section>
+									<h4>System</h4>
+									<p>Webcam-based performer tracking sends a normalized position value from TouchDesigner to Unreal Engine over OSC.</p>
+								</section>
+								<section>
+									<h4>Current Test</h4>
+									<p>Build and validate the full realtime pipeline, then tune tracking stability and followspot response.</p>
+								</section>
+								<section>
+									<h4>Next</h4>
+									<p>Replace the placeholder with a short live demo, record the first finding, and evaluate gesture-driven theatrical cues.</p>
+								</section>
+							</div>
+
+							<div class="experiment-tags" aria-label="Experiment tools">
+								<span>TouchDesigner</span>
+								<span>OSC</span>
+								<span>Unreal Engine 5</span>
+								<span>Computer Vision</span>
+							</div>
+						</article>
 					</div>
 				</section>
 
