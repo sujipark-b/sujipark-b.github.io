@@ -104,7 +104,7 @@
 
 		vignetteTimer = window.setTimeout(() => {
 			section.classList.remove('section--vignette-active');
-		}, 1250);
+		}, 1550);
 	}
 
 	function triggerDestinationEffect(sectionId) {
