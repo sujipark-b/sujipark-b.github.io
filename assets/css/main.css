@@ -1671,12 +1671,12 @@ figcaption {
 	}
 }
 
-@media screen and (min-width: 376px) and (max-width: 736px) {
+@media screen and (min-width: 340px) and (max-width: 736px) {
 	.process-item--01,
 	.process-item--02,
 	.process-item--03 {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(132px, 40%);
+		grid-template-columns: minmax(0, 1fr) minmax(118px, 38%);
 		grid-template-areas:
 			"kicker kicker"
 			"title title"
