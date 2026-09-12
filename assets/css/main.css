@@ -1973,8 +1973,8 @@ figcaption {
 	.experiment-stage:hover {
 		border-color: rgba(var(--accent-rgb), 0.56);
 		box-shadow:
-			0 0 0 1px rgba(var(--accent-rgb), 0.035),
-			0 0 46px rgba(var(--accent-rgb), 0.16);
+			0 0 24px rgba(var(--accent-rgb), 0.11),
+			0 0 42px rgba(var(--accent-rgb), 0.055);
 	}
 
 	.visual-grid .visual-card img {
@@ -1987,8 +1987,8 @@ figcaption {
 	.visual-grid .visual-card:hover img,
 	.visual-grid .visual-card:focus-within img {
 		box-shadow:
-			0 0 30px rgba(var(--accent-rgb), 0.13),
-			0 0 56px rgba(var(--accent-rgb), 0.08);
+			0 0 24px rgba(var(--accent-rgb), 0.11),
+			0 0 42px rgba(var(--accent-rgb), 0.055);
 		transform: scale(1.015);
 	}
 
@@ -2042,31 +2042,31 @@ figcaption {
 }
 
 .experiment-stage.is-pipeline-playing .pipeline-flow span {
-	animation: pipeline-node-once 2.05s linear 1 both;
+	animation: pipeline-node-once 2.65s linear 1 both;
 }
 
 .experiment-stage.is-pipeline-playing .pipeline-flow i {
-	animation: pipeline-arrow-once 2.05s linear 1 both;
+	animation: pipeline-arrow-once 2.65s linear 1 both;
 }
 
 .experiment-stage.is-pipeline-playing .pipeline-flow span:nth-of-type(1) { animation-delay: 0s; }
-.experiment-stage.is-pipeline-playing .pipeline-flow i:nth-of-type(1) { animation-delay: 0.16s; }
-.experiment-stage.is-pipeline-playing .pipeline-flow span:nth-of-type(2) { animation-delay: 0.32s; }
-.experiment-stage.is-pipeline-playing .pipeline-flow i:nth-of-type(2) { animation-delay: 0.48s; }
-.experiment-stage.is-pipeline-playing .pipeline-flow span:nth-of-type(3) { animation-delay: 0.64s; }
-.experiment-stage.is-pipeline-playing .pipeline-flow i:nth-of-type(3) { animation-delay: 0.80s; }
-.experiment-stage.is-pipeline-playing .pipeline-flow span:nth-of-type(4) { animation-delay: 0.96s; }
-.experiment-stage.is-pipeline-playing .pipeline-flow i:nth-of-type(4) { animation-delay: 1.12s; }
-.experiment-stage.is-pipeline-playing .pipeline-flow span:nth-of-type(5) { animation-delay: 1.28s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow i:nth-of-type(1) { animation-delay: 0.26s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow span:nth-of-type(2) { animation-delay: 0.52s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow i:nth-of-type(2) { animation-delay: 0.78s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow span:nth-of-type(3) { animation-delay: 1.04s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow i:nth-of-type(3) { animation-delay: 1.30s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow span:nth-of-type(4) { animation-delay: 1.56s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow i:nth-of-type(4) { animation-delay: 1.82s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow span:nth-of-type(5) { animation-delay: 2.08s; }
 
 @keyframes pipeline-node-once {
-	0%, 4% {
+	0%, 3% {
 		border-color: var(--line);
 		background: rgba(8, 8, 8, 0.7);
 		box-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
 	}
 
-	9% {
+	12% {
 		border-color: rgba(var(--accent-rgb), 0.78);
 		background: rgba(var(--accent-rgb), 0.11);
 		box-shadow:
@@ -2074,13 +2074,13 @@ figcaption {
 			0 0 42px rgba(var(--accent-rgb), 0.13);
 	}
 
-	15% {
+	22% {
 		border-color: rgba(var(--accent-rgb), 0.34);
 		background: rgba(var(--accent-rgb), 0.035);
 		box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.08);
 	}
 
-	20%, 100% {
+	30%, 100% {
 		border-color: var(--line);
 		background: rgba(8, 8, 8, 0.7);
 		box-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
@@ -2088,19 +2088,19 @@ figcaption {
 }
 
 @keyframes pipeline-arrow-once {
-	0%, 4% {
+	0%, 3% {
 		opacity: 0.42;
 		text-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
 	}
 
-	9% {
+	12% {
 		opacity: 1;
 		text-shadow:
 			0 0 10px rgba(var(--accent-rgb), 0.54),
 			0 0 22px rgba(var(--accent-rgb), 0.24);
 	}
 
-	16%, 100% {
+	28%, 100% {
 		opacity: 0.72;
 		text-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
 	}
@@ -2115,129 +2115,148 @@ figcaption {
 	}
 }
 
-/* Cursor affordance: expand on interactive targets + organic one-shot scatter */
+/* Cursor affordance: layered bloom with delayed outer follower */
 @media (hover: hover) and (pointer: fine) {
+	.custom-cursor-glow,
+	.custom-cursor-bloom {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 9999;
+		pointer-events: none;
+		opacity: 0;
+		border-radius: 50%;
+		transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+		will-change: transform, width, height, opacity;
+	}
+
 	.custom-cursor-glow {
-		overflow: visible;
+		width: 26px;
+		height: 26px;
+		background: radial-gradient(
+			circle,
+			rgba(var(--accent-rgb), 0.22) 0%,
+			rgba(var(--accent-rgb), 0.10) 38%,
+			rgba(var(--accent-rgb), 0.035) 62%,
+			transparent 78%
+		);
+		filter: blur(1.2px);
+		transition:
+			width 220ms cubic-bezier(0.16, 0.72, 0.24, 1),
+			height 220ms cubic-bezier(0.16, 0.72, 0.24, 1),
+			opacity 120ms ease,
+			filter 220ms ease;
 	}
 
-	/* Diffuse expanding halo */
-	.custom-cursor-glow::before {
-		content: "";
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		width: 76px;
-		height: 76px;
-		border-radius: 50%;
-		pointer-events: none;
-		opacity: 0;
-		transform: translate(-50%, -50%) scale(0.5);
-		background:
-			radial-gradient(
-				circle,
-				transparent 0 42%,
-				rgba(var(--accent-rgb), 0.16) 52%,
-				rgba(var(--accent-rgb), 0.07) 61%,
-				transparent 74%
-			);
-		filter: blur(2px);
+	.custom-cursor-bloom {
+		width: 42px;
+		height: 42px;
+		background: radial-gradient(
+			circle,
+			rgba(var(--accent-rgb), 0.095) 0%,
+			rgba(var(--accent-rgb), 0.045) 38%,
+			rgba(var(--accent-rgb), 0.018) 62%,
+			transparent 80%
+		);
+		filter: blur(5px);
+		transition:
+			width 340ms cubic-bezier(0.16, 0.72, 0.24, 1),
+			height 340ms cubic-bezier(0.16, 0.72, 0.24, 1),
+			opacity 160ms ease,
+			filter 340ms ease;
 	}
 
-	/* Irregular particles rather than evenly spaced rays */
-	.custom-cursor-glow::after {
-		content: "";
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		width: 82px;
-		height: 82px;
-		border-radius: 50%;
-		pointer-events: none;
-		opacity: 0;
-		transform: translate(-50%, -50%) scale(0.32) rotate(-5deg);
-		background:
-			radial-gradient(circle at 16% 46%, rgba(var(--accent-rgb), 0.72) 0 1.4px, transparent 2.8px),
-			radial-gradient(circle at 27% 23%, rgba(var(--accent-rgb), 0.48) 0 1.1px, transparent 2.5px),
-			radial-gradient(circle at 43% 11%, rgba(var(--accent-rgb), 0.62) 0 1.3px, transparent 2.7px),
-			radial-gradient(circle at 69% 18%, rgba(var(--accent-rgb), 0.42) 0 1px, transparent 2.4px),
-			radial-gradient(circle at 84% 37%, rgba(var(--accent-rgb), 0.68) 0 1.5px, transparent 3px),
-			radial-gradient(circle at 91% 62%, rgba(var(--accent-rgb), 0.40) 0 1px, transparent 2.4px),
-			radial-gradient(circle at 72% 82%, rgba(var(--accent-rgb), 0.58) 0 1.2px, transparent 2.7px),
-			radial-gradient(circle at 49% 92%, rgba(var(--accent-rgb), 0.70) 0 1.35px, transparent 2.8px),
-			radial-gradient(circle at 24% 79%, rgba(var(--accent-rgb), 0.44) 0 1.05px, transparent 2.5px),
-			radial-gradient(circle at 8% 65%, rgba(var(--accent-rgb), 0.60) 0 1.25px, transparent 2.7px);
-		filter: blur(0.3px);
+	.custom-cursor-glow.is-visible,
+	.custom-cursor-bloom.is-visible {
+		opacity: 1;
 	}
 
 	.custom-cursor-glow.is-interactive {
-		width: 66px;
-		height: 66px;
+		width: 54px;
+		height: 54px;
 		background: radial-gradient(
 			circle,
-			rgba(var(--accent-rgb), 0.34) 0%,
-			rgba(var(--accent-rgb), 0.17) 30%,
-			rgba(var(--accent-rgb), 0.07) 54%,
-			transparent 74%
+			rgba(var(--accent-rgb), 0.30) 0%,
+			rgba(var(--accent-rgb), 0.14) 34%,
+			rgba(var(--accent-rgb), 0.05) 60%,
+			transparent 78%
 		);
-		filter: blur(1.7px);
+		filter: blur(1.8px);
 	}
 
-	.custom-cursor-glow.is-burst::before {
-		animation: cursor-halo-burst 560ms cubic-bezier(0.16, 0.72, 0.24, 1) both;
+	.custom-cursor-bloom.is-interactive {
+		width: 78px;
+		height: 78px;
+		background: radial-gradient(
+			circle,
+			rgba(var(--accent-rgb), 0.12) 0%,
+			rgba(var(--accent-rgb), 0.055) 40%,
+			rgba(var(--accent-rgb), 0.02) 64%,
+			transparent 82%
+		);
+		filter: blur(7px);
 	}
 
-	.custom-cursor-glow.is-burst::after {
-		animation: cursor-particle-scatter 620ms cubic-bezier(0.12, 0.72, 0.22, 1) both;
+	.custom-cursor-glow.is-blooming {
+		animation: cursor-main-bloom 520ms cubic-bezier(0.16, 0.72, 0.24, 1) both;
+	}
+
+	.custom-cursor-bloom.is-blooming {
+		animation: cursor-outer-bloom 720ms cubic-bezier(0.12, 0.7, 0.22, 1) both;
+	}
+
+	.custom-cursor-glow.is-pressed {
+		width: 20px;
+		height: 20px;
+	}
+
+	.custom-cursor-bloom.is-pressed {
+		width: 34px;
+		height: 34px;
 	}
 
 	.custom-cursor-dot.is-interactive {
 		box-shadow:
-			0 0 9px rgba(var(--accent-rgb), 0.56),
-			0 0 18px rgba(var(--accent-rgb), 0.18);
+			0 0 8px rgba(var(--accent-rgb), 0.50),
+			0 0 16px rgba(var(--accent-rgb), 0.15);
 	}
 }
 
-@keyframes cursor-halo-burst {
+@keyframes cursor-main-bloom {
 	0% {
-		opacity: 0;
-		transform: translate(-50%, -50%) scale(0.5);
+		filter: blur(1.8px);
 	}
-	22% {
-		opacity: 0.72;
+	42% {
+		filter: blur(3px);
 	}
 	100% {
-		opacity: 0;
-		transform: translate(-50%, -50%) scale(1.32);
+		filter: blur(1.8px);
 	}
 }
 
-@keyframes cursor-particle-scatter {
+@keyframes cursor-outer-bloom {
 	0% {
-		opacity: 0;
-		transform: translate(-50%, -50%) scale(0.32) rotate(-5deg);
+		filter: blur(7px);
+		opacity: 0.45;
 	}
-	20% {
-		opacity: 0.92;
-	}
-	58% {
-		opacity: 0.5;
+	38% {
+		filter: blur(11px);
+		opacity: 0.95;
 	}
 	100% {
-		opacity: 0;
-		transform: translate(-50%, -50%) scale(1.38) rotate(11deg);
+		filter: blur(7px);
+		opacity: 1;
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.custom-cursor-glow::before,
-	.custom-cursor-glow::after {
+	.custom-cursor-bloom {
 		display: none !important;
 	}
 
 	.custom-cursor-glow.is-interactive {
-		width: 30px;
-		height: 30px;
+		width: 26px;
+		height: 26px;
 	}
 }
 
@@ -2266,8 +2285,8 @@ figcaption {
 		transform: scale(1.015);
 		outline: 0 !important;
 		box-shadow:
-			0 0 30px rgba(var(--accent-rgb), 0.13),
-			0 0 56px rgba(var(--accent-rgb), 0.08);
+			0 0 24px rgba(var(--accent-rgb), 0.11),
+			0 0 42px rgba(var(--accent-rgb), 0.055);
 	}
 
 	/* Wrapper stays physically still; glow can extend outward. */
@@ -2304,15 +2323,17 @@ figcaption {
 		transform: none;
 		border-color: rgba(var(--accent-rgb), 0.62);
 		box-shadow:
-			0 0 0 1px rgba(var(--accent-rgb), 0.05),
-			0 0 38px rgba(var(--accent-rgb), 0.15);
+			0 0 24px rgba(var(--accent-rgb), 0.11),
+			0 0 42px rgba(var(--accent-rgb), 0.055);
 	}
 
 	.cv-preview:hover,
 	.cv-preview:focus-visible {
 		transform: none;
 		border-color: rgba(var(--accent-rgb), 0.42);
-		box-shadow: 0 0 38px rgba(var(--accent-rgb), 0.13);
+		box-shadow:
+			0 0 24px rgba(var(--accent-rgb), 0.11),
+			0 0 42px rgba(var(--accent-rgb), 0.055);
 	}
 
 	.cv-preview:hover img,
