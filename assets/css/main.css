@@ -1235,11 +1235,13 @@ figcaption {
 	}
 
 	.cv-preview:hover,
+	.cv-preview.is-pointer-hover,
 	.cv-preview:focus-visible {
 		border-color: rgba(238, 234, 226, 0.18);
 	}
 
 	.cv-preview:hover img,
+	.cv-preview.is-pointer-hover img,
 	.cv-preview:focus-visible img {
 		filter:
 			saturate(0.82)
@@ -1966,15 +1968,19 @@ figcaption {
 	}
 
 	.video-embed:hover,
+	.video-embed.is-pointer-hover,
 	.video-embed:focus-within,
 	.cv-preview:hover,
+	.cv-preview.is-pointer-hover,
 	.cv-preview:focus-visible,
 	.work-card:hover .media-frame,
-	.experiment-stage:hover {
+	.work-card.is-pointer-hover .media-frame,
+	.experiment-stage:hover,
+	.experiment-stage.is-pointer-hover {
 		border-color: rgba(var(--accent-rgb), 0.56);
 		box-shadow:
-			0 0 16px rgba(var(--accent-rgb), 0.10),
-			0 0 30px rgba(var(--accent-rgb), 0.035);
+			0 0 10px rgba(var(--accent-rgb), 0.09),
+			0 0 20px rgba(var(--accent-rgb), 0.025);
 	}
 
 	.visual-grid .visual-card img {
@@ -1985,10 +1991,11 @@ figcaption {
 	}
 
 	.visual-grid .visual-card:hover img,
+	.visual-grid .visual-card.is-pointer-hover img,
 	.visual-grid .visual-card:focus-within img {
 		box-shadow:
-			0 0 16px rgba(var(--accent-rgb), 0.10),
-			0 0 30px rgba(var(--accent-rgb), 0.035);
+			0 0 10px rgba(var(--accent-rgb), 0.09),
+			0 0 20px rgba(var(--accent-rgb), 0.025);
 		transform: scale(1.015);
 	}
 
@@ -2205,23 +2212,28 @@ figcaption {
 	}
 
 	.project-block--first > .media-frame:hover > img,
+	.project-block--first > .media-frame.is-pointer-hover > img,
 	.project-block--first > .media-frame:focus-within > img,
 	.visual-card:hover > img,
+	.visual-card.is-pointer-hover > img,
 	.visual-card:focus-within > img,
 	.work-card:hover .media-frame > img,
+	.work-card.is-pointer-hover .media-frame > img,
 	.work-card:focus-within .media-frame > img {
 		filter: grayscale(0%) contrast(1);
 		transform: scale(1.015);
 		outline: 0 !important;
 		box-shadow:
-			0 0 16px rgba(var(--accent-rgb), 0.10),
-			0 0 30px rgba(var(--accent-rgb), 0.035);
+			0 0 10px rgba(var(--accent-rgb), 0.09),
+			0 0 20px rgba(var(--accent-rgb), 0.025);
 	}
 
 	/* Wrapper stays physically still; glow can extend outward. */
 	.project-block--first > .media-frame:hover,
+	.project-block--first > .media-frame.is-pointer-hover,
 	.project-block--first > .media-frame:focus-within,
 	.work-card:hover .media-frame,
+	.work-card.is-pointer-hover .media-frame,
 	.work-card:focus-within .media-frame {
 		transform: none;
 		border-color: var(--line);
@@ -2230,8 +2242,10 @@ figcaption {
 
 	/* Visual Presentation cards are borderless by design; only image scale + glow. */
 	.visual-grid .visual-card:hover,
+	.visual-grid .visual-card.is-pointer-hover,
 	.visual-grid .visual-card:focus-within,
 	.visual-grid .media-frame:hover,
+	.visual-grid .media-frame.is-pointer-hover,
 	.visual-grid .media-frame:focus-within {
 		transform: none;
 		box-shadow: none;
@@ -2248,12 +2262,13 @@ figcaption {
 
 	/* Video/document media: no lift or scale, only a clear glow response. */
 	.video-embed:hover,
+	.video-embed.is-pointer-hover,
 	.video-embed:focus-within {
 		transform: none;
 		border-color: rgba(var(--accent-rgb), 0.62);
 		box-shadow:
-			0 0 16px rgba(var(--accent-rgb), 0.10),
-			0 0 30px rgba(var(--accent-rgb), 0.035);
+			0 0 10px rgba(var(--accent-rgb), 0.09),
+			0 0 20px rgba(var(--accent-rgb), 0.025);
 	}
 
 	.cv-preview:hover,
@@ -2261,8 +2276,8 @@ figcaption {
 		transform: none;
 		border-color: rgba(var(--accent-rgb), 0.42);
 		box-shadow:
-			0 0 16px rgba(var(--accent-rgb), 0.10),
-			0 0 30px rgba(var(--accent-rgb), 0.035);
+			0 0 10px rgba(var(--accent-rgb), 0.09),
+			0 0 20px rgba(var(--accent-rgb), 0.025);
 	}
 
 	.cv-preview:hover img,
@@ -2283,8 +2298,10 @@ figcaption {
 /* Still images stay borderless on hover; glow is the affordance. */
 @media (hover: hover) and (pointer: fine) {
 	.project-block--first > .media-frame:hover,
+	.project-block--first > .media-frame.is-pointer-hover,
 	.project-block--first > .media-frame:focus-within,
 	.work-card:hover .media-frame,
+	.work-card.is-pointer-hover .media-frame,
 	.work-card:focus-within .media-frame {
 		border: 0 !important;
 	}
