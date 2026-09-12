@@ -1604,17 +1604,21 @@ figcaption {
 
 	.cv-preview img {
 		filter:
-			saturate(0.68)
-			brightness(0.9)
-			contrast(0.94);
+			grayscale(14%)
+			saturate(0.78)
+			brightness(0.92)
+			contrast(0.96);
+		opacity: 0.96;
 		transform: none !important;
 	}
 
 	.cv-preview.is-touched img {
 		filter:
-			saturate(0.82)
-			brightness(0.94)
-			contrast(0.97);
+			grayscale(0%)
+			saturate(1)
+			brightness(1)
+			contrast(1);
+		opacity: 1;
 	}
 }
 
@@ -1848,13 +1852,23 @@ figcaption {
 		margin-right: 0.8rem;
 	}
 
+	.experiment-heading h3 {
+		max-width: 100%;
+		font-size: clamp(2.35rem, 11vw, 3.65rem);
+		line-height: 0.94;
+		letter-spacing: -0.035em;
+	}
+
 	.experiment-stage {
-		min-height: 300px;
+		min-height: 0;
+		padding: 1rem;
 	}
 
 	.pipeline-flow {
 		align-items: stretch;
 		flex-direction: column;
+		gap: 0.55rem;
+		margin-top: 1.75rem;
 	}
 
 	.pipeline-flow i {
