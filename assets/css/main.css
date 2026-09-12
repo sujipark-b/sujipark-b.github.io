@@ -1936,3 +1936,183 @@ figcaption {
 		display: none !important;
 	}
 }
+
+
+/* Unified interaction system */
+@media (hover: hover) and (pointer: fine) {
+	.site-nav a,
+	.button,
+	.contact-item,
+	.video-embed,
+	.cv-preview,
+	.work-card .media-frame,
+	.experiment-stage {
+		transition:
+			border-color 260ms ease,
+			box-shadow 300ms ease,
+			background-color 260ms ease,
+			transform 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
+	}
+
+	.site-nav a:hover,
+	.site-nav a:focus-visible,
+	.button:hover,
+	.button:focus-visible,
+	.contact-item:hover,
+	.contact-item:focus-visible {
+		box-shadow:
+			0 0 24px rgba(var(--accent-rgb), 0.09),
+			inset 0 0 18px rgba(var(--accent-rgb), 0.025);
+	}
+
+	.video-embed:hover,
+	.video-embed:focus-within,
+	.cv-preview:hover,
+	.cv-preview:focus-visible,
+	.work-card:hover .media-frame,
+	.experiment-stage:hover {
+		border-color: rgba(var(--accent-rgb), 0.42);
+		box-shadow:
+			0 0 0 1px rgba(var(--accent-rgb), 0.025),
+			0 0 34px rgba(var(--accent-rgb), 0.10);
+	}
+
+	.video-embed:hover,
+	.cv-preview:hover,
+	.work-card:hover .media-frame {
+		transform: translate3d(0, -2px, 0);
+	}
+
+	.visual-grid .visual-card img {
+		transition:
+			filter 480ms cubic-bezier(0.2, 0.7, 0.2, 1),
+			transform 480ms cubic-bezier(0.2, 0.7, 0.2, 1),
+			box-shadow 320ms ease;
+	}
+
+	.visual-grid .visual-card:hover img,
+	.visual-grid .visual-card:focus-within img {
+		box-shadow: 0 0 28px rgba(var(--accent-rgb), 0.085);
+	}
+
+	.pipeline-flow span {
+		transition:
+			border-color 220ms ease,
+			background-color 220ms ease,
+			box-shadow 260ms ease,
+			color 220ms ease,
+			transform 220ms ease;
+	}
+
+	.pipeline-flow span:hover {
+		border-color: rgba(var(--accent-rgb), 0.5);
+		background: rgba(var(--accent-rgb), 0.055);
+		box-shadow: 0 0 24px rgba(var(--accent-rgb), 0.12);
+		transform: translate3d(0, -1px, 0);
+	}
+}
+
+.section.section--interaction-active .section__header h2 {
+	animation: section-title-reveal 620ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.section.section--interaction-active .content > :first-child {
+	animation: section-content-reveal 640ms 80ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes section-title-reveal {
+	0% {
+		opacity: 0.62;
+		transform: translate3d(0, 10px, 0);
+		text-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
+	}
+
+	55% {
+		opacity: 1;
+		text-shadow: 0 0 24px rgba(var(--accent-rgb), 0.16);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+		text-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
+	}
+}
+
+@keyframes section-content-reveal {
+	0% {
+		opacity: 0.7;
+		transform: translate3d(0, 8px, 0);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+/* Realtime pipeline uses the same glow language to show signal flow. */
+.section--interaction-active .pipeline-flow span {
+	animation: pipeline-node-flow 720ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.section--interaction-active .pipeline-flow i {
+	animation: pipeline-arrow-flow 560ms ease both;
+}
+
+.section--interaction-active .pipeline-flow span:nth-of-type(1) { animation-delay: 180ms; }
+.section--interaction-active .pipeline-flow i:nth-of-type(1) { animation-delay: 300ms; }
+.section--interaction-active .pipeline-flow span:nth-of-type(2) { animation-delay: 390ms; }
+.section--interaction-active .pipeline-flow i:nth-of-type(2) { animation-delay: 510ms; }
+.section--interaction-active .pipeline-flow span:nth-of-type(3) { animation-delay: 600ms; }
+.section--interaction-active .pipeline-flow i:nth-of-type(3) { animation-delay: 720ms; }
+.section--interaction-active .pipeline-flow span:nth-of-type(4) { animation-delay: 810ms; }
+.section--interaction-active .pipeline-flow i:nth-of-type(4) { animation-delay: 930ms; }
+.section--interaction-active .pipeline-flow span:nth-of-type(5) { animation-delay: 1020ms; }
+
+@keyframes pipeline-node-flow {
+	0% {
+		border-color: var(--line);
+		background: rgba(8, 8, 8, 0.7);
+		box-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
+	}
+
+	45% {
+		border-color: rgba(var(--accent-rgb), 0.62);
+		background: rgba(var(--accent-rgb), 0.08);
+		box-shadow: 0 0 28px rgba(var(--accent-rgb), 0.18);
+	}
+
+	100% {
+		border-color: var(--line);
+		background: rgba(8, 8, 8, 0.7);
+		box-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
+	}
+}
+
+@keyframes pipeline-arrow-flow {
+	0% {
+		opacity: 0.35;
+		text-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
+	}
+
+	50% {
+		opacity: 1;
+		text-shadow: 0 0 14px rgba(var(--accent-rgb), 0.38);
+	}
+
+	100% {
+		opacity: 1;
+		text-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.section.section--interaction-active .section__header h2,
+	.section.section--interaction-active .content > :first-child,
+	.section--interaction-active .pipeline-flow span,
+	.section--interaction-active .pipeline-flow i {
+		animation: none !important;
+		transform: none !important;
+	}
+}
