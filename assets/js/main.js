@@ -25,6 +25,8 @@
 	let vignetteTimer = null;
 	let scrollTicking = false;
 	let activeTouchedCard = null;
+	let activeScrollCard = null;
+	let mobileCardFocusTicking = false;
 	let isProgrammaticScrolling = false;
 	let programmaticScrollFrame = null;
 	let programmaticTargetSection = null;
@@ -34,7 +36,8 @@
 	const touchQuery = window.matchMedia('(hover: none) and (pointer: coarse)');
 	const finePointerQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
 	const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-	const touchCardSelector = '.visual-card, .work-card, .cv-preview';
+	const touchCardSelector = '.cv-preview';
+	const mobileScrollCardSelector = '.visual-card, .work-card';
 
 	function getCurrentSection() {
 		const activationY = window.innerHeight * ACTIVATION_RATIO;
@@ -204,10 +207,91 @@
 		setTouchedCard(card);
 	}
 
+	function clearScrollFocusedCard() {
+		if (!activeScrollCard) {
+			return;
+		}
+
+		activeScrollCard.classList.remove('is-scroll-active');
+		activeScrollCard = null;
+	}
+
+	function updateMobileScrollFocus() {
+		if (!touchQuery.matches) {
+			clearScrollFocusedCard();
+			return;
+		}
+
+		const cards = Array.from(document.querySelectorAll(mobileScrollCardSelector));
+
+		if (!cards.length) {
+			return;
+		}
+
+		const focusTop = window.innerHeight * 0.28;
+		const focusBottom = window.innerHeight * 0.72;
+		const viewportCenter = window.innerHeight * 0.5;
+		let nextCard = null;
+		let nextDistance = Infinity;
+
+		cards.forEach((card) => {
+			const focusTarget = card.querySelector('.media-frame img, img') || card;
+			const rect = focusTarget.getBoundingClientRect();
+
+			if (rect.bottom <= focusTop || rect.top >= focusBottom) {
+				return;
+			}
+
+			const cardCenter = rect.top + (rect.height * 0.5);
+			const distance = Math.abs(cardCenter - viewportCenter);
+
+			if (distance < nextDistance) {
+				nextDistance = distance;
+				nextCard = card;
+			}
+		});
+
+		if (activeScrollCard === nextCard) {
+			return;
+		}
+
+		clearScrollFocusedCard();
+
+		if (nextCard) {
+			nextCard.classList.add('is-scroll-active');
+			activeScrollCard = nextCard;
+		}
+	}
+
+	function scheduleMobileScrollFocus() {
+		if (mobileCardFocusTicking) {
+			return;
+		}
+
+		mobileCardFocusTicking = true;
+
+		window.requestAnimationFrame(() => {
+			updateMobileScrollFocus();
+			mobileCardFocusTicking = false;
+		});
+	}
+
+	function initMobileScrollFocus() {
+		window.addEventListener('scroll', scheduleMobileScrollFocus, {
+			passive: true
+		});
+		window.addEventListener('resize', scheduleMobileScrollFocus);
+		scheduleMobileScrollFocus();
+	}
+
 	function handleTouchCapabilityChange() {
 		if (!touchQuery.matches) {
 			clearTouchedCard();
+			clearScrollFocusedCard();
+			return;
 		}
+
+		scheduleMobileScrollFocus();
 	}
 
 	function getScrollDuration(distance) {
@@ -695,6 +779,7 @@
 	}
 
 	initPipelineLoop();
+	initMobileScrollFocus();
 	initCustomCursor();
 
 	window.addEventListener('load', () => {
