@@ -2039,72 +2039,72 @@ figcaption {
 	}
 }
 
-/* Pipeline: a slow signal pass, then a long pause, repeated only while visible. */
+/* Pipeline: one readable signal pass on entry or hover. */
 .pipeline-flow span,
 .pipeline-flow i {
 	animation: none;
 }
 
-.experiment-stage.is-pipeline-active .pipeline-flow span {
-	animation: pipeline-node-loop 8s linear infinite both;
+.experiment-stage.is-pipeline-playing .pipeline-flow span {
+	animation: pipeline-node-once 2.35s linear 1 both;
 }
 
-.experiment-stage.is-pipeline-active .pipeline-flow i {
-	animation: pipeline-arrow-loop 8s linear infinite both;
+.experiment-stage.is-pipeline-playing .pipeline-flow i {
+	animation: pipeline-arrow-once 2.35s linear 1 both;
 }
 
-.experiment-stage.is-pipeline-active .pipeline-flow span:nth-of-type(1) { animation-delay: 0s; }
-.experiment-stage.is-pipeline-active .pipeline-flow i:nth-of-type(1) { animation-delay: 0.34s; }
-.experiment-stage.is-pipeline-active .pipeline-flow span:nth-of-type(2) { animation-delay: 0.55s; }
-.experiment-stage.is-pipeline-active .pipeline-flow i:nth-of-type(2) { animation-delay: 0.89s; }
-.experiment-stage.is-pipeline-active .pipeline-flow span:nth-of-type(3) { animation-delay: 1.10s; }
-.experiment-stage.is-pipeline-active .pipeline-flow i:nth-of-type(3) { animation-delay: 1.44s; }
-.experiment-stage.is-pipeline-active .pipeline-flow span:nth-of-type(4) { animation-delay: 1.65s; }
-.experiment-stage.is-pipeline-active .pipeline-flow i:nth-of-type(4) { animation-delay: 1.99s; }
-.experiment-stage.is-pipeline-active .pipeline-flow span:nth-of-type(5) { animation-delay: 2.20s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow span:nth-of-type(1) { animation-delay: 0s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow i:nth-of-type(1) { animation-delay: 0.18s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow span:nth-of-type(2) { animation-delay: 0.36s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow i:nth-of-type(2) { animation-delay: 0.54s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow span:nth-of-type(3) { animation-delay: 0.72s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow i:nth-of-type(3) { animation-delay: 0.90s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow span:nth-of-type(4) { animation-delay: 1.08s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow i:nth-of-type(4) { animation-delay: 1.26s; }
+.experiment-stage.is-pipeline-playing .pipeline-flow span:nth-of-type(5) { animation-delay: 1.44s; }
 
-@keyframes pipeline-node-loop {
-	0%, 5% {
+@keyframes pipeline-node-once {
+	0%, 4% {
 		border-color: var(--line);
 		background: rgba(8, 8, 8, 0.7);
 		box-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
 	}
 
-	8% {
-		border-color: rgba(var(--accent-rgb), 0.72);
-		background: rgba(var(--accent-rgb), 0.10);
+	9% {
+		border-color: rgba(var(--accent-rgb), 0.78);
+		background: rgba(var(--accent-rgb), 0.11);
 		box-shadow:
-			0 0 18px rgba(var(--accent-rgb), 0.26),
-			0 0 38px rgba(var(--accent-rgb), 0.12);
+			0 0 20px rgba(var(--accent-rgb), 0.28),
+			0 0 42px rgba(var(--accent-rgb), 0.13);
 	}
 
-	13% {
+	15% {
 		border-color: rgba(var(--accent-rgb), 0.34);
 		background: rgba(var(--accent-rgb), 0.035);
 		box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.08);
 	}
 
-	18%, 100% {
+	20%, 100% {
 		border-color: var(--line);
 		background: rgba(8, 8, 8, 0.7);
 		box-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
 	}
 }
 
-@keyframes pipeline-arrow-loop {
-	0%, 5% {
+@keyframes pipeline-arrow-once {
+	0%, 4% {
 		opacity: 0.42;
 		text-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
 	}
 
-	8% {
+	9% {
 		opacity: 1;
 		text-shadow:
-			0 0 10px rgba(var(--accent-rgb), 0.5),
-			0 0 20px rgba(var(--accent-rgb), 0.22);
+			0 0 10px rgba(var(--accent-rgb), 0.54),
+			0 0 22px rgba(var(--accent-rgb), 0.24);
 	}
 
-	14%, 100% {
+	16%, 100% {
 		opacity: 0.72;
 		text-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
 	}
@@ -2112,8 +2112,8 @@ figcaption {
 
 @media (prefers-reduced-motion: reduce) {
 	.section.section--interaction-active .section__header h2,
-	.experiment-stage.is-pipeline-active .pipeline-flow span,
-	.experiment-stage.is-pipeline-active .pipeline-flow i {
+	.experiment-stage.is-pipeline-playing .pipeline-flow span,
+	.experiment-stage.is-pipeline-playing .pipeline-flow i {
 		animation: none !important;
 		transform: none !important;
 	}
