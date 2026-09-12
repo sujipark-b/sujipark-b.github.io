@@ -1999,7 +1999,7 @@ body.diagram-lightbox-open {
 }
 
 .lab-intro {
-	margin-bottom: clamp(3.25rem, 5vw, 5rem);
+	margin-bottom: clamp(2.75rem, 4vw, 4rem);
 }
 
 .lab-intro .section-kicker {
@@ -2014,17 +2014,6 @@ body.diagram-lightbox-open {
 	letter-spacing: -0.01em;
 }
 
-.lab-note {
-	margin-top: 1.15rem;
-	max-width: var(--copy-width-wide);
-	color: var(--text-dim);
-	font-family: var(--font-mono);
-	font-size: 0.68rem;
-	font-weight: 500;
-	line-height: 1.45;
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
-}
 
 .experiment-card {
 	position: relative;
